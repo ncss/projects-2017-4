@@ -16,8 +16,8 @@
 <table>
 {% for x, y in multiples %}
 	<tr><td>{{ x }}</td><td>x</td>
-		<td>{{ y }}</td><td>=</td>
-		<td>{{ x * y }}</td>	
+	<td>{{ y }}</td><td>=</td>
+	<td>{{ x * y }}</td>	
 	</tr>
 {% end for %}
 </table>
