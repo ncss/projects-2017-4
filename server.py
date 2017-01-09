@@ -20,6 +20,10 @@ def post(response,post_id):
 def submit(response):
 		response.write('submit a post here jks you cant do that yet')
 		
+def demo(response):
+		with open('templates/demo.html') as demoHTML:
+			response.write(demoHTML.read())
+		
 server = Server()
 
 
@@ -29,6 +33,8 @@ server.register(r'/login', login)
 server.register(r'/signup',signup)
 server.register(r'/post/([\w\.\-]+)',post)
 server.register(r'/submit',submit)
+server.register(r'/demo',demo)
+
 
 
 server.run()
