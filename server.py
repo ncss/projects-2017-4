@@ -8,9 +8,9 @@ def profile(response,name):
         response.write('Hi, ' + str(name))
 		
 def login(response): 
-		response.write('<h1>login here.</h1>')
+	with open ('templates/login.html') as loginHTML: 
+		response.write(loginHTML.read())
 		
-
 def signup(response):
 		response.write('signup here')
 
