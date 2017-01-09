@@ -29,7 +29,7 @@ server = Server()
 
 server.register(r'/?(?:home)?', home)
 server.register(r'/profile/([\w\.\-]+)', profile)
-server.register(r'/login', login)
+server.register(r'/login', login)#, post#fix this)
 server.register(r'/signup',signup)
 server.register(r'/post/([\w\.\-]+)',post)
 server.register(r'/submit',submit)
