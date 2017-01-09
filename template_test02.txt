@@ -1,0 +1,26 @@
+{% include header.html %}
+
+<section id='profile'>
+	<h1>{{ person.name }}</h1>
+	<ul id='friends-list'>
+	{% for f in person.friends %}
+		<li class='friend'>
+		{{ f.name.title() }} {{ f.age }}
+		{% if f.has_nickname() %} ({{ f.nickname }}) {% end if %}
+		{% include friend.html %}
+		</li>
+	{% end for % }
+	</ul>
+</section>
+
+<table>
+{% for x, y in multiples %}
+	<tr><td>{{ x }}</td><td>x</td>
+		<td>{{ y }}</td><td>=</td>
+		<td>{{ x * y }}</td>	
+	</tr>
+{% end for %}
+</table>
+
+{% include footer.html %}	
+	
