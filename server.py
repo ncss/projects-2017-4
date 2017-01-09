@@ -1,13 +1,15 @@
 from tornado.ncss import Server
 
 def home(response):
-	response.write('This is the home page')
+	with open('templates/main.html') as mainHTML:
+		response.write(mainHTML.read())
 
 def profile(response,name):
         response.write('Hi, ' + str(name))
 		
 def login(response): 
 		response.write('<h1>login here.</h1>')
+		
 
 def signup(response):
 		response.write('signup here')
