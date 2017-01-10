@@ -17,14 +17,6 @@ CREATE TABLE user (
     PRIMARY KEY (user_id)
     );
 
-CREATE TABLE profile (
-    profile_id INTEGER NOT NULL,
-    username TEXT NOT NULL,
-    levels INTEGER NOT NULL,
-    is_verified BOOLEAN NOT NULL,
-    profile_picture TEXT NOT NULL,
-    PRIMARY KEY (profile_id)
-    );
     
 CREATE TABLE post (
 
@@ -35,7 +27,8 @@ CREATE TABLE post (
     description STRING NOT NULL,
     image STRING NOT NULL,
     rating INTEGER NOT NULL,
-    PRIMARY KEY (post_id)
+    PRIMARY KEY (post_id),
+    FOREIGN KEY (author_id) REFERENCES user (user_id)
     );
     
 CREATE TABLE comments (
@@ -43,15 +36,19 @@ CREATE TABLE comments (
     post_id INTEGER NOT NULL,
     author INTEGER NOT NULL,
     comment STRING NOT NULL,
-    PRIMARY KEY (comment_id)
+    PRIMARY KEY (comment_id),
+    FOREIGN KEY (post_id) REFERENCES post (post_id),
+    FOREIGN KEY (author) REFERENCES post (user_id)
     );
     
 CREATE TABLE post_ratings (
     rating_id INTEGER NOT NULL,
     user INTEGER NOT NULL,
-    post INTEGER NOT NULL,
+    post INTEGER  NOT NULL,
     rating INTEGER NOT NULL,
-    PRIMARY KEY (rating_id)
+    PRIMARY KEY (rating_id),
+    FOREIGN KEY (user) REFERENCES user (user_id),
+    FOREIGN KEY (post) REFERENCES post (post_id)
     );
 
 ''')
