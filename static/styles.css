@@ -10,15 +10,15 @@ h1, h2, h3 {
 }
 
 h1 {
-	font-size: 72px;
+	font-size: 38pt;
 }
 
 h2 { 
-	font-size: 38px;
+	font-size: 24pt;
 }
 
 h3 { 
-	font-size: 24px;
+	font-size: 20pt;
 }
 
 p {
@@ -44,6 +44,29 @@ sub{
     
 ul > li {
     list-style: circle inside;
+}
+
+a: link{
+	color: red;
+}
+
+a: hover{
+	color: blue;
+}
+
+a: visited{
+	color: white;
+}
+
+table {
+	border: 1px solid #000;
+	width: 90%;
+	border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+  border: 1px solid #000;
 }
 
 ol > li {
@@ -95,5 +118,54 @@ label{
      
 }
 
+/* link */
+a{
+    color: white;
+	text-decoration: none;
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+}
 
+/* mouse over link */
+a:hover {
+    color: #F44436;
+}
 
+/* selected link */
+a:active {
+    color: #F44436;
+}
+
+/* header CSS */
+header {
+	height: 100px;
+	background-color: #212121;
+	color: white;
+}
+
+#logo > img {
+	height:80px;
+	margin: 10px;
+}
+
+nav {
+	float: right;
+	margin-top: 40px;
+	margin-right: 20px;
+}
+
+main {
+	padding: 20px;
+}
+
+footer {
+	position: fixed;
+	text-align: center;
+	padding: 15px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #212121;
+	color: white;
+}

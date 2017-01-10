@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html>
-    <form action="/new" method="POST">
-      <fieldset>
-          <legend>
-              Create New Post
-          </legend>
-          <label class="title-label" for="title">Title: </label>
-          <input type="text" name="title">
-          
-          <br>
-          <label for="location">Location: </label>
-          <input type="text" name="location">
-		  
-          <br>
-          <label class="image-label" for="image">Upload Image: </label>
-          <input type="file" name="image">
-          
-		  <br>
-          <textarea rows="10" cols="100">Your text here</textarea>
-          <br>
-          <input type="submit" value="Preview"> <input type="submit" value="Submit">
-      </fieldset>
-    </form>
-</html>
+{% include header.html %}
+
+<form action="/new" method="POST">
+  <fieldset>
+      <legend>
+          Create New Post
+      </legend>
+      <label class="title-label" for="title">Title: </label>
+      <input type="text" name="title">
+      
+      <br>
+      <label for="location">Location: </label>
+      <input type="text" name="location">
+  
+      <br>
+      <label class="image-label" for="image">Upload Image: </label>
+      <input type="file" name="image">
+      
+  <br>
+      <textarea rows="10" cols="100">Your text here</textarea>
+      <br>
+      <input type="submit" value="Preview"> <input type="submit" value="Submit">
+  </fieldset>
+</form>
+
+{% include footer.html %}
