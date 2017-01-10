@@ -171,29 +171,47 @@ class Post:
         print( 'Return comments.' )
 
 class Comment:
-    def __init__(self):
-        self.author = 'james.r.curran@sydney.edu.au'
-        self.post = '2'
-        self.content = 'I agree, James Curran IS the best!'
+    def __init__(self, comment_id, author, post, content):
+        self.comment_id = comment_id
+        self.author = author
+        self.post = post
+        self.content = content
         print( 'Incredible new comment!' )
 
-    def create(user, postid, contents ):
+    def create(user_id, postid, contents ):
         '''
         Given a user object, a post object, and a string
         creates a new comment on the specified post
         '''
+
+        cur = conn.execute('''
+        SELECT MAX(comment_id)
+        FROM comments;
+        ''')
+        if cur.fetchone() is None:
+            print('This is the first item')
+        cur = conn.execute('''
+
+        INSERT INTO comments VALUES (comment_id, postid, user_id, contents);
+
+        ''')
         print( 'New comment has been created!' )
         return Comment()
 
+class Ratings:
+    def __init__(self):
+        print('post ratings')
+    def create(rating_id, user, post, rating):
 
+        pass
+
+'''
 class Ratings:
 	def __init__(self):
-		print(' post ratings')
+        print(' post ratings')
 
 	def create(rating_id, user, post, rating):
-		'''
-		This area ensures that a user doesn't upvote/downvote more than once,
-		and the 'rating' column is a 'boolean' (not really), indicating whether
-		if a user has rated
-        '''
+
         pass
+'''
+print(Comment.create(0, 10, 'testing 1 2 3'))

@@ -7,14 +7,13 @@ cur = conn.cursor()
 cur.execute('''
 
 CREATE TABLE user (
-    user_id INTEGER NOT NULL,
+    user_id INTEGER PRIMARY KEY,
     password TEXT NOT NULL,
     email TEXT NOT NULL,
     username TEXT NOT NULL,
     levels INTEGER NOT NULL,
     is_verified BOOLEAN NOT NULL,
-    profile_picture TEXT NOT NULL,
-    PRIMARY KEY (user_id)
+    profile_picture TEXT NOT NULL
     );
 ''')
 
@@ -22,14 +21,13 @@ cur.execute('''
 
 CREATE TABLE post (
 
-    post_id INTEGER NOT NULL,
+    post_id INTEGER PRIMARY KEY,
     author_id INTEGER NOT NULL,
     location STRING NOT NULL,
     title STRING NOT NULL,
     description STRING NOT NULL,
     image STRING NOT NULL,
     rating INTEGER NOT NULL,
-    PRIMARY KEY (post_id),
     FOREIGN KEY (author_id) REFERENCES user (user_id)
     );
 ''')
@@ -37,11 +35,10 @@ CREATE TABLE post (
 cur.execute('''
 
 CREATE TABLE comments (
-    comment_id INTEGER NOT NULL,
+    comment_id INTEGER PRIMARY KEY,
     post_id INTEGER NOT NULL,
     author INTEGER NOT NULL,
     comment STRING NOT NULL,
-    PRIMARY KEY (comment_id),
     FOREIGN KEY (post_id) REFERENCES post (post_id),
     FOREIGN KEY (author) REFERENCES post (user_id)
     );
@@ -50,11 +47,10 @@ CREATE TABLE comments (
 cur.execute('''
 
 CREATE TABLE post_ratings (
-    rating_id INTEGER NOT NULL,
+    rating_id INTEGER PRIMARY KEY,
     user INTEGER NOT NULL,
     post INTEGER  NOT NULL,
     rating INTEGER NOT NULL,
-    PRIMARY KEY (rating_id),
     FOREIGN KEY (user) REFERENCES user (user_id),
     FOREIGN KEY (post) REFERENCES post (post_id)
     );
