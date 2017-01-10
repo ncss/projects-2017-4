@@ -46,14 +46,21 @@ ul > li {
     list-style: circle inside;
 }
 
-ol
 a: link{
 	color: red;
 }
+
 a: hover{
 	color: blue;
 }
+
 a: visited{
 	color: white;
 }
-    
+
+ol > li {
+    list-style: upper-roman inside;
+}
+
+form {
+}
