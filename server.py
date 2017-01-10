@@ -12,18 +12,15 @@ def loginRequired(fn):
 
     
 def home(response):
-    html = render_template('main', {})
+    user = get_current_user(response)        
+    html = render_template('main', {'user': user})
     response.write(html)
 
 def login(response): 
-    with open ('templates/login.html') as loginHTML: 
-        response.write(loginHTML.read())
+    user = get_current_user(response)        
+    html = render_template('login', {'user': user})
+    response.write(html)
 
-    
-def profile(response,name):
-    response.write('Hi, ' + str(name))
-        
-    
 def login_handler(response):
     email = response.get_field("email")
     password = response.get_field("password")
@@ -33,21 +30,38 @@ def login_handler(response):
         response.redirect('/home')
     else: 
         response.write("invalid user")
+    
+def profile(response,name):
+    user = get_current_user(response)        
+    html = render_template('profile', {'user': user})
+    response.write(html)
+    
+def get_current_user(response):
+    username = response.get_secure_cookie("userCookie")
+    if username is not None:
+        username = username.decode()
+    return username
+    
+        
 def signup(response):
-    with open ('templates/registration.html') as signupHTML: 
-        response.write(signupHTML.read())
+    user = get_current_user(response)        
+    html = render_template('registration', {'user': user})
+    response.write(html)
 
 def post(response,post_id):
-    response.write('Look at this neato post - ' + post_id)
+    user = get_current_user(response)        
+    html = render_template('new_post', {'user': user})
+    response.write(html)
         
 def demo(response):
-    html = render_template('demo.html', {})
+    user = get_current_user(response)        
+    html = render_template('demo', {'user': user})
     response.write(html)
     
 @loginRequired
 def submit(response):
-    with open ('templates/new_post.html') as submitHTML: 
-        response.write(submitHTML.read())
+    html = render_template('new_post', {})
+    response.write(html)
         
 @loginRequired    
 def logout(response):
