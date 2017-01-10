@@ -41,9 +41,8 @@ def post(response,post_id):
 
 		
 def demo(response):
-		with open('templates/demo.html') as demoHTML:
-			response.write(demoHTML.read())
-
+		html = render_template('demo.html', {})
+		response.write(html)
 @loginRequired
 def submit(response):
 		response.write('submit a post here jks you cant do that yet')
