@@ -46,6 +46,18 @@ ul > li {
     list-style: circle inside;
 }
 
+a: link{
+	color: red;
+}
+
+a: hover{
+	color: blue;
+}
+
+a: visited{
+	color: white;
+}
+
 table {
 	border: 1px solid #000;
 	width: 90%;
