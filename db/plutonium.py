@@ -143,3 +143,13 @@ class Comment:
         '''
         print( 'New comment has been created!' )
         return Comment()
+		
+class Ratings:
+	def __init__(self):
+		print(' post ratings')
+	
+	def create(rating_id, user, post, rating):
+		'''
+		This area ensures that a user doesn't upvote/downvote more than once,
+		and the 'rating' column is a 'boolean' (not really), indicating whether
+		if a user has rated
