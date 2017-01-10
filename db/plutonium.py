@@ -28,46 +28,72 @@ class User:
     '''
     User Object
     '''
-    def __init__(self, email, displayname, displaypicture, verified):
+    def __init__(self, user_id, email, username, level, is_verified, profile_picture ):
+        self.user_id = user_id
         self.email = email
-        self.displayname = displayname
-        self.displaypicture = displaypicture
-        self.verifed = verified
-
+        self.username = username
+        self.level = level
+        self.is_verifed = is_verified
+        self.profile_picture = profile_picture
+    
+    @staticmethod
     def login( email, password ):
         '''
-        Given a email address and a password, will return the user class or False depending
-        on whether or not the login was successful.
-
-        Currently will only return James Curran
+        Given an email address and an unhashed password
+        Will return a User object if valid login
+        Will throw error if invalid login
         '''
-        print( 'Logging in as Supreme Overlord James Curran' )
-        return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
-
+        c = conn.cursor()
+        password = hash_password( email, password )
+        # Ensure that the user is in the database
+        c.execute('SELECT * FROM user WHERE email = ?;', (email,) )
+        data = c.fetchone()
+        if data is None:
+            raise ValueError("User is not in database")
+        else:
+            storedhash = data[1]
+            # Hash the given password and compare it to the storedhash
+            if password == storedhash:
+                return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+            else:
+                raise ValueError("Password Mismatch")
+    
+    @staticmethod
     def register( email, password, username ):
+        '''
+        Given the required data, registers an account in the database
+        Will return False if the account does not meet registration requirements
+        '''
         c = conn.cursor()
         # Check that the email is not currently in the database
-        print( email )
         c.execute('SELECT email FROM user WHERE email = ?;', (email,) )
-        print( c.fetchall() )
         if len( c.fetchall() ) > 0:
             return False
         else:
             password = hash_password( email, password )
-            c.execute('SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1;')
+            # Get the maximum user_id in the database to increment for next user
+            c.execute('SELECT MAX(user_id) FROM user;')
             user_id = 0
             fetch = c.fetchone()
-            if fetch:
-                print( fetch )
-            c.execute('INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?);', (user_id, password, email, username, 0, False, 'default.png') )
-            return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
-
+            if fetch[0] is not None:
+                user_id = fetch[0] + 1
+            # Insert the user into the database
+            c.execute('INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?);', (user_id, password, email, username, 0, 0, 'default.png') )
+            conn.commit()
+            return User( user_id, email, username, 0, 0, 'default.png' )
+    
+    @staticmethod
     def get( email ):
         '''
         Gets a user object given an email.
         '''
-        print( 'Obtained user.' )
-        return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
+        c = conn.cursor()
+        c.execute('SELECT * FROM user WHERE email = ?;', (email,) )
+        data = c.fetchone()
+        if data is None:
+            raise ValueError("User is not in database")
+        else:
+            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
 
     def get_all():
         '''
@@ -187,13 +213,13 @@ class Comment:
 
 
 class Ratings:
-	def __init__(self):
-		print(' post ratings')
+    def __init__(self):
+        print(' post ratings')
 
-	def create(rating_id, user, post, rating):
-		'''
+    def create(rating_id, user, post, rating):
+        '''
 		This area ensures that a user doesn't upvote/downvote more than once,
 		and the 'rating' column is a 'boolean' (not really), indicating whether
-		if a user has rated
+        if a user has rated
         '''
         pass
