@@ -12,13 +12,14 @@ def render_template(temp, context):
         predicate = match.group(1)
         if eval(predicate,{},context):
             return match.group(2)
-	
-	def for_loop(match):
-	    pass
+        pass
+        
+    def for_loop(match):
+        pass
   
     with open('templates/' + temp+'.html') as f:
         txt = f.read()
-		txt = re.sub()
+        txt = re.sub()
         txt = re.sub(r'{% *if *([^%]+) *%}([\w\{\} \.]+){% *end if *%}',if_statement,txt)
         txt = re.sub(r'{{ *([\w\'\"\[\]\.]+) *}}',format_expr,txt)
         txt = re.sub(r'{% *include *([\w.]+) *%}',fill_include,txt)
@@ -26,7 +27,7 @@ def render_template(temp, context):
 
 if __name__ == '__main__':
     class Person:
-	    def __init__(self, name):
-		    self.name = name
+        def __init__(self, name):
+            self.name = name
     p = Person('Bob')
     print(render_template('renderer_test.txt', {'p':p,'name':'Mitch','profile':{'age':17}}))
