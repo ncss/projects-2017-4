@@ -36,9 +36,23 @@ class User:
         print( 'Logging in as Supreme Overlord James Curran' )
         return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
     
-    def register( email, password, displayname ):
-        print( 'New user registered.' )
-        return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
+    def register( email, password, username ):
+        c = conn.cursor()
+        # Check that the email is not currently in the database
+        print( email )
+        c.execute('SELECT email FROM user WHERE email = ?;', (email,) )
+        print( c.fetchall() )
+        if len( c.fetchall() ) > 0:
+            return False
+        else:
+            password = hash_password( email, password )
+            c.execute('SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1;')
+            user_id = 0
+            fetch = c.fetchone()
+            if fetch:
+                print( fetch )
+            c.execute('INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?);', (user_id, password, email, username, 0, False, 'default.png') )
+            return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
         
     def get( email ):
         '''
@@ -143,3 +157,5 @@ class Comment:
         '''
         print( 'New comment has been created!' )
         return Comment()
+        
+print( User.register( 'abc', 'abc', 'abc' ) )
