@@ -2,7 +2,11 @@ import re
 
 def render_template(temp, context):
     def format_expr(matches):
-        return str(eval(matches.group(1),{},context))
+        try:
+            s = str(eval(matches.group(1),{},context))
+        except AttributeError:
+            return ""
+        return s
   
     def fill_include(match):
         fn = match.group(1)

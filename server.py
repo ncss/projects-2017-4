@@ -2,6 +2,8 @@ from tornado.ncss import Server
 from re_template_renderer import render_template
 from db.plutonium import User,Post,Comment
 
+
+###DECORATORS###
 def loginRequired(fn):
     def inner(response, *args, **kwargs):
         user = response.get_secure_cookie('userCookie')
@@ -17,10 +19,7 @@ def home(response):
     html = render_template('main.html', {'user': user})
     response.write(html)
 
-def login(response): 
-    user = get_current_user(response)        
-    html = render_template('login.html', {'user': user})
-    response.write(html)
+
 
 def login_handler(response):
     email = response.get_field("email")
@@ -49,10 +48,7 @@ def get_current_user(response):
     return None
     
         
-def signup(response):
-    user = get_current_user(response)        
-    html = render_template('registration.html', {'user': user})
-    response.write(html)
+
 
 def post(response,post_id):
     user = get_current_user(response)        
@@ -63,7 +59,20 @@ def demo(response):
     user = get_current_user(response)        
     html = render_template('demo.html', {'user': user})
     response.write(html)
+
+###NOT LOGGED IN EXCLUSIVE PAGES###    
+def login(response): 
+    user = get_current_user(response)        
+    html = render_template('login.html', {'user': user})
+    response.write(html)
     
+def signup(response):
+    user = get_current_user(response)        
+    html = render_template('registration.html', {'user': user})
+    response.write(html)    
+    
+    
+###LOGIN EXCLUSIVE PAGES###    
 @loginRequired
 def submit(response):
     html = render_template('new_post.html', {})
