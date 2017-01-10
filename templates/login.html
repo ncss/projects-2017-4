@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
-    <form action="/login" method="POST">
-        <fieldset>
-            <!-- Adds a cool box thing border around it with text on it -->
-            <legend> 
-                Log In
-            </legend>
-            <p>
-                <label>Email: </label>
-                <input type="text" name="email">
-            </p>
-            <p>
-                <label>Password: </label>
-                <input type="password" name="password">
-            </p>
-            <p>
-            <!-- <textarea>Value</textarea> Inserts a textbox with 'Value' in it-->
-            <input type="submit" value="Submit">
-            </p>
-        </fieldset>
-    </form>
-</html>
+{% include header.html %}
+
+<form action="/login" method="POST">
+    <fieldset>
+        <!-- Adds a cool box thing border around it with text on it -->
+        <legend> 
+            Log In
+        </legend>
+        <p>
+            <label>Email: </label>
+            <input type="text" name="email">
+        </p>
+        <p>
+            <label>Password: </label>
+            <input type="password" name="password">
+        </p>
+        <p>
+        <!-- <textarea>Value</textarea> Inserts a textbox with 'Value' in it-->
+        <input type="submit" value="Submit">
+        </p>
+    </fieldset>
+</form>
+
+{% include footer.html %}

@@ -4,22 +4,23 @@ def program(filename, context):
     """ Runs the entire program.
     Takes template file as input and returns html file """
     tree = parse(filename)
-    ret = execute(tree, context)
+    ret = render(tree, context)
     return ret
 
 def parse(filename):
     """ Checks the syntax of the template file 'template'
     and creates and returns a node tree """
+    # Get template string
     f = open(filename)
     template = f.read()
     f.close()
+    lex = Lexer(template)
 
-    nodeTree = []
-
+    nodeTree = lex.parse()
     return nodeTree
 
-def render(nodeTree):
-    return nodeTree.render()
+def render(nodeTree, context):
+    return nodeTree.render(context)
 
 
 
@@ -32,7 +33,7 @@ def getNodeType(string):
         return "include"
     elif re.match(r'\{\% *if.*\%\}.*{% *end *if *%}', string) is not None:
         return "if"
-    elif re.match(r'\{\% *for.*in.*\%\}', string) is not None:
+    elif re.match(r'\{\% *for.*in.*\%\}.*{% *end *for *%}', string) is not None:
         return "for"
     else:
         return "text"
@@ -60,13 +61,14 @@ class Lexer: # This checks the syntax and creates an expression tree of nodes
             elif nodeType == "include":
                 self.parseInclude()
             elif nodeType == "if":
-                print("Not yet implemented. If")
-                return 0
+                self.parseIf()
             elif nodeType == "for":
                 print("Not yet implemented. For")
                 return 0
             elif nodeType == "text":
                 self.parseText()
+
+        return self.nodeTree
 
     def parseGroup(self):
         pass
@@ -111,41 +113,74 @@ class Lexer: # This checks the syntax and creates an expression tree of nodes
 
     def parseIf(self):
         start = self.upto
-        # Find the end of the if statement
-        while re.match(r'{% *end *if *%}', self.peek()) is None:
+        self.next() # Skip the inital brackets
+        self.next()
+        # Look for the start of the {% end if %} tag
+        while self.peek(2) not in ["{%", None]:
             self.next()
-        print(self.peek(5))
+        if self.peek(2) == None: # If there was no {% end if %} tag found
+            raise SyntaxError("No {% end if %} tag found")
+        # Look for the end of the {% end if %} tag
+        while self.peek(2) not in ["%}", None]:
+            self.next()
+        if self.peek(2) == None: # If there was no closing bracket found of on the {% end if %} tag found
+            raise SyntaxError("No closing brack on the {% end if %} tag found")
+        self.next()
+        self.next()
+        # Create a if object and add it to the current children
+        self.nodeTree.children.append(IfNode(self.template[start:self.upto]))
 
 class GroupNode:
-    def __init__(self, children=[]):
-        self.children = children
+    def __init__(self, children=None):
+        if children == None:
+            self.children = []
+        else:
+            self.children = children
         self.output = []
 
-    def render(self):
-        for child in children:
-            self.output.append(child.render())
+    def render(self, context):
+        output = []
+        for child in self.children:
+            output.append(str(child.render(context)))
+        return "".join(output)
+
 
 class PythonNode:
     def __init__(self, content):
         self.content = content
 
+    def render(self, context):
+        self.content = self.content[2:-2].strip()
+        return eval(self.content, {}, context)
+
 class TextNode:
     def __init__(self, content):
         self.content = content
+
+    def render(self, context):
+        return self.content
 
 class IncludeNode:
     def __init__(self, content):
         self.content = content
 
+    def render(self, context):
+        string = self.content.replace("{%", "").replace("%}", "").replace("include", "")
+        f = string.strip()
+        return program(f, context)
+
 class IfNode:
     def __init__(self, content):
         self.content = content
 
-
-lexer = Lexer("{% if a=0 %} Do this {% end if %} {%includetext.txt%}")
-lexer.parse()
-for i in lexer.nodeTree.children:
-    print(i)
-for i in lexer.nodeTree.children:
-    print(repr(i.content))
-#print(repr(lexer.nodeTree.children
+    def render(self, context):
+        def if_statement(match):
+            predicate = match.group(1)
+            if eval(predicate,{},context):
+                return match.group(2)
+                
+        txt = re.sub(r'{% *if *([^%]+) *%}(.*){% *end if *%}',if_statement,self.content)
+        if txt:
+            return program(txt, context)
+        else:
+            return ""
