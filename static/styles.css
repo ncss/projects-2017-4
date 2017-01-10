@@ -10,15 +10,15 @@ h1, h2, h3 {
 }
 
 h1 {
-	font-size: 72pt;
-}
-
-h2 { 
 	font-size: 38pt;
 }
 
-h3 { 
+h2 { 
 	font-size: 24pt;
+}
+
+h3 { 
+	font-size: 20pt;
 }
 
 p {
@@ -64,3 +64,35 @@ ol > li {
 form {
 }
 
+/* link */
+a{
+    color: white;
+}
+
+/* mouse over link */
+a:hover {
+    color: #F44436;
+}
+
+/* selected link */
+a:active {
+    color: #F44436;
+}
+
+/* header CSS */
+header {
+	height: 100px;
+	background-color: #212121;
+	color: white;
+}
+
+#logo > img {
+	height:80px;
+	margin: 10px;
+}
+
+nav {
+	float: right;
+	margin-top: 40px;
+	margin-right: 20px;
+}
