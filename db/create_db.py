@@ -23,7 +23,7 @@ cur.execute('''
 CREATE TABLE post (
 
     post_id INTEGER NOT NULL,
-    author INTEGER NOT NULL,
+    author_id INTEGER NOT NULL,
     location STRING NOT NULL,
     title STRING NOT NULL,
     description STRING NOT NULL,
