@@ -1,4 +1,15 @@
 from hashlib import sha512
+import sqlite3
+
+conn = sqlite3.connect('street.db')
+cur = conn.cursor()
+
+def database_connect():
+    if conn is None:
+        conn = sqlite3.connect('street.db')
+        cur = conn.cursor()
+    
+    return conn
 
 def hash_password( email, password ):
     '''
