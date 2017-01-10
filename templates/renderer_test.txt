@@ -1,8 +1,4 @@
 {% include renderer_test_header.html %}
-{{ name }}
-{{name}}
-{{ profile['age'] }}
-{ fail }}
-{{ fail }
-{{ fail
-fail
+Profile: {{ name }}
+Age: {{ profile['age'] }}
+{% if profile['age'] < 18 %}{{ name }} is under 18 {% end if %}
