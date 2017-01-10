@@ -46,23 +46,22 @@
 <br>
 <form action="/send_to" method="POST">
     <fieldset>
-        <!-- Adds a cool box thing border around it with text on it -->
         <legend> 
-            Log In
+            Login
         </legend>
-        <p>
-            <label>Email: </label>
-            <input type="text" name="email">
-        </p>
-        <p>
-            <label>Password: </label>
-            <input type="text" name="password">
-        </p>
-        <p>
-        <!-- <textarea>Value</textarea> Inserts a textbox with 'Value' in it-->
-        <input type="submit" value="Submit">
-        </p>
+        <label>Email: </label>
+        <input type="text" name="email">
+        <br>
+        <label>Password: </label>
+        <input type="text" name="password">
+        <br>
+        <input type="submit" value="Submit" class="button">
     </fieldset>
 </form>
+
+
+<a class="button"></a>
+<button class="button"></button>
+<input type="submit" class="button">
             
 {% include footer.html %}
