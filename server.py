@@ -60,6 +60,9 @@ def demo(response):
     html = render_template('demo.html', {'user': user})
     response.write(html)
 
+def notfound(response):
+    response.write("Lol not found")
+    
 ###NOT LOGGED IN EXCLUSIVE PAGES###    
 def login(response): 
     user = get_current_user(response)        
@@ -93,6 +96,7 @@ server.register(r'/post/([\w\.\-]+)',post)
 server.register(r'/submit',submit)
 server.register(r'/demo',demo)
 server.register(r'/logout',logout)
+server.register(r'.+',notfound)
 
 
 server.run()
