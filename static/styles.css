@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=News+Cycle|Open+Sans');
+
+body {
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 14pt;
+}
+
+h1, h2, h3 {
+	font-family: "News Cycle", Arial, sans-serif;
+}
+
+h1 {
+	font-size: 72pt;
+}
+
+h2 { 
+	font-size: 36pt;
+}
+
+h3 { 
+	font-size: 22pt;
+}
