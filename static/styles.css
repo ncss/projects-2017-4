@@ -46,5 +46,13 @@ ul > li {
     list-style: circle inside;
 }
 
-ol
-    
+table {
+	border: 1px solid #000;
+	width: 90%;
+	border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+  border: 1px solid #000;
+}
