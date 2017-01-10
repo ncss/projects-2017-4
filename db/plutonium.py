@@ -1,3 +1,18 @@
+from hashlib import sha512
+
+def hash_password( email, password ):
+    '''
+    This function is used to salt and hash passwords
+    Uses strong recent hashing algorithms + salts to ensure
+    that our users are secure at all times.
+    
+    Email address is used as a salt.
+    '''
+    string = email + password
+    h = sha512()
+    h.update( string.encode() )
+    return h.hexdigest()
+
 class User:
     '''
     User Object
