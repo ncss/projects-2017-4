@@ -1,8 +1,9 @@
-from tornado.ncss import Server
+from tornado.ncss import Server 
+from re_template_renderer import render_template
 
 def home(response):
-	with open('templates/main.html') as mainHTML:
-		response.write(mainHTML.read())
+		html = render_template('main.html', {})
+		response.write(html)
 
 def profile(response,name):
         response.write('Hi, ' + str(name))
