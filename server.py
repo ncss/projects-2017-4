@@ -1,4 +1,6 @@
 from tornado.ncss import Server
+import re_template_renderer as Renderer
+
 
 def loginRequired(fn):
 	def inner(response, *args, **kwargs):
@@ -9,9 +11,11 @@ def loginRequired(fn):
 			return fn(response, *args, **kwargs)
 	return inner
 
+	
 def home(response):
-	with open('templates/main.html') as mainHTML:
-		response.write(mainHTML.read())
+		response.write(
+						Renderer.render_template('main',{})
+						)
 
 def login(response): 
 	with open ('templates/login.html') as loginHTML: 
@@ -32,7 +36,8 @@ def login_handler(response):
 	else: 
 		response.write("invalid user")
 def signup(response):
-		response.write('signup here')
+	with open ('templates/registration.html') as signupHTML: 
+		response.write(signupHTML.read())
 
 def post(response,post_id):
 		response.write('Look at this neato post - ' + post_id)
@@ -45,15 +50,17 @@ def demo(response):
 
 @loginRequired
 def submit(response):
-		response.write('submit a post here jks you cant do that yet')
+	with open ('templates/new_post.html') as submitHTML: 
+		response.write(submitHTML.read())
+		
 @loginRequired	
 def logout(response):
 		response.clear_cookie("userCookie")
-		response.write("Logged out")
+		response.redirect('/home')
 
+		
+		
 server = Server()
-
-
 server.register(r'/?(?:home)?', home)
 server.register(r'/profile(?:/([\w\.\-]+))?', profile)
 server.register(r'/login', login, post=login_handler)
