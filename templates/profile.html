@@ -1,0 +1,22 @@
+{% include header.html %}
+
+<div class="profile-image">
+    Profile Image <br>
+    <img src="https://cdn1.iconfinder.com/data/icons/freeline/32/account_friend_human_man_member_person_profile_user_users-256.png" height="80">
+</div>
+
+<fieldset class="info">
+  <legend>Profile</legend>
+  {{ username }}     Verified? [<img src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678064-star-128.png" alt="Star" height="20" width="20"> yes] 
+  <br>
+  Level: {{ level }}
+  <br>
+  Upvotes: {{ upvote count }}  Downvotes: {{ downvote count }}
+</fieldset>
+
+<fieldset class="history">
+  <legend>Past Posts</legend>
+  Text
+</fieldset>
+
+{% include footer.html %}
