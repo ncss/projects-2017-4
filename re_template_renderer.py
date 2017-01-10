@@ -12,11 +12,14 @@ def render_template(temp, context):
         predicate = match.group(1)
         if eval(predicate,{},context):
             return match.group(2)
+	
+	def for_loop(match):
+	    pass
   
-    with open('templates/' + temp) as f:
+    with open('templates/' + temp+'.html') as f:
         txt = f.read()
-        txt = re.sub(r'{% *if *([\w\.\'\"< \[\]]+) *%}([\w\{\} \.]+){% *end if *%}',if_statement,txt) #only < than symbol
-
+		txt = re.sub()
+        txt = re.sub(r'{% *if *([^%]+) *%}([\w\{\} \.]+){% *end if *%}',if_statement,txt)
         txt = re.sub(r'{{ *([\w\'\"\[\]\.]+) *}}',format_expr,txt)
         txt = re.sub(r'{% *include *([\w.]+) *%}',fill_include,txt)
         return txt
