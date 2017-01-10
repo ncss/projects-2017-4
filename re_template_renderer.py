@@ -15,7 +15,7 @@ def render_template(temp, context):
   
     with open('templates/' + temp) as f:
         txt = f.read()
-        txt = re.sub(r'{% *if *([\w\.\'\"< \[\]]+) *%}([\w\{\} \.]+){% *end if *%}',if_statement,txt) #only < than symbol
+        txt = re.sub(r'{% *if *([^%]+) *%}([\w\{\} \.]+){% *end if *%}',if_statement,txt)
 
         txt = re.sub(r'{{ *([\w\'\"\[\]\.]+) *}}',format_expr,txt)
         txt = re.sub(r'{% *include *([\w.]+) *%}',fill_include,txt)
