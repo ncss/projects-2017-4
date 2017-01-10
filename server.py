@@ -13,12 +13,12 @@ def loginRequired(fn):
     
 def home(response):
     user = get_current_user(response)        
-    html = render_template('main', {'user': user})
+    html = render_template('main.html', {'user': user})
     response.write(html)
 
 def login(response): 
     user = get_current_user(response)        
-    html = render_template('login', {'user': user})
+    html = render_template('login.html', {'user': user})
     response.write(html)
 
 def login_handler(response):
@@ -33,7 +33,7 @@ def login_handler(response):
     
 def profile(response,name):
     user = get_current_user(response)        
-    html = render_template('profile', {'user': user})
+    html = render_template('profile.html', {'user': user})
     response.write(html)
     
 def get_current_user(response):
@@ -45,22 +45,22 @@ def get_current_user(response):
         
 def signup(response):
     user = get_current_user(response)        
-    html = render_template('registration', {'user': user})
+    html = render_template('registration.html', {'user': user})
     response.write(html)
 
 def post(response,post_id):
     user = get_current_user(response)        
-    html = render_template('new_post', {'user': user})
+    html = render_template('new_post.html', {'user': user})
     response.write(html)
         
 def demo(response):
     user = get_current_user(response)        
-    html = render_template('demo', {'user': user})
+    html = render_template('demo.html', {'user': user})
     response.write(html)
     
 @loginRequired
 def submit(response):
-    html = render_template('new_post', {})
+    html = render_template('new_post.html', {})
     response.write(html)
         
 @loginRequired    
