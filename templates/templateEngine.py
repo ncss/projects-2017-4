@@ -170,8 +170,15 @@ class IfNode:
         self.content = content
 
     def render(self, context):
-        return 0
+        def if_statement(match):
+            predicate = match.group(1)
+            if eval(predicate,{},context):
+                return match.group(2)
+                
+        txt = re.sub(r'{% *if *([^%]+) *%}(.*){% *end if *%}',if_statement,self.content)
+        if txt:
+            return program(txt, context)
+        else:
+            return ""
 
 
-
-print(program("temp.txt", {"a": 1}))
