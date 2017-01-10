@@ -8,10 +8,18 @@ def home(response):
 def profile(response,name):
         response.write('Hi, ' + str(name))
 		
+		
 def login(response): 
 	with open ('templates/login.html') as loginHTML: 
 		response.write(loginHTML.read())
 		
+def login_handler(response):
+	email = response.get_field("email")
+	password = response.get_field("password")
+	if (email + password) == "loginpassword":
+		response.write("logged in")
+	else: 
+		response.write("invalid user")
 def signup(response):
 		response.write('signup here')
 
@@ -29,8 +37,8 @@ server = Server()
 
 
 server.register(r'/?(?:home)?', home)
-server.register(r'/profile/([\w\.\-]+)', profile)
-server.register(r'/login', login)#, post#fix this)
+server.register(r'/profile(?:/([\w\.\-]+))?', profile)
+server.register(r'/login', login, post=login_handler)
 server.register(r'/signup',signup)
 server.register(r'/post/([\w\.\-]+)',post)
 server.register(r'/submit',submit)
