@@ -28,46 +28,65 @@ class User:
     '''
     User Object
     '''
-    def __init__(self, email, displayname, displaypicture, verified):
+    def __init__(self, user_id, email, username, level, is_verified, profile_picture ):
+        self.user_id = user_id
         self.email = email
-        self.displayname = displayname
-        self.displaypicture = displaypicture
-        self.verifed = verified
+        self.username = username
+        self.level = level
+        self.is_verifed = is_verified
+        self.profile_picture = profile_picture
 
+    @staticmethod
     def login( email, password ):
         '''
-        Given a email address and a password, will return the user class or False depending
-        on whether or not the login was successful.
-
-        Currently will only return James Curran
+        Given an email address and an unhashed password
+        Will return a User object if valid login
+        Will throw error if invalid login
         '''
-        print( 'Logging in as Supreme Overlord James Curran' )
-        return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
+        c = conn.cursor()
+        password = hash_password( email, password )
+        # Ensure that the user is in the database
+        c.execute('SELECT * FROM user WHERE email = ?;', (email,) )
+        data = c.fetchone()
+        if data is None:
+            raise ValueError("User is not in database")
+        else:
+            storedhash = data[1]
+            # Hash the given password and compare it to the storedhash
+            if password == storedhash:
+                return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+            else:
+                raise ValueError("Password Mismatch")
 
+    @staticmethod
     def register( email, password, username ):
+        '''
+        Given the required data, registers an account in the database
+        Will return False if the account does not meet registration requirements
+        '''
         c = conn.cursor()
         # Check that the email is not currently in the database
-        print( email )
         c.execute('SELECT email FROM user WHERE email = ?;', (email,) )
-        print( c.fetchall() )
         if len( c.fetchall() ) > 0:
             return False
         else:
             password = hash_password( email, password )
-            c.execute('SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1;')
-            user_id = 0
-            fetch = c.fetchone()
-            if fetch:
-                print( fetch )
-            c.execute('INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?);', (user_id, password, email, username, 0, False, 'default.png') )
-            return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
+            c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
+            conn.commit()
+            return User( user_id, email, username, 0, 0, 'default.png' )
 
+    @staticmethod
     def get( email ):
         '''
         Gets a user object given an email.
         '''
-        print( 'Obtained user.' )
-        return User( 'james.r.curran@sydney.edu.au', 'James Curran', 'jamescurran.png', True )
+        c = conn.cursor()
+        c.execute('SELECT * FROM user WHERE email = ?;', (email,) )
+        data = c.fetchone()
+        if data is None:
+            raise ValueError("User is not in database")
+        else:
+            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
 
     def get_all():
         '''
@@ -97,6 +116,8 @@ class User:
         print( 'Vote cast!' )
 
     # TODO: Functions for verified status and title management
+
+User.register('rfras399@walrusfamily.com', 'alphabetical', 'Robert Fraser' )
 
 class Post:
     def __init__(self, post_id, author_id, location, title, description, image):
@@ -172,24 +193,32 @@ class Post:
         print( 'Return comments.' )
 
 class Comment:
-    def __init__(self):
-        self.author = 'james.r.curran@sydney.edu.au'
-        self.post = '2'
-        self.content = 'I agree, James Curran IS the best!'
+    def __init__(self, comment_id, author, post, content):
+        self.comment_id = comment_id
+        self.author = author
+        self.post = post
+        self.content = content
         print( 'Incredible new comment!' )
 
-    def create(user, postid, contents ):
+    def create(user_id, postid, contents ):
         '''
         Given a user object, a post object, and a string
         creates a new comment on the specified post
         '''
+
+
+        cur = conn.execute('''
+
+        INSERT INTO comments (post_id, author, comment) VALUES (?, ?, ?);
+
+        ''', (postid, user_id, contents))
         print( 'New comment has been created!' )
         return Comment()
-
 
 class Ratings:
     def __init__(self):
         print('post ratings')
+
 
     def create(rating_id, user, post, rating):
         '''
