@@ -47,4 +47,13 @@ ul > li {
 }
 
 ol
+a: link{
+	color: red;
+}
+a: hover{
+	color: blue;
+}
+a: visited{
+	color: white;
+}
     
