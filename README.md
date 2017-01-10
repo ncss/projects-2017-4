@@ -9,6 +9,7 @@ NCSS 2017, Group 4
 	> Enter 'python server.py'
 	*This should start the server*
 	> Go to 'http://localhost:8888' in your internet browser.
+			> /demo
 			> /home
 			> /login
 			> /post/<id>
