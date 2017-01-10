@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <form action="/login" method="POST">
+    <form action="/register" method="POST">
         <fieldset>
-            <!-- Adds a cool box thing border around it with text on it -->
-            <legend> 
-                Log In
+            <legend><!-- Adds a cool box thing border around it with text on it --> 
+                Sign Up
             </legend>
+            <p>
+                <label>Name: </label>
+                <input type="text" name="name">
+            </p>
             <p>
                 <label>Email: </label>
                 <input type="text" name="email">
@@ -13,6 +16,10 @@
             <p>
                 <label>Password: </label>
                 <input type="password" name="password">
+            </p>
+            <p>
+                <label>Retype Password: </label>
+                <input type="password" name="confpassword">
             </p>
             <p>
             <!-- <textarea>Value</textarea> Inserts a textbox with 'Value' in it-->
