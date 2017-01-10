@@ -1,4 +1,5 @@
-from tornado.ncss import Server
+from tornado.ncss import Server 
+from re_template_renderer import render_template
 
 def loginRequired(fn):
 	def inner(response, *args, **kwargs):
@@ -10,8 +11,8 @@ def loginRequired(fn):
 	return inner
 
 def home(response):
-	with open('templates/main.html') as mainHTML:
-		response.write(mainHTML.read())
+		html = render_template('main.html', {})
+		response.write(html)
 
 def login(response): 
 	with open ('templates/login.html') as loginHTML: 
@@ -40,9 +41,8 @@ def post(response,post_id):
 
 		
 def demo(response):
-		with open('templates/demo.html') as demoHTML:
-			response.write(demoHTML.read())
-
+		html = render_template('demo.html', {})
+		response.write(html)
 @loginRequired
 def submit(response):
 		response.write('submit a post here jks you cant do that yet')
