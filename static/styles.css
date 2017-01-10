@@ -2,7 +2,7 @@
 
 body {
 	font-family: "Open Sans", Arial, sans-serif;
-	font-size: 14pt;
+	font-size: 14px;
 }
 
 h1, h2, h3 {
@@ -22,7 +22,7 @@ h3 {
 }
 
 p {
-	margin-top: 1em;
+	margin-top: 1;
 }
 
 b, strong {
@@ -33,12 +33,12 @@ i , em {
     font-style: italic;
 }
 sup {
-    font-size:x-small; 
+    font-size: 10px; 
     vertical-align:top;
 }
 
 sub{
-    font-size:x-small; 
+    font-size:10px; 
     vertical-align:bottom;
 }
     
@@ -74,6 +74,48 @@ ol > li {
 }
 
 form {
+    background-color: #F44436;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    margin: 10px;
+    cursor: pointer;
+    width: 400px;
+    height: 200px;
+    text-align: center;
+}
+
+legend{
+    font-family: "News Cycle", Arial, sans-serif;
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+input[type=text]{
+    border-width: 0px;
+    padding: 5px;
+    margin: 2px 0px;
+    width: 150px;
+}
+
+label{
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+}
+
+.button{
+     border-width: 2px;
+     border-color: #202020;
+     border-style: solid;
+     background-color: #ffffff;
+     color: #F44436;
+     font-family: "News Cycle", Arial, sans-serif;
+     font-size: 18px;
+     
 }
 
 /* link */
