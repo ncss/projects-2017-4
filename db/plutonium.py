@@ -71,14 +71,7 @@ class User:
             return False
         else:
             password = hash_password( email, password )
-            # Get the maximum user_id in the database to increment for next user
-            c.execute('SELECT MAX(user_id) FROM user;')
-            user_id = 0
-            fetch = c.fetchone()
-            if fetch[0] is not None:
-                user_id = fetch[0] + 1
-            # Insert the user into the database
-            c.execute('INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?);', (user_id, password, email, username, 0, 0, 'default.png') )
+            c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
             conn.commit()
             return User( user_id, email, username, 0, 0, 'default.png' )
     
@@ -124,6 +117,8 @@ class User:
 
     # TODO: Functions for verified status and title management
 
+User.register('rfras399@walrusfamily.com', 'alphabetical', 'Robert Fraser' )
+    
 class Post:
     def __init__(self, post_id, author_id, location, title, description, image):
         self.id = post_id
@@ -225,7 +220,4 @@ class Ratings:
     def create(rating_id, user, post, rating):
 
         pass
-
-
-print(Comment.create(0, 10, 'testing 1 2 3'))
 
