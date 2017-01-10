@@ -11,12 +11,24 @@
   <br>
   Level: {{ level }}
   <br>
-  Upvotes: {{ upvote count }}  Downvotes: {{ downvote count }}
+  Upvotes: {{ upvotes }}  Downvotes: {{ downvotes }}
 </fieldset>
 
 <fieldset class="history">
   <legend>Past Posts</legend>
-  Text
+  <time>{{ date }}</time> <a href="google.com">Street Performance Coming Xmas!!</a>
+  <br>
+  <time>{{ date }}</time> <a href="google.com">Statue of Aristotle</a>
+</fieldset>
+
+<fieldset class="images">
+  <legend>Images</legend>
+  <textarea rows="10" cols="100" disabled>No maps / images</textarea>
+</fieldset>
+
+<fieldset class="description">
+  <legend>Description</legend>
+  <textarea rows="10" cols="100" disabled>{{ username }} hasn't written anything yet</textarea>
 </fieldset>
 
 {% include footer.html %}
