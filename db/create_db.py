@@ -7,7 +7,7 @@ cur = conn.cursor()
 cur.execute('''
 
 CREATE TABLE user (
-    user_id INTEGER PRIMARY KEY,
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     password TEXT NOT NULL,
     email TEXT NOT NULL,
     username TEXT NOT NULL,
@@ -21,7 +21,7 @@ cur.execute('''
 
 CREATE TABLE post (
 
-    post_id INTEGER PRIMARY KEY,
+    post_id INTEGER PRIMARY KEY AUTOINCREMENT,
     author_id INTEGER NOT NULL,
     location STRING NOT NULL,
     title STRING NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE post (
 cur.execute('''
 
 CREATE TABLE comments (
-    comment_id INTEGER PRIMARY KEY,
+    comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     post_id INTEGER NOT NULL,
     author INTEGER NOT NULL,
     comment STRING NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE comments (
 cur.execute('''
 
 CREATE TABLE post_ratings (
-    rating_id INTEGER PRIMARY KEY,
+    rating_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user INTEGER NOT NULL,
     post INTEGER  NOT NULL,
     rating INTEGER NOT NULL,

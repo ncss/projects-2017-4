@@ -210,17 +210,12 @@ class Comment:
         creates a new comment on the specified post
         '''
 
-        cur = conn.execute('''
-        SELECT MAX(comment_id)
-        FROM comments;
-        ''')
-        if cur.fetchone() is None:
-            print('This is the first item')
+
         cur = conn.execute('''
 
-        INSERT INTO comments VALUES (comment_id, postid, user_id, contents);
+        INSERT INTO comments (post_id, author, comment) VALUES (?, ?, ?);
 
-        ''')
+        ''', (postid, user_id, contents))
         print( 'New comment has been created!' )
         return Comment()
 
