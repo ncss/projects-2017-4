@@ -1,5 +1,6 @@
 from tornado.ncss import Server 
 from re_template_renderer import render_template
+from db.plutonium import User,Post,Comment
 
 def loginRequired(fn):
     def inner(response, *args, **kwargs):
@@ -37,10 +38,15 @@ def profile(response,name):
     response.write(html)
     
 def get_current_user(response):
-    username = response.get_secure_cookie("userCookie")
-    if username is not None:
-        username = username.decode()
-    return username
+    email = response.get_secure_cookie("userCookie")
+    
+    user = User()
+     
+    
+    if email is not None:
+        email = email.decode()
+        return user
+    return None
     
         
 def signup(response):
