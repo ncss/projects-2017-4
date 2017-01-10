@@ -14,8 +14,9 @@ def parse(filename):
     f = open(filename)
     template = f.read()
     f.close()
+    lex = Lexer(template)
 
-    nodeTree = Lexer(template).parse()
+    nodeTree = lex.parse()
     return nodeTree
 
 def render(nodeTree, context):
@@ -130,8 +131,11 @@ class Lexer: # This checks the syntax and creates an expression tree of nodes
         self.nodeTree.children.append(IfNode(self.template[start:self.upto]))
 
 class GroupNode:
-    def __init__(self, children=[]):
-        self.children = children
+    def __init__(self, children=None):
+        if children == None:
+            self.children = []
+        else:
+            self.children = children
         self.output = []
 
     def render(self, context):
@@ -180,5 +184,3 @@ class IfNode:
             return program(txt, context)
         else:
             return ""
-
-
