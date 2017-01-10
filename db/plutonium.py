@@ -113,22 +113,23 @@ class Post:
         Creates a new post given the user object, title, description, image, and location.
         '''
         cur = conn.cursor()
-        cur.execute('SELECT id FROM post ORDER BY id DESC LIMIT 1;')
-        post_id = cur.fetchone()
-        print(post_id)
-        # cur.execute("""
-        # INSERT INTO post
-        # VALUES (
-        # id,
-        # author_id,
-        # location,
-        # title,
-        # description,
-        # image,
-        # rating
-        # )""", (
-        #
-        # ))
+        cur.execute("""
+        INSERT INTO post (author_id, location, title, description, image, rating)
+        VALUES (
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?
+        )""", (
+        user,
+        location,
+        title,
+        description,
+        image,
+        000
+        ))
         print( 'New post created!' )
         return Post()
 
@@ -187,13 +188,13 @@ class Comment:
 
 
 class Ratings:
-	def __init__(self):
-		print(' post ratings')
+    def __init__(self):
+        print('post ratings')
 
-	def create(rating_id, user, post, rating):
-		'''
-		This area ensures that a user doesn't upvote/downvote more than once,
-		and the 'rating' column is a 'boolean' (not really), indicating whether
-		if a user has rated
+    def create(rating_id, user, post, rating):
+        '''
+        This area ensures that a used doesn't upvote/downvote more than once,
+        and the 'rating' column is a 'boolean' (not really), indicating weather
+        is a user has rated
         '''
         pass
