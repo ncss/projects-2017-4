@@ -79,6 +79,10 @@ form {
 /* link */
 a{
     color: white;
+	text-decoration: none;
+	display: inline-block;
+	width: 100px;
+	text-align: center;
 }
 
 /* mouse over link */
@@ -114,6 +118,12 @@ main {
 }
 
 footer {
-	margin: 10px;
-	float: bottom;
+	position: fixed;
+	text-align: center;
+	padding: 15px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #212121;
+	color: white;
 }
