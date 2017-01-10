@@ -11,21 +11,21 @@ class User:
         Given a email address and a password, will return the user class or False depending
         on whether or not the login was successful.
         '''
-        print('User has been logged in.')
+        print( 'User has been logged in.' )
         return User()
     
     def register( email, password, displayname ):
         '''
         Registers a new user given an email address, password, and display name.
         '''
-        print('New user registered.')
+        print( 'New user registered.' )
         return User()
         
     def get( email ):
         '''
         Gets a user object given an email.
         '''
-        print('Obtained user.')
+        print( 'Obtained user.' )
         return User()
         
     def get_all():
@@ -40,13 +40,13 @@ class User:
         Changes the displayname of a user class.
         '''
         self.displayname = newname
-        print('Display name updated.')
+        print( 'Display name updated.' )
         
     def get_posts( self ):
         '''
         Returns a list of all the post objects that the user has made
         '''
-        print('Post objects.')
+        print( 'Post objects.' )
         
     def rate( self, post, rating ):
         '''
@@ -69,14 +69,14 @@ class Post:
         '''
         Creates a new post given the user object, title, description, image, and location.
         '''
-        print('New post created!')
+        print( 'New post created!' )
         return Post()
         
     def get( postid ):
         '''
         Returns a post object given a postid
         '''
-        print('Obtained post!')
+        print( 'Obtained post!' )
         return Post()
     
     def get_all():
@@ -84,7 +84,7 @@ class Post:
         Returns a list containing every post object
         NOTE: This can be large - be careful
         '''
-        print('All the posts!')
+        print( 'All the posts!' )
         
     def get_by_recent( amount ):
         '''
@@ -102,25 +102,25 @@ class Post:
         '''
         Returns the rating of a post.
         '''
-        print('Return ratings.')
+        print( 'Return ratings.' )
         
     def comments( self ):
         '''
         Returns a list of all the comments on the post
         '''
-        print('Return comments.')
+        print( 'Return comments.' )
 
 class Comment:
     def __init__(self):
         self.author = 'james.r.curran@sydney.edu.au'
         self.post = '2'
         self.content = 'I agree, James Curran IS the best!'
-        print('Incredible new comment!')
+        print( 'Incredible new comment!' )
         
     def create(user, postid, contents ):
         '''
         Given a user object, a post object, and a string
         creates a new comment on the specified post
         '''
-        print('New comment has been created!')
+        print( 'New comment has been created!' )
         return Comment()
