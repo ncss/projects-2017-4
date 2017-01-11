@@ -91,9 +91,15 @@ def get_current_user(response):
     return None
 
 def view_post(response, post_id):
-    user = get_current_user(response)
-    html = render_template('content.html', {'user': user})
-    response.write(html)
+    try:
+        post = Post.get(post_id)
+        user = get_current_user(response)
+        html = render_template('content.html', {'user': user})
+        response.write(html)
+    except:
+        user = get_current_user(response)
+        html = render_template('404errorpage.html', {'user': user})
+        response.write(html)
 
 def demo(response):
     user = get_current_user(response)
