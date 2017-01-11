@@ -179,3 +179,8 @@ footer ul li{
 	font-size: 12px;
 	border-left:2px dotted black;
 }
+
+/* styling for the invalid user message */
+#invUsr{
+	margin-top: 50px;
+}
