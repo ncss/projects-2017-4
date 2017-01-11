@@ -12,7 +12,17 @@
         <input type="password" name="password">
         <!-- <textarea>Value</textarea> Inserts a textbox with 'Value' in it-->
         <input type="submit" value="Submit">
+		
+		
+		<!--style error message here -->
+		
+		<p>
+		{% if invalidUser %}
+		{{ invalidUser }}
+		{% end if %}
         </p>
+		
+		
     </fieldset>
 </form>
 
