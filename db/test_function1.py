@@ -44,7 +44,8 @@ class Testing_plutonium(unittest.TestCase):
 
     def test_create(self):
         u = User.register( '10@ten.com', 'testing', 'James Curran is love' )
-        p = Post.create( User.get('10@ten.com')., 'some random location', 'James Currans secret post', 'default.jpg', '50')
+        p = Post.create( User.get('10@ten.com').user_id, 'some random location', 'James Currans secret post', 'default.jpg', '50')
+        print( p, p.author_id, User.get_by_id(p.author_id).email )
         self.assertEqual( u.username, 'James Curran is love')
 
 

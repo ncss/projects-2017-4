@@ -46,7 +46,7 @@ class User:
         self.level = level
         self.is_verifed = is_verified
         self.profile_picture = profile_picture
-    
+
     @staticmethod
     def login( email, password ):
         '''
@@ -68,7 +68,7 @@ class User:
                 return User( data[0], data[2], data[3], data[4], data[5], data[6] )
             else:
                 raise ValueError("Passwords do not match")
-    
+
     @staticmethod
     def register( email, password, username ):
         '''
@@ -85,7 +85,7 @@ class User:
             c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
             conn.commit()
             return User( c.lastrowid, email, username, 0, 0, 'default.png' )
-    
+
     @staticmethod
     def get( email ):
         '''
@@ -98,7 +98,20 @@ class User:
             raise ValueError("User is not in database")
         else:
             return User( data[0], data[2], data[3], data[4], data[5], data[6] )
-    
+
+    @staticmethod
+    def get_by_id( user_id ):
+        '''
+        Gets a user object given a user_id
+        '''
+        c = conn.cursor()
+        c.execute('SELECT * FROM user WHERE user_id = ?;', (user_id,) )
+        data = c.fetchone()
+        if data is None:
+            raise ValueError("User is not in database")
+        else:
+            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+
     @staticmethod
     def get_all():
         '''
@@ -116,7 +129,7 @@ class User:
         Returns a list of all the post objects that the user has made
         '''
         posts = []
-    
+
         cur = conn.cursor()
         cur.execute("""
         SELECT *
@@ -125,26 +138,26 @@ class User:
         """, (
         user_id,
         ))
-    
+
         print( 'Post objects.' )
         for post in cur:
             posts.append(Post(post[0], post[1], post[2], post[3], post[4], post[5], post[6]))
-    
+
         return posts
     def edit_displayname(user_id, newname ):
         '''            Changes the displayname of a user class.
         '''
         self.displayname = newname
         cur = conn.cursor()
-    
+
         cur.execute('''
         UPDATE user
         SET username = ?
         WHERE user_id = ?
-    
-    
+
+
         ''', (newname, user_id,))
-    
+
         print( 'Display name updated.' )
     def rate( self, post, rating ):
         '''
