@@ -150,14 +150,16 @@ def submit_handler(response):
     image = response.get_file("postImage")
     description = response.get_field("description")
     pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
-    with open(pictureName,'wb') as pictureFile:
-        pictureFile.write(image[2])
-    if (not title) or (not location) or (not image) or (not description):
+
+    if (not title) or (not location) or (not image) or (not description) or (image[1] is None):
         html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
     else:
-        html = render_template('new_post.html', {'user': user})
+        pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
+        with open(pictureName,'wb') as pictureFile:
+            pictureFile.write(image[2])
+        createPost = Post.create(user.self,title,description,pictureName,location)
+        response.redirect("/post/"+str(createPost.id))
 
-    response.write(html)
 
 database_connect('db/street.db')
 
