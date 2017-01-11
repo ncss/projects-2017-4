@@ -4,7 +4,7 @@
 
 <figure class="profile-image">
     {% if user.profile_picture == 'default.png'%} 
-    <img src="/static/profile.png" alt="Profile Image" style="width:150px;height:150px;">
+    <img src = '/static/profile.png' alt="Profile Picture" style="width:150px;height:150px;">
     <!-- test if this works once upload pro_pic option is available -->
     {% else %}
     <img src = user.profile_picture>

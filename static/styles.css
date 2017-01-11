@@ -313,6 +313,7 @@ footer ul li{
     padding-top: 50px;
     clear: left;
 
+
 .post-title{
 	
 	padding-left: 144px;
@@ -347,4 +348,13 @@ footer ul li{
 /* styling for the invalid user message */
 #invUsr{
 	margin-top: 50px;
+}
+
+/* delete the two below if doesn't work */
+/* edit the left margin to be auto - right now is like 3 px off */
+#describe_label{
+    margin-left: -169px;
+}
+.usr_describe{
+
 }
