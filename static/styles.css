@@ -83,6 +83,7 @@ form {
     width: 400px;
     height: 200px;
     text-align: center;
+	line-height: 20px;
 }
 
 legend{
@@ -92,6 +93,7 @@ legend{
     text-align: center;
     margin-bottom: 16px;
     margin-top: 16px;
+	line-height: 20px;
 }
 
 input[type=text]{
@@ -99,12 +101,14 @@ input[type=text]{
     padding: 5px;
     margin: 2px 0px;
     width: 150px;
+	line-height: 20px;
 }
 
 label{
     display: inline-block;
     width: 100px;
     text-align: left;
+	line-height: 20px;
 }
 
 .button{
@@ -115,6 +119,7 @@ label{
      color: #F44436;
      font-family: "News Cycle", Arial, sans-serif;
      font-size: 18px;
+	 line-height: 20px;
      
 }
 
