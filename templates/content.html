@@ -8,12 +8,23 @@
 <!-- {{description}} -->
 <a class ="profile-positioning">
 
-<img class="profile-pic" src="{{poster.profile_picture}}" alt="{{username}}">
-<h4> {{poster.username}} </h4></a>
+  <figure class="profile-image">
+      {% if poster.profile_picture == 'default.png'%}
+      <img src="/static/profile.png" alt="Profile Image" style="width:150px;height:150px;">
+      <!-- test if this works once upload pro_pic option is available -->
+      {% else %}
+      <img src = user.profile_picture>
+      {% end if %}
+      <figcaption class="username" > {{ poster.username }}</figcaption>
+  </figure>
+
+</a>
+
+
 
 <img   src="/{{post.image}}" alt="" height="" width="" id = "post-image" class = "post-image">
-<img  src="{{map_url}}" alt="{{post.title}}" height="" width="" id ="map-placeholder" class = "map-placeholder">
-<img  src="{{profile_image}}" alt="{{username}}" height="" width="" id ="profile-image" class = "profile-image">
+
+<div id="map-placeholder" class="map-placeholder"></div>
 
 <p> {{post.description}} </p>
 
@@ -33,5 +44,8 @@
 </div>
 {% end for %}
 
-
+<script src="/static/geoFindMe.js"></script>
+<script>
+  mapForPosting({{post.location}});
+</script>
 {% include footer.html %}
