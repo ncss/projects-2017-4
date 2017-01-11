@@ -50,6 +50,7 @@ def signup_handler(response):
     email = response.get_field('email')
     password = response.get_field('password')
     confpassword = response.get_field('confpassword')
+    #when done with mvp keep entered fields
     if (not name) or (not email) or (not password) or (not confpassword):
         user = get_current_user(response)
         html = render_template('signup.html', {'user': user, 'errorMessage': "You must fill in all fields. Please try again." })
@@ -57,6 +58,14 @@ def signup_handler(response):
     elif password != confpassword:
         user = get_current_user(response)
         html = render_template('signup.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
+        response.write(html)
+    elif len(password) < 6:
+        user = get_current_user(response)
+        html = render_template('signup.html', {'user': user, 'errorMessage': "Password must be longer than 6 characters. Please try again." })
+        response.write(html)
+    elif password.lower() == 'password':
+        user = get_current_user(response)
+        html = render_template('signup.html', {'user': user, 'errorMessage': "'Password' is far to weak. Please submit a different password." })
         response.write(html)
     else:
         try:
@@ -68,11 +77,12 @@ def signup_handler(response):
             html = render_template('signup.html', {'user': user, 'errorMessage': "This user is already in the database." })
             response.write(html)
 
+
 def get_current_user(response):
     email = response.get_secure_cookie("userCookie")    #change back to User(), later when DB is fixed
-    user = "hello"
     if email is not None:
         email = email.decode()
+        user = User.get(email)
         return user
     return None
 
@@ -136,7 +146,7 @@ def submit_handler(response):
         html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
     else:
         html = render_template('new_post.html', {'user': user})
-    
+
     response.write(html)
 
 database_connect('db/street.db')
