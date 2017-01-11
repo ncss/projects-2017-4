@@ -2,7 +2,7 @@ import unittest
 import os
 from plutonium import database_connect
 from plutonium import terminate_connection
-from plutonium import User
+from plutonium import User, Post, Comment, Ratings
 from create_db import init_db
 
 class TestPlutonium(unittest.TestCase):
@@ -34,6 +34,12 @@ class TestPlutonium(unittest.TestCase):
         User.register( 'james.r.curran@sydney.edu.au', 'tomtom', 'James Curran' )
         u = User.get( 'james.r.curran@sydney.edu.au' )
         self.assertEqual( u.username, 'James Curran' )
+		
+    def test_post(self):
+        u = User.register( 'james.r.curran@sydney.edu.au', 'tomtom', 'James Curran' )
+        p = Post.create( u.user_id, 'Title', 'Content', 'Image', 'Location' )
+        self.assertEqual( u.user_id, p.author_id )
+			
 
     def tearDown(self):
         terminate_connection()
