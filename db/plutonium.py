@@ -1,5 +1,6 @@
 from hashlib import sha512
 import sqlite3
+from .security import Sanitisation
 
 conn = None
 cur = None
@@ -39,13 +40,14 @@ class User:
     '''
     User Object
     '''
-    def __init__(self, user_id, email, username, level, is_verified, profile_picture ):
+    def __init__(self, user_id, email, username, level, is_verified, profile_picture, description ):
         self.user_id = user_id
         self.email = email
         self.username = username
         self.level = level
         self.is_verifed = is_verified
         self.profile_picture = profile_picture
+        self.description = description
 
     @staticmethod
     def login( email, password ):
@@ -54,27 +56,40 @@ class User:
         Will return a User object if valid login
         Will throw error if invalid login
         '''
+
+        email = Sanitisation.sanitise(email)
+        password = Sanitisation.sanitise(password)
+
         c = conn.cursor()
         password = hash_password( email, password )
         # Ensure that the user is in the database
         c.execute('SELECT * FROM user WHERE email = ?;', (email,) )
         data = c.fetchone()
+        print(data)
         if data is None:
             raise ValueError("User is not in database")
         else:
             storedhash = data[1]
             # Hash the given password and compare it to the storedhash
             if password == storedhash:
-                return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+                return User( data[0], data[2], data[3], data[4], data[5], data[6], data[7] )
             else:
                 raise ValueError("Passwords do not match")
 
     @staticmethod
-    def register( email, password, username ):
+    def register( email, password, username, description ):
         '''
         Given the required data, registers an account in the database
         Will return False if the account does not meet registration requirements
         '''
+        email = Sanitisation.sanitise(email)
+        password = Sanitisation.sanitise(password)
+        username = Sanitisation.sanitise(username)
+        description = Sanitisation.sanitise(description)
+
+        if Sanitisation.isValidEmail(email) != True:
+            raise ValueError("Email address is not valid")
+
         c = conn.cursor()
         # Check that the email is not currently in the database
         c.execute('SELECT email FROM user WHERE email = ?;', (email,) )
@@ -82,22 +97,24 @@ class User:
             raise ValueError("User is already in database")
         else:
             password = hash_password( email, password )
-            c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
+            c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture, description) VALUES(?, ?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png', description) )
             conn.commit()
-            return User( c.lastrowid, email, username, 0, 0, 'default.png' )
+            return User( c.lastrowid, email, username, 0, 0, 'default.png', description )
 
     @staticmethod
     def get( email ):
         '''
         Gets a user object given an email.
         '''
+        email = Sanitisation.sanitise(email)
+
         c = conn.cursor()
         c.execute('SELECT * FROM user WHERE email = ?;', (email,) )
         data = c.fetchone()
         if data is None:
             raise ValueError("User is not in database")
         else:
-            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+            return User( data[0], data[2], data[3], data[4], data[5], data[6], data[7] )
 
     @staticmethod
     def get_by_id( user_id ):
@@ -110,7 +127,7 @@ class User:
         if data is None:
             raise ValueError("User is not in database")
         else:
-            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+            return User( data[0], data[2], data[3], data[4], data[5], data[6], data[7] )
 
     @staticmethod
     def get_all():
@@ -124,6 +141,7 @@ class User:
         for each in c.fetchall():
             users.append( each )
         return users
+
     def get_posts( user_id ):
         '''
         Returns a list of all the post objects that the user has made
@@ -144,9 +162,14 @@ class User:
             posts.append(Post(post[0], post[1], post[2], post[3], post[4], post[5], post[6]))
 
         return posts
+
     def edit_displayname(user_id, newname ):
-        '''            Changes the displayname of a user class.
         '''
+        Changes the displayname of a user class.
+        '''
+
+        newname = Sanitisation.sanitise(newname)
+
         self.displayname = newname
         cur = conn.cursor()
 
@@ -159,6 +182,7 @@ class User:
         ''', (newname, user_id,))
 
         print( 'Display name updated.' )
+
     def rate( self, post, rating ):
         '''
         Gets the user to vote on a given post object
