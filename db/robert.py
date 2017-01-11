@@ -1,12 +1,12 @@
 from hashlib import sha512
 import sqlite3
 
-conn = sqlite3.connect('street.db')
+conn = sqlite3.connect('db/street.db')
 cur = conn.cursor()
 
 def database_connect():
     if conn is None:
-        conn = sqlite3.connect('street.db')
+        conn = sqlite3.connect('db/street.db')
         cur = conn.cursor()
 
     return conn
@@ -28,8 +28,7 @@ class User:
     '''
     User Object
     '''
-    def __init__(self, user_id, email, username, level, is_verified, profile_picture ):
-        self.user_id = user_id
+    def __init__(self, email, username, level, is_verified, profile_picture ):
         self.email = email
         self.username = username
         self.level = level
@@ -54,9 +53,9 @@ class User:
             storedhash = data[1]
             # Hash the given password and compare it to the storedhash
             if password == storedhash:
-                return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+                return User( data[2], data[3], data[4], data[5], data[6] )
             else:
-                raise ValueError("Password Mismatch")
+                raise ValueError("Passwords do not match")
     
     @staticmethod
     def register( email, password, username ):
@@ -68,12 +67,12 @@ class User:
         # Check that the email is not currently in the database
         c.execute('SELECT email FROM user WHERE email = ?;', (email,) )
         if len( c.fetchall() ) > 0:
-            return False
+            return ValueError("User is already in database")
         else:
             password = hash_password( email, password )
             c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
             conn.commit()
-            return User( user_id, email, username, 0, 0, 'default.png' )
+            return User( email, username, 0, 0, 'default.png' )
     
     @staticmethod
     def get( email ):
@@ -86,35 +85,39 @@ class User:
         if data is None:
             raise ValueError("User is not in database")
         else:
-            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
-
+            return User( data[2], data[3], data[4], data[5], data[6] )
+        
+    @staticmethod
     def get_all():
         '''
         Returns a list of all the users
         NOTE: This can be large - be careful
         '''
-        print( 'All users.' )
-
+        users = []
+        c = conn.cursor()
+        c.execute('SELECT * FROM user')
+        for each in c.fetchall():
+            users.append( each )
+        return users
+        
     def edit_displayname( self, newname ):
         '''
         Changes the displayname of a user class.
         '''
         self.displayname = newname
         print( 'Display name updated.' )
-
+    
     def get_posts( self ):
         '''
         Returns a list of all the post objects that the user has made
         '''
         print( 'Post objects.' )
-
+    
     def rate( self, post, rating ):
         '''
         Gets the user to vote on a given post object
         Rating should be -1, 0, or 1
         '''
         print( 'Vote cast!' )
-
+    
     # TODO: Functions for verified status and title management
-
-User.register('rfras399@walrusfamily.com', 'alphabetical', 'Robert Fraser' )
