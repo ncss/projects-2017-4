@@ -58,13 +58,13 @@ form {
     color: white;
     padding: 10px;
     text-decoration: none;
-    margin: 10px;
+    margin: auto;
     cursor: pointer;
     width: 400px;
-    height: 200px;
+    height: auto;
     text-align: center;
 	line-height: 1.25;
-
+	
 }
 
 legend{
@@ -86,8 +86,9 @@ input{
 
 label{
 	font-family: "News Cycle", Arial, sans-serif;
+	font-size: 16px;
     display: inline-block;
-    width: 100px;
+    width: 120px;
     text-align: left;
 }
 
