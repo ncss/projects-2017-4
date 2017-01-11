@@ -4,7 +4,7 @@ import html
 def render_template(filename, context):
     """ Opens the file and calls the 'program' function """
     # Get template string
-    f = open('templates/' + filename)
+    f = open('templates/' + filename, encoding='utf-8')
     template = f.read()
     f.close()
     # Call program
