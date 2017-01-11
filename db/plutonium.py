@@ -39,7 +39,8 @@ class User:
     '''
     User Object
     '''
-    def __init__(self, email, username, level, is_verified, profile_picture ):
+    def __init__(self, user_id, email, username, level, is_verified, profile_picture ):
+        self.user_id = user_id
         self.email = email
         self.username = username
         self.level = level
@@ -64,7 +65,7 @@ class User:
             storedhash = data[1]
             # Hash the given password and compare it to the storedhash
             if password == storedhash:
-                return User( data[2], data[3], data[4], data[5], data[6] )
+                return User( data[0], data[2], data[3], data[4], data[5], data[6] )
             else:
                 raise ValueError("Passwords do not match")
 
@@ -83,7 +84,7 @@ class User:
             password = hash_password( email, password )
             c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
             conn.commit()
-            return User( email, username, 0, 0, 'default.png' )
+            return User( c.lastrowid, email, username, 0, 0, 'default.png' )
 
     @staticmethod
     def get( email ):
@@ -96,7 +97,20 @@ class User:
         if data is None:
             raise ValueError("User is not in database")
         else:
-            return User( data[2], data[3], data[4], data[5], data[6] )
+            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+
+    @staticmethod
+    def get_by_id( user_id ):
+        '''
+        Gets a user object given a user_id
+        '''
+        c = conn.cursor()
+        c.execute('SELECT * FROM user WHERE user_id = ?;', (user_id,) )
+        data = c.fetchone()
+        if data is None:
+            raise ValueError("User is not in database")
+        else:
+            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
 
     @staticmethod
     def get_all():
@@ -334,9 +348,9 @@ class Ratings:
 
 if __name__ == '__main__':
     database_connect( 'street.db' )
-    print(Post.get_by_recent(10))
+    #print(Post.get_by_recent(10))
 
-    cur = conn.execute('SELECT * FROM Post')
+    #cur = conn.execute('SELECT * FROM Post')
 
-    for row in cur:
-        print(row)
+    #for row in cur:
+    #print(row)
