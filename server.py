@@ -31,8 +31,6 @@ def home(response):
     html = render_template('main.html', {'user': user})
     response.write(html)
 
-
-
 def login_handler(response):
     email = response.get_field("email")
     password = response.get_field("password")
@@ -45,23 +43,12 @@ def login_handler(response):
         html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
         response.write(html)
 
-def submit_handler(response): 
-    user = get_current_user(response)
-    title = response.get_field("title")
-    location = response.get_field("location")
-    image = response.get_file("image")
-    description = response.get_field("description")
-    if (not title) or (not location) or (not image) or (not description):
-        html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
-    else:
-        html = render_template('new_post.html', {'user': user})
-    response.write(html)
-
 def signup_handler(response):
     name = response.get_field('name')
     email = response.get_field('email')
     password = response.get_field('password')
     confpassword = response.get_field('confpassword')
+    #when done with mvp keep entered fields
     if (not name) or (not email) or (not password) or (not confpassword):
         user = get_current_user(response)
         html = render_template('signup.html', {'user': user, 'errorMessage': "You must fill in all fields. Please try again." })
@@ -69,6 +56,14 @@ def signup_handler(response):
     elif password != confpassword:
         user = get_current_user(response)
         html = render_template('signup.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
+        response.write(html)
+    elif len(password) < 6:
+        user = get_current_user(response)
+        html = render_template('signup.html', {'user': user, 'errorMessage': "Password must be longer than 6 characters. Please try again." })
+        response.write(html)
+    elif password.lower() == 'password':
+        user = get_current_user(response)
+        html = render_template('signup.html', {'user': user, 'errorMessage': "'Password' is far to weak. Please submit a different password." })
         response.write(html)
     else:
         try:
@@ -82,35 +77,40 @@ def signup_handler(response):
 
 def profile(response,name):
     user = get_current_user(response)
+    print(user)
+    print(user.profile_picture)
     html = render_template('profile.html', {'user': user})
     response.write(html)
 
 def get_current_user(response):
     email = response.get_secure_cookie("userCookie")    #change back to User(), later when DB is fixed
-    user = "hello"
     if email is not None:
         email = email.decode()
+        user = User.get(email)
         return user
     return None
-	
+
 def view_post(response, post_id):
-    user = get_current_user(response)
-    html = render_template('content.html', {'user': user})
-    response.write(html)
+    try:
+        post = Post.get(post_id)
+        user = get_current_user(response)
+        html = render_template('content.html', {'user': user})
+        response.write(html)
+    except:
+        user = get_current_user(response)
+        html = render_template('404errorpage.html', {'user': user})
+        response.write(html)
 
 def demo(response):
     user = get_current_user(response)
-    html = render_template('demo.html', {'user': user})
+    html = render_template('demo.html', {'user': user, 'comments':['great', 'meh']})
     response.write(html)
-
 
 def notfound(response):
     user = get_current_user(response)
     html = render_template('404errorpage.html', {'user': user})
     response.write(html)
-    
-    
-    
+
 ###NOT LOGGED IN EXCLUSIVE PAGES###
 @notLoginRequired
 def login(response):
@@ -127,7 +127,8 @@ def signup(response):
 ###LOGIN EXCLUSIVE PAGES###
 @loginRequired
 def submit(response):
-    html = render_template('new_post.html', {})
+    user = get_current_user(response)
+    html = render_template('new_post.html', {'user': user})
     response.write(html)
 
 @loginRequired
@@ -135,12 +136,36 @@ def logout(response):
     response.clear_cookie("userCookie")
     response.redirect('/home')
 
-    
+@loginRequired
+def profile(response,name):
+    user = get_current_user(response)
+    html = render_template('profile.html', {'user': user})
+    response.write(html)
+
+@loginRequired
+def submit_handler(response):
+    user = get_current_user(response)
+    title = response.get_field("title")
+    location = response.get_field("location")
+    image = response.get_file("postImage")
+    description = response.get_field("description")
+    pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
+
+    if (not title) or (not location) or (not image) or (not description) or (image[1] is None):
+        html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
+    else:
+        pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
+        with open(pictureName,'wb') as pictureFile:
+            pictureFile.write(image[2])
+        createPost = Post.create(user.self,title,description,pictureName,location)
+        response.redirect("/post/"+str(createPost.id))
+
+
 database_connect('db/street.db')
 
 server = Server()
 server.register(r'/?(?:home)?', home)
-server.register(r'/profile(?:/([\w\.\-]+))?', profile)
+server.register(r'/profile(?:(?:/([\w\.\-]+)?)|/?)', profile)
 server.register(r'/login', login, post=login_handler)
 server.register(r'/signup',signup, post=signup_handler)
 server.register(r'/post/([\w\.\-]+)',view_post)
