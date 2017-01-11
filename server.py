@@ -73,7 +73,7 @@ def signup_handler(response):
         except ValueError:
             user = get_current_user(response)
             html = render_template('signup.html', {'user': user, 'errorMessage': "This user is already in the database." })
-            response.write(html) 
+            response.write(html)
 
 def profile(response,name):
     user = get_current_user(response)
@@ -94,7 +94,8 @@ def view_post(response, post_id):
     try:
         post = Post.get(post_id)
         user = get_current_user(response)
-        html = render_template('content.html', {'user': user})
+        poster = User.get_by_id(post.author_id)
+        html = render_template('content.html', {'user': user,'post':post,'poster':poster})
         response.write(html)
     except:
         user = get_current_user(response)
@@ -149,15 +150,15 @@ def submit_handler(response):
     location = response.get_field("location")
     image = response.get_file("postImage")
     description = response.get_field("description")
-    pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
 
     if (not title) or (not location) or (not image) or (not description) or (image[1] is None):
         html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
+        response.write(html)
     else:
         pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
         with open(pictureName,'wb') as pictureFile:
             pictureFile.write(image[2])
-        createPost = Post.create(user.self,title,description,pictureName,location)
+        createPost = Post.create(user.user_id,title,description,pictureName,location)
         response.redirect("/post/"+str(createPost.id))
 
 
