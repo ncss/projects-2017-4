@@ -319,7 +319,8 @@ class Post:
 
         comments_section = []
         for row in cur:
-            comments_section.append(row)
+            print(row)
+            comments_section.append(Comment(row[0], row[2], row[1], row[3]))
 
         return comments_section
 

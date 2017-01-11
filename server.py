@@ -94,14 +94,20 @@ def get_current_user(response):
         return user
     return None
 
+@loginRequired
 def view_post(response, post_id):
     try:
         post = Post.get(post_id)
         user = get_current_user(response)
+        comments = Post.comments(post_id)
+        for c in comments:
+            c.author = User.get_by_id(c.author)
+
         poster = User.get_by_id(post.author_id)
-        html = render_template('content.html', {'user': user,'post':post,'poster':poster})
+        html = render_template('content.html', {'user': user,'post':post,'poster':poster, 'comments': comments})
         response.write(html)
-    except:
+    except Exception as e:
+        print(e)
         user = get_current_user(response)
         html = render_template('404errorpage.html', {'user': user})
         response.write(html)
@@ -166,6 +172,14 @@ def submit_handler(response):
         createPost = Post.create(user.user_id,title,description,pictureName,location)
         response.redirect("/post/"+str(createPost.id))
 
+@loginRequired
+def comment_post(response, post_id):
+    user = get_current_user(response)
+    comment = response.get_field("comment")
+
+    if comment:
+        comment = Comment.create(user.user_id, post_id, comment)
+    response.redirect('/post/' + post_id)
 
 database_connect('db/street.db')
 
@@ -174,7 +188,7 @@ server.register(r'/?(?:home)?', home)
 server.register(r'/profile(?:(?:/([\w\.\-]+)?)|/?)', profile)
 server.register(r'/login', login, post=login_handler)
 server.register(r'/signup',signup, post=signup_handler)
-server.register(r'/post/([\w\.\-]+)',view_post)
+server.register(r'/post/([\w0-9.-]+)', view_post, post=comment_post)
 server.register(r'/submit',submit, post=submit_handler)
 server.register(r'/demo',demo)
 server.register(r'/logout',logout)
