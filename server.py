@@ -28,7 +28,9 @@ def notLoginRequired(fn):
 
 def home(response):
     user = get_current_user(response)
-    html = render_template('main.html', {'user': user})
+    posts = Post.get_by_recent(4)
+    print(posts)
+    html = render_template('main.html', {'user': user, 'posts': posts})
     response.write(html)
 
 def login_handler(response):

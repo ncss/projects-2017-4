@@ -1,6 +1,14 @@
 {% include header.html %}
 
-<h1>Heading</h1>
-<p>Welcome, {{user.displayname}}. </p>
+{% if user %}<h4>Welcome, {{user.username}}.</h4>{% end if %}
+
+{% if posts %}
+    {% for post in posts %}
+        <center>
+        <h3>{{ post.title }}</h3>
+        <img src="{{ post.image }}" style="width: 50%">
+        </center>
+    {% end for %}
+{% end if %}
         
 {% include footer.html %}
