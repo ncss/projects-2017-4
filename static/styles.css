@@ -107,7 +107,7 @@ label{
 }
 
 /* link */
-a {
+header a {
     color: white;
 	text-decoration: none;
 	display: inline-block;
@@ -116,13 +116,17 @@ a {
 }
 
 /* mouse over link */
-a:hover {
+header a:hover {
     color: #E25D48;
 }
 
 /* selected link */
-a:active {
+header a:active {
     color: #E25D48;
+}
+
+a {
+	color: #E25D48;
 }
 
 /* header CSS */
