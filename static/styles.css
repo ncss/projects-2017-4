@@ -58,7 +58,7 @@ a: visited{
 	color: white;
 }
 
-table {
+/*table {
 	border: 1px solid #000;
 	width: 90%;
 	border-collapse: collapse;
@@ -67,7 +67,7 @@ table {
 th, td {
   padding: 5px;
   border: 1px solid #000;
-}
+}*/
 
 ol > li {
     list-style: upper-roman inside;

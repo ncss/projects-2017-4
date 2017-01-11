@@ -49,7 +49,7 @@ def profile(response,name):
 def get_current_user(response):
     email = response.get_secure_cookie("userCookie")
 
-    user = User()
+    #user = User()
 
 
     if email is not None:
