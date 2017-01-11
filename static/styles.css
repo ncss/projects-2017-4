@@ -84,6 +84,13 @@ input{
     width: 150px;
 }
 
+textarea {
+    resize: none;
+	font-family: "News Cycle", Arial, sans-serif;
+	padding: 10px;
+	border: 0px;
+}
+
 label{
 	font-family: "News Cycle", Arial, sans-serif;
 	font-size: 16px;
@@ -104,6 +111,13 @@ label{
 	 margin: 7px 0px;
 	 padding: 3px 10px;
 	 width: auto;
+}
+
+.create {
+	padding-left: 41px;
+	padding-right: 42px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .create-post{
