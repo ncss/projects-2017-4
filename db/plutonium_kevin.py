@@ -202,7 +202,6 @@ class Comment:
         self.author = author
         self.post = post
         self.content = content
-        print( 'Incredible new comment!' )
 
     def create(user_id, postid, contents ):
         '''
@@ -216,8 +215,8 @@ class Comment:
         INSERT INTO comments (post_id, author, comment) VALUES (?, ?, ?);
 
         ''', (postid, user_id, contents))
-        print( 'New comment has been created!' )
-        return Comment()
+        conn.commit()
+        return Comment(cur.lastrowid, user_id, postid, contents)
 
 class Ratings:
     def __init__(self):
@@ -225,6 +224,3 @@ class Ratings:
     def create(rating_id, user, post, rating):
 
         pass
-
-
-print(Comment.create(0, 10, 'testing 1 2 3'))
