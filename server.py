@@ -37,10 +37,12 @@ def login_handler(response):
     password = response.get_field("password")
     if (email + password) == "loginpassword":
         response.set_secure_cookie('userCookie', email)
-
         response.redirect('/home')
     else:
-        response.write("invalid user")
+		
+        user = get_current_user(response)
+        html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
+        response.write(html)
 
 def profile(response,name):
     user = get_current_user(response)
