@@ -1,6 +1,9 @@
 {% include header.html %}
 
-<form action="/new" method="POST">
+<form action="/submit" method="POST">
+  <p id="invPst">
+	{{ invalidPost }}
+  </p>
   <fieldset>
       <legend>
           Create New Post
@@ -17,10 +20,11 @@
       <input type="file" name="image">
       
   <br>
-      <textarea rows="10" cols="100">Your text here</textarea>
+      <textarea rows="10" cols="100" name="description">Your text here</textarea>
       <br>
       <input type="submit" value="Preview"> <input type="submit" value="Submit">
   </fieldset>
+
 </form>
 
 {% include footer.html %}
