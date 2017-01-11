@@ -1,16 +1,20 @@
 {% include header.html %}
 
-<div class="profile-image">
-    👨
-</div>
+<div class='header_image'> </div>
 
-<div class="info">
-  <h3>Profile</h3>
-  <span class="username">{{ username }}</span>     <span class="verified-label">Verified? </span><span class="verifed">⭐ [yes]</span> 
-  <br>
-  Level: <span class="level">{{ level }}</span>
-  <br>
-  Upvotes: <span class="upvotes">{{ upvotes }}</span>  Downvotes: <span class="downvotes">{{ downvotes }}</span>
+<figure class="profile-image">
+    {% if user.profile_picture == 'default.png'%} 
+    <img src="/static/profile.png" alt="Profile Image" style="width:150px;height:150px;">
+    <!-- test if this works once upload pro_pic option is available -->
+    {% else %}
+    <img src = user.profile_picture>
+    {% end if %}
+    <figcaption class="username" > {{ user.username }}</figcaption>
+</figure>
+
+<div class="description">
+  <h3>Description</h3>
+  <p>{{ username }} hasn't written anything yet</p>
 </div>
 
 <div class="history">
@@ -23,11 +27,6 @@
 <div class="images">
   <h3>Images</h3>
   <div>No maps / images</div>
-</div>
-
-<div class="description">
-  <h3>Description</h3>
-  <div>{{ username }} hasn't written anything yet</div>
 </div>
 
 {% include footer.html %}

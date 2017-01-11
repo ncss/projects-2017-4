@@ -1,31 +1,49 @@
 {% include header.html %}
 <!-- Post Page -->
 <!-- {{post_title}} -->
-<h2> Post Title </h2>
+<div>
+<a class="post-title"> {{post.title}} </a>
+</div>
+<!-- {{profile_name}} -->
+<!-- {{description}} -->
+<a class ="profile-positioning">
 
-<img   src="http://images.fineartamerica.com/images-medium-large-5/grafitti-two-alice-gipson.jpg" alt="" height="" width="" id = "post-image" class = "post-image">
-<img  src="https://www.codeproject.com/KB/web-image/Google_map/sampleMap.JPG" alt="" height="" width="" id ="map-placeholder" class = "map-placeholder">
-<img  src="" alt="" height="" width="" id ="profile-image" class = "profile-image">
+<img class="profile-pic" src="/static/profileman.jpg" alt="{{username}}">
+<h4> {{profile_name}} </h4></a>
+<a class ="profile-description">
+<p> {{description}} </p></a>
+
+<img   src="{{image}}" alt="" height="" width="" id = "post-image" class = "post-image">
+<img  src="{{map_url}}" alt="{{post.title}}" height="" width="" id ="map-placeholder" class = "map-placeholder">
+<img  src="{{profile_image}}" alt="{{username}}" height="" width="" id ="profile-image" class = "profile-image">
+
+
+{% if post == None %}
+NONE
+{% end if %}
+
+<h2> {{post.title}} </h2>
+<h4> {{post.author_id}} </h4>
 
 <img src="" alt="" height="" width="" id="profile-picture">
 <h4> {{profile_name}} </h4>
 <h5> {{verified}} </h5>
-<p> {{description}} </p>
-
-<h3> {{comments_title}} </h3>
-<img src="" alt="" height="" width="" id="writer-profile-picture">
+<p> {{post.description}} </p>
+<h3> {{post.title}} </h3>
+<img src="{{profile_image}}" alt="{{username}}" height="" width="" id="writer-profile-picture">
 
 <form action="" id="writer-comment">
-  Comment: <input type="text" name="">
-  <input type="submit">
+  <label for "comment">Comment: </label>
+  <input type="text" name="">
+  <input type="submit" class="button">
 </form>
 
 {% for comment in comments %}
 <div id="comment-box">
   <img src="" alt="" height="" width="" id="commenter-profile-picture">
-  <h4>{{commenter_name}}</h4>
+  <h4>{{comment.username}}</h4>
   <p>
-    {{comment_text}}
+    {{comment.message}}
   </p>
 </div>
 {% end for %}
