@@ -35,13 +35,25 @@ def home(response):
 def login_handler(response):
     email = response.get_field("email")
     password = response.get_field("password")
-    if (email + password) == "login@loginpassword":
+    if (email + password) == "user@emailpassword": #change this in future
         response.set_secure_cookie('userCookie', email)
         response.redirect('/home')
     else:        
         user = get_current_user(response)
         html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
         response.write(html)
+
+def submit_handler(response): 
+    user = get_current_user(response)
+    title = response.get_field("title")
+    location = response.get_field("location")
+    image = response.get_file("image")
+    description = response.get_field("description")
+    if (not title) or (not location) or (not image) or (not description):
+        html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
+    else:
+        html = render_template('new_post.html', {'user': user})
+    response.write(html)
 
 def signup_handler(response):
     name = response.get_field('name')
@@ -59,6 +71,7 @@ def signup_handler(response):
         user = get_current_user(response)
         html = render_template('signup.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
         response.write(html)
+
 		
 def profile(response,name):
     user = get_current_user(response)
@@ -72,7 +85,7 @@ def get_current_user(response):
         email = email.decode()
         return user
     return None
-
+	
 def view_post(response, post_id):
     user = get_current_user(response)
     html = render_template('content.html', {'user': user})
@@ -122,7 +135,7 @@ server.register(r'/profile(?:/([\w\.\-]+))?', profile)
 server.register(r'/login', login, post=login_handler)
 server.register(r'/signup',signup, post=signup_handler)
 server.register(r'/post/([\w\.\-]+)',view_post)
-server.register(r'/submit',submit)
+server.register(r'/submit',submit, post=submit_handler)
 server.register(r'/demo',demo)
 server.register(r'/logout',logout)
 server.register(r'.+',notfound)
