@@ -3,6 +3,18 @@
 <!-- {{post_title}} -->
 <h2> Post Title </h2>
 
+{% if post == None %}
+NONE
+{% end if %}
+
+<h2> {{post.title}} </h2>
+
+<img   src="post.image" alt="" height="" width="" id = "post_image">
+<img  src="post.location" alt="" height="" width="" id ="map_placeholder">
+
+<img src="author_id.profile_picture" alt="" height="" width="" id="profile_picture">
+<h4> {{post.author_id}} </h4>
+
 <img   src="http://images.fineartamerica.com/images-medium-large-5/grafitti-two-alice-gipson.jpg" alt="" height="" width="" id = "post-image" class = "post-image">
 <img  src="https://www.codeproject.com/KB/web-image/Google_map/sampleMap.JPG" alt="" height="" width="" id ="map-placeholder" class = "map-placeholder">
 <img  src="" alt="" height="" width="" id ="profile-image" class = "profile-image">
@@ -10,7 +22,7 @@
 <img src="" alt="" height="" width="" id="profile-picture">
 <h4> {{profile_name}} </h4>
 <h5> {{verified}} </h5>
-<p> {{description}} </p>
+<p> {{post.description}} </p>
 
 <h3> {{comments_title}} </h3>
 <img src="" alt="" height="" width="" id="writer-profile-picture">
