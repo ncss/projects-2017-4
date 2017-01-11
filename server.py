@@ -35,14 +35,31 @@ def home(response):
 def login_handler(response):
     email = response.get_field("email")
     password = response.get_field("password")
-    if (email + password) == "loginpassword":
+    if (email + password) == "login@loginpassword":
         response.set_secure_cookie('userCookie', email)
         response.redirect('/home')
-    else:    	
+    else:        
         user = get_current_user(response)
         html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
         response.write(html)
 
+def signup_handler(response):
+    name = response.get_field('name')
+    email = response.get_field('email')
+    password = response.get_field('password')
+    confpassword = response.get_field('confpassword')
+    if password == confpassword:
+        #save to database
+        pass
+    else:
+        user = get_current_user(response)
+        html = render_template('registration.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
+        response.write(html)
+    if (not name) or (not email) or (not password) or (not confpassword):
+        user = get_current_user(response)
+        html = render_template('registration.html', {'user': user, 'errorMessage': "You must fill in all fields. Please try again." })
+        response.write(html)
+		
 def profile(response,name):
     user = get_current_user(response)
     html = render_template('profile.html', {'user': user})
@@ -51,7 +68,6 @@ def profile(response,name):
 def get_current_user(response):
     email = response.get_secure_cookie("userCookie")    #change back to User(), later when DB is fixed
     user = "hello"
-
     if email is not None:
         email = email.decode()
         return user
@@ -104,7 +120,7 @@ server = Server()
 server.register(r'/?(?:home)?', home)
 server.register(r'/profile(?:/([\w\.\-]+))?', profile)
 server.register(r'/login', login, post=login_handler)
-server.register(r'/signup',signup)
+server.register(r'/signup',signup, post=signup_handler)
 server.register(r'/post/([\w\.\-]+)',view_post)
 server.register(r'/submit',submit)
 server.register(r'/demo',demo)

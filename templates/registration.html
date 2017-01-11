@@ -1,6 +1,6 @@
 {% include header.html %}
 
-<form action="/register" method="POST">
+<form action="/signup" method="POST">
     <fieldset>
         <legend><!-- Adds a cool box thing border around it with text on it --> 
             Sign Up
@@ -15,7 +15,14 @@
 		<input type="password" name="confpassword">
         <!-- <textarea>Value</textarea> Inserts a textbox with 'Value' in it-->
         <input type="submit" value="Submit">
-        </p>
+        
+		
+		<p id="errorMsg">
+		{% if errorMessage %}
+		{{ errorMessage }}
+		{% end if %}
+		</p>
+		
     </fieldset>
 </form>
 
