@@ -58,13 +58,13 @@ form {
     color: white;
     padding: 10px;
     text-decoration: none;
-    margin: 10px;
+    margin: auto;
     cursor: pointer;
-    width: 400px;
-    height: 200px;
+    width: 80%;
+    height: auto;
     text-align: center;
 	line-height: 1.25;
-
+	
 }
 
 legend{
@@ -84,10 +84,18 @@ input{
     width: 150px;
 }
 
+textarea {
+    resize: none;
+	font-family: "News Cycle", Arial, sans-serif;
+	padding: 10px;
+	border: 0px;
+}
+
 label{
 	font-family: "News Cycle", Arial, sans-serif;
+	font-size: 16px;
     display: inline-block;
-    width: 100px;
+    width: 120px;
     text-align: left;
 }
 
@@ -105,6 +113,21 @@ label{
 	 width: auto;
 }
 
+.create {
+	padding-left: 41px;
+	padding-right: 42px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.create-post{
+	width: 500px;
+}
+
+.custom-file-upload {
+    
+}
+
 /* link */
 header a {
     color: white;
@@ -112,21 +135,29 @@ header a {
 	display: inline-block;
 	width: 100px;
 	text-align: center;
+	-webkit-transition: all 0.5s ease-in-out; 
+	-moz-transition: all 0.5s ease-in-out;
 	font-size: 16px;
 }
 
 /* mouse over link */
 header a:hover {
     color: #E25D48;
+	-webkit-transition: all 0.5s ease-in-out; 
+	-moz-transition: all 0.5s ease-in-out;
 }
 
 /* selected link */
 header a:active {
     color: #E25D48;
+	-webkit-transition: all 0.5s ease-in-out; 
+	-moz-transition: all 0.5s ease-in-out;
 }
 
 a {
 	color: #E25D48;
+	-webkit-transition: all 0.5s ease-in-out; 
+	-moz-transition: all 0.5s ease-in-out;
 }
 
 /* header CSS */
@@ -194,9 +225,12 @@ nav {
 main {
 	padding-top: 20px;
 	padding-bottom:20px;
-	padding-left: 20%;
-	padding-right: 20%;
+	padding-left: 10%;
+	padding: color #212121;
 	text-align: justify;
+	min-width: 790px;
+	width: 80%;
+	
 }
 
 /* footer css */
@@ -218,6 +252,43 @@ footer ul li{
 	padding-right:4px;
 	font-size: 12px;
 	border-left:2px dotted black;
+}
+
+/* for content page */
+
+.post-image {
+	width: 500px;
+	height: 450px;
+	padding-left: 10px;
+	padding-top: 30px;
+	padding-right: 15px;
+	overflow: hidden;
+	border: 5px #212121;
+	
+
+	
+}
+
+.map-placeholder {
+	
+	
+	top: 225px;
+	height: 225px;
+	width: 500px;
+	overflow: hidden;
+	padding-top: 30px;
+	
+	border: 5px #212121;
+	vertical-align: top;
+
+	
+	
+	
+}
+
+.post-title{
+	
+	
 }
 
 /* styling for the invalid user message */
