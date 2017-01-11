@@ -2,32 +2,27 @@
 
 <div class='header_image'> </div>
 
-<figure class="profile-image">
-    {% if user.profile_picture == 'default.png'%} 
-    <img src = '/static/profile.png' alt="Profile Picture" style="width:150px;height:150px;">
-    <!-- test if this works once upload pro_pic option is available -->
-    {% else %}
-    <img src = user.profile_picture>
-    {% end if %}
-    <figcaption class="username" > {{ user.username }}</figcaption>
-</figure>
-
-<div class="description">
-  <h3>Description</h3>
-  <p>{{user.description}}</p>
-</div>
+<center>
+<div class="newsfeed-image">
+<center>
+<h3>{{ user.username }}</h3>
+<img src="/static/profile.png" style="width:150px">
+<p>
+Student from NCSS who something or rather.
+</p>
 
 <div class="history">
-  <h3>Past Posts</h3>
+  <h3>Posts</h3>
   {% for post in posts %}
-  <time>{{ date }}</time> <a href="/post/{{ post.id }}">{{ post.title }}</a>
+  <a href="/post/{{ post.id }}">{{ post.title }}</a>
+  <br />
+  <img src="{{ post.image }}" style="width: 64px">
   <br>
   {% end for %}
 </div>
 
-<div class="images">
-  <h3>Images</h3>
-  <div>No maps / images</div>
+</center>
 </div>
+</center>
 
 {% include footer.html %}

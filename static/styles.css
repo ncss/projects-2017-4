@@ -262,6 +262,11 @@ footer ul li{
 
 /* for content page */
 
+.profile-image {
+        border-radius: 32px;
+        display: block;
+}
+
 .newsfeed-image {
 	width: 500px;
 	border: 2px dashed #E25D48;
@@ -320,7 +325,10 @@ footer ul li{
 }
 
 .history {
-    padding-top: 50px;
+    padding-top: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-top: 2px dashed #E25D48;
     clear: left;
 
 
