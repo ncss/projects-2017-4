@@ -1,6 +1,7 @@
 from tornado.ncss import Server
 from re_template_renderer import render_template
-from db.plutonium import User,Post,Comment
+#uncomment later when DB is fixed
+#from db.plutonium import User,Post,Comment
 
 
 ###DECORATORS###
@@ -36,10 +37,11 @@ def login_handler(response):
     password = response.get_field("password")
     if (email + password) == "loginpassword":
         response.set_secure_cookie('userCookie', email)
-
         response.redirect('/home')
-    else:
-        response.write("invalid user")
+    else:    	
+        user = get_current_user(response)
+        html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
+        response.write(html)
 
 def profile(response,name):
     user = get_current_user(response)
@@ -47,22 +49,17 @@ def profile(response,name):
     response.write(html)
 
 def get_current_user(response):
-    email = response.get_secure_cookie("userCookie")
-
-    user = User()
-
+    email = response.get_secure_cookie("userCookie")    #change back to User(), later when DB is fixed
+    user = "hello"
 
     if email is not None:
         email = email.decode()
         return user
     return None
 
-
-
-
-def post(response,post_id):
+def view_post(response, post_id):
     user = get_current_user(response)
-    html = render_template('new_post.html', {'user': user})
+    html = render_template('content.html', {'user': user})
     response.write(html)
 
 def demo(response):
@@ -72,7 +69,11 @@ def demo(response):
 
 
 def notfound(response):
-    response.write("Lol not found")
+    user = get_current_user(response)
+    html = render_template('404errorpage.html', {'user': user})
+    response.write(html)
+    
+    
     
 ###NOT LOGGED IN EXCLUSIVE PAGES###
 @notLoginRequired
@@ -85,8 +86,7 @@ def login(response):
 def signup(response):
     user = get_current_user(response)
     html = render_template('registration.html', {'user': user})
-    response.write(html)
-
+    response.write(html) 
 
 ###LOGIN EXCLUSIVE PAGES###
 @loginRequired
@@ -105,7 +105,7 @@ server.register(r'/?(?:home)?', home)
 server.register(r'/profile(?:/([\w\.\-]+))?', profile)
 server.register(r'/login', login, post=login_handler)
 server.register(r'/signup',signup)
-server.register(r'/post/([\w\.\-]+)',post)
+server.register(r'/post/([\w\.\-]+)',view_post)
 server.register(r'/submit',submit)
 server.register(r'/demo',demo)
 server.register(r'/logout',logout)
