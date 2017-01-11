@@ -45,6 +45,18 @@ def login_handler(response):
         html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
         response.write(html)
 
+def submit_handler(response): 
+    user = get_current_user(response)
+    title = response.get_field("title")
+    location = response.get_field("location")
+    image = response.get_file("image")
+    description = response.get_field("description")
+    if (not title) or (not location) or (not image) or (not description):
+        html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
+    else:
+        html = render_template('new_post.html', {'user': user})
+    response.write(html)
+
 def signup_handler(response):
     name = response.get_field('name')
     email = response.get_field('email')
@@ -67,7 +79,7 @@ def signup_handler(response):
             user = get_current_user(response)
             html = render_template('signup.html', {'user': user, 'errorMessage': "This user is already in the database." })
             response.write(html) 
-        
+
 def profile(response,name):
     user = get_current_user(response)
     html = render_template('profile.html', {'user': user})
@@ -80,7 +92,7 @@ def get_current_user(response):
         email = email.decode()
         return user
     return None
-
+	
 def view_post(response, post_id):
     user = get_current_user(response)
     html = render_template('content.html', {'user': user})
@@ -132,7 +144,7 @@ server.register(r'/profile(?:/([\w\.\-]+))?', profile)
 server.register(r'/login', login, post=login_handler)
 server.register(r'/signup',signup, post=signup_handler)
 server.register(r'/post/([\w\.\-]+)',view_post)
-server.register(r'/submit',submit)
+server.register(r'/submit',submit, post=submit_handler)
 server.register(r'/demo',demo)
 server.register(r'/logout',logout)
 server.register(r'.+',notfound)
