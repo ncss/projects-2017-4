@@ -3,10 +3,13 @@
 body {
 	font-family: "Open Sans", Arial, sans-serif;
 	font-size: 14px;
+	color: #212121;
+	line-height: 1.5;
 }
 
 h1, h2, h3 {
 	font-family: "News Cycle", Arial, sans-serif;
+	color: #212121;
 }
 
 h1 {
@@ -45,29 +48,6 @@ sub{
 ul > li {
     list-style: circle inside;
 }
-
-a: link{
-	color: red;
-}
-
-a: hover{
-	color: blue;
-}
-
-a: visited{
-	color: white;
-}
-
-/*table {
-	border: 1px solid #000;
-	width: 90%;
-	border-collapse: collapse;
-}
-
-th, td {
-  padding: 5px;
-  border: 1px solid #000;
-}*/
 
 ol > li {
     list-style: upper-roman inside;
@@ -119,7 +99,7 @@ label{
 }
 
 /* link */
-a{
+a {
     color: white;
 	text-decoration: none;
 	display: inline-block;
@@ -129,12 +109,12 @@ a{
 
 /* mouse over link */
 a:hover {
-    color: #F44436;
+    color: #E25D48;
 }
 
 /* selected link */
 a:active {
-    color: #F44436;
+    color: #E25D48;
 }
 
 /* header CSS */
@@ -156,7 +136,11 @@ nav {
 }
 
 main {
-	padding: 20px;
+	padding-top: 20px;
+	padding-bottom:20px;
+	padding-left: 20%;
+	padding-right: 20%;
+	text-align: justify;
 }
 
 /* footer css */
@@ -165,11 +149,11 @@ footer {
 	padding: 15px;
 	background-color: #212121;
 	color: white;
-	margin: 10px;
 	float: bottom;
 	font-size: 14px;
 	margin-top: 20px;
 	padding-top: 10px;
+	text-align: center;
 }
 
 footer ul li{
