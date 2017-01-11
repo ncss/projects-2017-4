@@ -1,8 +1,9 @@
 from tornado.ncss import Server
 from re_template_renderer import render_template
 #uncomment later when DB is fixed
-#from db.plutonium import User,Post,Comment
+from db.plutonium import User,Post,Comment,database_connect
 
+#to create street.db, double click create_db.py
 
 ###DECORATORS###
 def loginRequired(fn):
@@ -35,10 +36,11 @@ def home(response):
 def login_handler(response):
     email = response.get_field("email")
     password = response.get_field("password")
-    if (email + password) == "user@emailpassword": #change this in future
+    try:
+        user = User.login(email, password)
         response.set_secure_cookie('userCookie', email)
         response.redirect('/home')
-    else:        
+    except ValueError:
         user = get_current_user(response)
         html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
         response.write(html)
@@ -60,19 +62,24 @@ def signup_handler(response):
     email = response.get_field('email')
     password = response.get_field('password')
     confpassword = response.get_field('confpassword')
-    if password == confpassword:
-        #save to database
-        pass
-    else:
-        user = get_current_user(response)
-        html = render_template('signup.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
-        response.write(html)
     if (not name) or (not email) or (not password) or (not confpassword):
         user = get_current_user(response)
         html = render_template('signup.html', {'user': user, 'errorMessage': "You must fill in all fields. Please try again." })
         response.write(html)
+    elif password != confpassword:
+        user = get_current_user(response)
+        html = render_template('signup.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
+        response.write(html)
+    else:
+        try:
+            user = User.register(email,password,name)
+            response.set_secure_cookie('userCookie', email)
+            response.redirect('/home')
+        except ValueError:
+            user = get_current_user(response)
+            html = render_template('signup.html', {'user': user, 'errorMessage': "This user is already in the database." })
+            response.write(html) 
 
-		
 def profile(response,name):
     user = get_current_user(response)
     html = render_template('profile.html', {'user': user})
@@ -128,6 +135,8 @@ def logout(response):
     response.clear_cookie("userCookie")
     response.redirect('/home')
 
+    
+database_connect('db/street.db')
 
 server = Server()
 server.register(r'/?(?:home)?', home)
