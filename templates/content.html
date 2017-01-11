@@ -1,9 +1,8 @@
 {% include header.html %}
 <!-- Post Page -->
 <!-- {{post_title}} -->
-<div>
+<div class="post-content">
 <a class="post-title"> {{post.title}} </a>
-</div>
 <!-- {{profile_name}} -->
 <!-- {{description}} -->
 <a class ="profile-positioning">
@@ -26,8 +25,8 @@
 
 <div id="map-placeholder" class="map-placeholder"></div>
 
-<p> {{post.description}} </p>
-
+<p class="post-description"> {{post.description}} </p>
+<div>
 <form action="" id="writer-comment">
   <label for "comment">Comment: </label>
   <input type="text" name="">
