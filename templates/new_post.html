@@ -2,6 +2,8 @@
 
 <script src="geoFindMe.js"></script>
 
+<link rel="stylesheet" href="../static/submit.css">
+
 <form action="/new" method="POST">
   <fieldset>
       <legend>
@@ -12,28 +14,9 @@
       
       <br>
       <label for="location">Location: </label>
-      <input type="text" name="location" id="location" disabled><button type="button" onclick="geoFindMe(); this.style.display = 'none'">Use current location</button>
+      <input type="text" name="location" id="location"><button id="thebutton" type="button" onclick="geoFindMe(); this.style.display = 'none'">Use current location</button>
 	  <br>
 	  <div id="map"></div>
-	  
-	<!--<script>
-	document.getElementById('location').onclick = function() {
-		document.getElementById('location').removeAttribute('disabled');
-	};
-	</script>-->
-	  
-	  <!--<img id="map"/>
-      Replace the value of the key parameter with your own API key. 
-      <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs6LEx2djutDP5siKOfU5J1Dlsa2led-A&callback=initMap">
-      </script>-->
-	  
-	  <!--<h3>My Google Maps Demo</h3>
-      <div id="map"></div>
-      <!-- Replace the value of the key parameter with your own API key. 
-      <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs6LEx2djutDP5siKOfU5J1Dlsa2led-A&callback=initMap">
-      </script> -->
       
       <br>
       <label class="image-label" for="image">Upload Image: </label>
@@ -47,3 +30,23 @@
 </form>
 
 {% include footer.html %}
+
+
+	<!--<script>
+	document.getElementById('location').onclick = function() {
+		document.getElementById('location').setAttribute('disabled');
+	};
+	</script>-->
+	  
+  <!--<img id="map"/>
+  Replace the value of the key parameter with your own API key. 
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs6LEx2djutDP5siKOfU5J1Dlsa2led-A&callback=initMap">
+  </script>-->
+  
+  <!--<h3>My Google Maps Demo</h3>
+  <div id="map"></div>
+  Replace the value of the key parameter with your own API key. 
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs6LEx2djutDP5siKOfU5J1Dlsa2led-A&callback=initMap">
+  </script> -->
