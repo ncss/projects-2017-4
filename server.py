@@ -1,6 +1,7 @@
 from tornado.ncss import Server
 from re_template_renderer import render_template
-from db.plutonium import User,Post,Comment
+#uncomment later when DB is fixed
+#from db.plutonium import User,Post,Comment
 
 
 ###DECORATORS###
@@ -48,8 +49,8 @@ def profile(response,name):
 
 def get_current_user(response):
     email = response.get_secure_cookie("userCookie")
-
-    user = User()
+	#change back to User(), later when DB is fixed
+    user = "hello"
 
 
     if email is not None:
@@ -72,7 +73,11 @@ def demo(response):
 
 
 def notfound(response):
-    response.write("Lol not found")
+    user = get_current_user(response)
+    html = render_template('404errorpage.html', {'user': user})
+    response.write(html)
+    
+    
     
 ###NOT LOGGED IN EXCLUSIVE PAGES###
 @notLoginRequired
