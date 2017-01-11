@@ -119,7 +119,7 @@ label{
 }
 
 /* link */
-a{
+a:link{
     color: white;
 	text-decoration: none;
 	display: inline-block;
