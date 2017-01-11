@@ -43,22 +43,6 @@ def login_handler(response):
         html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
         response.write(html)
 
-def submit_handler(response): 
-    user = get_current_user(response)
-    title = response.get_field("title")
-    location = response.get_field("location")
-    image = response.get_file("postImage")
-    pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
-    with open(pictureName,'wb') as pictureFile:
-        pictureFile.write(image[2])
-     
-    description = response.get_field("description")
-    if (not title) or (not location) or (not image) or (not description):
-        html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
-    else:
-        html = render_template('new_post.html', {'user': user})
-    response.write(html)
-
 def signup_handler(response):
     name = response.get_field('name')
     email = response.get_field('email')
@@ -166,6 +150,7 @@ def submit_handler(response):
         html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
     else:
         html = render_template('new_post.html', {'user': user})
+
     response.write(html)
 
 database_connect('db/street.db')
