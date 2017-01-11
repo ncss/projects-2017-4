@@ -53,11 +53,11 @@ def signup_handler(response):
         pass
     else:
         user = get_current_user(response)
-        html = render_template('registration.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
+        html = render_template('signup.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
         response.write(html)
     if (not name) or (not email) or (not password) or (not confpassword):
         user = get_current_user(response)
-        html = render_template('registration.html', {'user': user, 'errorMessage': "You must fill in all fields. Please try again." })
+        html = render_template('signup.html', {'user': user, 'errorMessage': "You must fill in all fields. Please try again." })
         response.write(html)
 		
 def profile(response,name):

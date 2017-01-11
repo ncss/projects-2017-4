@@ -303,4 +303,3 @@ class f:
     def __init__(self):
         self.name = "Isaac"
 
-print(render_template("temp.txt", {"invalidUser": "asdfghj"}))
