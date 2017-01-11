@@ -28,19 +28,73 @@
 
 <span>Here is span</span>.
 <br>
+<!--Comment section-->
 <h2>Comments</h2>
-<textarea>Value</textarea>
-<input type="submit" value="save">
 <br>
-<article>
-	<span class="posted-by">Posted by <span>name</span></span>
-	<br>
-	<time datetime="2011-12-24" pubdate>
-		2011-12-24
-	</time>
-	<p class="message">This is a comment!</p>
+<div class="post-comment">
+	<div class="poster-pic">
+		<img class="profile-pic" src="/static/profileman.jpg" alt="{{username}}">
+	</div>
+	<div class="comment-writing">
+		<textarea class="write-comment">Type your comment here...</textarea>
+		<br>
+		<input type="submit" value="Post Comment" class="comment-button">
+	</div>
+</div>
+<br>
+<article class="comment">
+	<div class="poster-details">
+		<img class="profile-pic" src="/static/profileman.jpg" alt="{{username}}">
+		<br>
+		<span class="posted-by">Posted by <span class="poster">{{username}}</span></span>
+		<br>
+		<time datetime="2011-12-24" pubdate>
+			2011-12-24
+		</time>
+	</div>
+	<div class="message">
+		<p>James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
+		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
+		James Curran James Curran James Curran James Curran James Curran James Curran
+		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran </p>
+	</div>
+</article>
+<article class="comment">
+	<div class="poster-details">
+		<img class="profile-pic" src="/static/profileman.jpg" alt="{{username}}">
+		<br>
+		<span class="posted-by">Posted by <span class="poster">{{username}}</span></span>
+		<br>
+		<time datetime="2011-12-24" pubdate>
+			2011-12-24
+		</time>
+	</div>
+	<div class="message">
+		<p>James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
+		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
+		James Curran James Curran James Curran James Curran James Curran James Curran
+		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran </p>
+	</div>
+</article>
+<article class="comment">
+	<div class="poster-details">
+		<img class="profile-pic" src="/static/profileman.jpg" alt="{{username}}">
+		<br>
+		<span class="posted-by">Posted by <span class="poster">{{username}}</span></span>
+		<br>
+		<time datetime="2011-12-24" pubdate>
+			2011-12-24
+		</time>
+	</div>
+	<div class="message">
+		<p>James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
+		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
+		James Curran James Curran James Curran James Curran James Curran James Curran
+		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran </p>
+	</div>
 </article>
 <br>
+<!--Login-->
 <form action="/send_to" method="POST">
     <fieldset>
         <legend> 
