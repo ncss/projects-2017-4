@@ -290,6 +290,28 @@ footer ul li{
 	
 	
 }
+.profile-pic{
+    vertical-align: center;
+    
+}
+
+.profile-image{
+    float: left;
+    width: 155px;
+    height: 155px;
+}
+
+.username{
+    padding-top: 0px;
+    margin-top: -20px;
+    font-size: 24pt;
+    font-family: "News Cycle", Arial, sans-serif;
+	color: #212121;
+}
+
+.history {
+    padding-top: 50px;
+    clear: left;
 
 .post-title{
 	
@@ -320,7 +342,6 @@ footer ul li{
 	width: 220px;
 	height: 450px;
 	float: left;
-	
 }
 
 /* styling for the invalid user message */
