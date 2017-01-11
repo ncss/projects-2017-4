@@ -1,15 +1,15 @@
 import unittest
 import os
-from robert import database_connect
-from robert import terminate_connection
-from robert import User
+from plutonium import database_connect
+from plutonium import terminate_connection
+from plutonium import User
 from create_db import init_db
 
 class TestPlutonium(unittest.TestCase):
 
     def setUp(self):
         init_db( 'test.db' )
-        self.conn = database_connect('test.db' )
+        self.conn = database_connect( 'test.db' )
         self.cur = self.conn.cursor()
         
     def test_connection(self):
@@ -22,7 +22,6 @@ class TestPlutonium(unittest.TestCase):
     
     def test_register_fail(self):
         User.register( 'james.r.curran@sydney.edu.au', 'cranberry', 'James Currant' )
-        print( self.cur.fetchall() )
         with self.assertRaises( ValueError ):
             User.register( 'james.r.curran@sydney.edu.au', 'cranberry', 'James Currant' )
     

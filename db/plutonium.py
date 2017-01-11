@@ -1,15 +1,26 @@
 from hashlib import sha512
 import sqlite3
 
-conn = sqlite3.connect('street.db')
-cur = conn.cursor()
+conn = None
+cur = None
 
-def database_connect():
+def database_connect( filename='street.db' ):
+    global conn
+    global cur
     if conn is None:
-        conn = sqlite3.connect('street.db')
+        conn = sqlite3.connect( filename )
         cur = conn.cursor()
 
     return conn
+
+def terminate_connection():
+    global conn
+    global cur
+    if conn is not None:
+        cur.close()
+        conn.close()
+        cur = None
+        conn = None
 
 def hash_password( email, password ):
     '''
@@ -67,7 +78,7 @@ class User:
         # Check that the email is not currently in the database
         c.execute('SELECT email FROM user WHERE email = ?;', (email,) )
         if len( c.fetchall() ) > 0:
-            return ValueError("User is already in database")
+            raise ValueError("User is already in database")
         else:
             password = hash_password( email, password )
             c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
@@ -321,9 +332,11 @@ class Ratings:
         return row[0]
 
 
-print(Post.get_by_recent(10))
+if __name__ == '__main__':
+    database_connect( 'street.db' )
+    print(Post.get_by_recent(10))
 
-cur = conn.execute('SELECT * FROM Post')
+    cur = conn.execute('SELECT * FROM Post')
 
-for row in cur:
-    print(row)
+    for row in cur:
+        print(row)
