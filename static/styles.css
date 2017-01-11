@@ -274,11 +274,20 @@ footer ul li{
 }
 
 .post-description {
-  margin: 660px 381px 40px 0px;
+  margin: 490px 381px 170px 625px;
+  width: 350px;
+}
 
 .profile-image {
         border-radius: 32px;
         display: block;
+        width: 100px;
+        height: 155px;
+}
+
+.profile-image img {
+  width: 60px;
+  height: 60px;
 }
 
 .newsfeed-image {
@@ -290,7 +299,7 @@ footer ul li{
 
 .newsfeed-image img {
         width: 480px;
-	padding: 8px;
+        padding: 8px;
 }
 
 .map-placeholder {
@@ -298,7 +307,7 @@ footer ul li{
     width: 376px;
     overflow: hidden;
     top: 100px;
-    right: 0;
+    right: 0px;
     position: absolute;
 }
 
@@ -312,11 +321,14 @@ footer ul li{
 }
 
 .username{
-    padding-top: 0px;
-    margin-top: -20px;
     font-size: 24pt;
     font-family: "News Cycle", Arial, sans-serif;
     color: #212121;
+    position: absolute;
+    top: 5px;
+    left: 60px;
+    width: 300px;
+    margin-left: 10px;
 }
 
 .history {
@@ -328,7 +340,6 @@ footer ul li{
 }
 
 .post-title{
-    padding-left: 144px;
     font-family: "News Cycle", Arial, sans-serif;
     color: #212121;
     text-decoration: bold;
