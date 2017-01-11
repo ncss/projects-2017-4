@@ -1,4 +1,5 @@
 import re
+import html
 
 def render_template(filename, context):
     """ Opens the file and calls the 'program' function """
@@ -173,7 +174,7 @@ class PythonNode:
     def render(self, context):
         self.content = self.content[2:-2].strip()
         try:
-            return eval(self.content, {}, context)
+            return html.escape(eval(self.content, {}, context))
         except Exception:
             return ""
 
