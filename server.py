@@ -144,7 +144,8 @@ def logout(response):
 @loginRequired
 def profile(response,name):
     user = get_current_user(response)
-    html = render_template('profile.html', {'user': user})
+    posts = User.get_posts(user.user_id)
+    html = render_template('profile.html', {'user': user, 'posts': posts})
     response.write(html)
 
 @loginRequired
@@ -178,6 +179,5 @@ server.register(r'/submit',submit, post=submit_handler)
 server.register(r'/demo',demo)
 server.register(r'/logout',logout)
 server.register(r'.+',notfound)
-
 
 server.run()

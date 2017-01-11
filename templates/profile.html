@@ -19,9 +19,10 @@
 
 <div class="history">
   <h3>Past Posts</h3>
-  <time>{{ date }}</time> <a href="google.com">Street Performance Coming Xmas!!</a>
+  {% for post in posts %}
+  <time>{{ date }}</time> <a href="/post/{{ post.id }}">{{ post.title }}</a>
   <br>
-  <time>{{ date }}</time> <a href="google.com">Statue of Aristotle</a>
+  {% end for %}
 </div>
 
 <div class="images">
