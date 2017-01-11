@@ -71,7 +71,14 @@ class User:
             return False
         else:
             password = hash_password( email, password )
-            c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
+            # Get the maximum user_id in the database to increment for next user
+            c.execute('SELECT MAX(user_id) FROM user;')
+            user_id = 0
+            fetch = c.fetchone()
+            if fetch[0] is not None:
+                user_id = fetch[0] + 1
+            # Insert the user into the database
+            c.execute('INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?);', (user_id, password, email, username, 0, 0, 'default.png') )
             conn.commit()
             return User( user_id, email, username, 0, 0, 'default.png' )
 
@@ -117,8 +124,6 @@ class User:
 
     # TODO: Functions for verified status and title management
 
-User.register('rfras399@walrusfamily.com', 'alphabetical', 'Robert Fraser' )
-
 class Post:
     def __init__(self, post_id, author_id, location, title, description, image):
         self.id = post_id
@@ -134,23 +139,22 @@ class Post:
         Creates a new post given the user object, title, description, image, and location.
         '''
         cur = conn.cursor()
-        cur.execute("""
-        INSERT INTO post (author_id, location, title, description, image, rating)
-        VALUES (
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?
-        )""", (
-        user,
-        location,
-        title,
-        description,
-        image,
-        000
-        ))
+        cur.execute('SELECT id FROM post ORDER BY id DESC LIMIT 1;')
+        post_id = cur.fetchone()
+        print(post_id)
+        # cur.execute("""
+        # INSERT INTO post
+        # VALUES (
+        # id,
+        # author_id,
+        # location,
+        # title,
+        # description,
+        # image,
+        # rating
+        # )""", (
+        #
+        # ))
         print( 'New post created!' )
         return Post()
 
@@ -218,12 +222,9 @@ class Comment:
 class Ratings:
     def __init__(self):
         print('post ratings')
-
-
     def create(rating_id, user, post, rating):
-        '''
-        This area ensures that a used doesn't upvote/downvote more than once,
-        and the 'rating' column is a 'boolean' (not really), indicating weather
-        is a user has rated
-        '''
+
         pass
+
+
+print(Comment.create(0, 10, 'testing 1 2 3'))

@@ -35,7 +35,7 @@ class User:
         self.level = level
         self.is_verifed = is_verified
         self.profile_picture = profile_picture
-
+    
     @staticmethod
     def login( email, password ):
         '''
@@ -57,7 +57,7 @@ class User:
                 return User( data[0], data[2], data[3], data[4], data[5], data[6] )
             else:
                 raise ValueError("Password Mismatch")
-
+    
     @staticmethod
     def register( email, password, username ):
         '''
@@ -74,7 +74,7 @@ class User:
             c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
             conn.commit()
             return User( user_id, email, username, 0, 0, 'default.png' )
-
+    
     @staticmethod
     def get( email ):
         '''
@@ -118,112 +118,3 @@ class User:
     # TODO: Functions for verified status and title management
 
 User.register('rfras399@walrusfamily.com', 'alphabetical', 'Robert Fraser' )
-
-class Post:
-    def __init__(self, post_id, author_id, location, title, description, image):
-        self.id = post_id
-        self.author_id = author_id
-        self.location = location
-        self.title = title
-        self.description = description
-        self.image = image
-        self.rating = Rating.post_rating(post_id)
-
-    def create( user, title, description, image, location ):
-        '''
-        Creates a new post given the user object, title, description, image, and location.
-        '''
-        cur = conn.cursor()
-        cur.execute("""
-        INSERT INTO post (author_id, location, title, description, image, rating)
-        VALUES (
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?
-        )""", (
-        user,
-        location,
-        title,
-        description,
-        image,
-        000
-        ))
-        print( 'New post created!' )
-        return Post()
-
-    def get( postid ):
-        '''
-        Returns a post object given a postid
-        '''
-        print( 'Obtained post!' )
-        return Post()
-
-    def get_all():
-        '''
-        Returns a list containing every post object
-        NOTE: This can be large - be careful
-        '''
-        print( 'All the posts!' )
-
-    def get_by_recent( amount ):
-        '''
-        Returns some of the most recent posts created
-        '''
-        print( 'Most recent posts' )
-
-    def get_by_location( location, amount ):
-        '''
-        Returns some of the nearest posts
-        '''
-        print( 'Nearby posts' )
-
-    def rating( self ):
-        '''
-        Returns the rating of a post.
-        '''
-        print( 'Return ratings.' )
-
-    def comments( self ):
-        '''
-        Returns a list of all the comments on the post
-        '''
-        print( 'Return comments.' )
-
-class Comment:
-    def __init__(self, comment_id, author, post, content):
-        self.comment_id = comment_id
-        self.author = author
-        self.post = post
-        self.content = content
-        print( 'Incredible new comment!' )
-
-    def create(user_id, postid, contents ):
-        '''
-        Given a user object, a post object, and a string
-        creates a new comment on the specified post
-        '''
-
-
-        cur = conn.execute('''
-
-        INSERT INTO comments (post_id, author, comment) VALUES (?, ?, ?);
-
-        ''', (postid, user_id, contents))
-        print( 'New comment has been created!' )
-        return Comment()
-
-class Ratings:
-    def __init__(self):
-        print('post ratings')
-
-
-    def create(rating_id, user, post, rating):
-        '''
-        This area ensures that a used doesn't upvote/downvote more than once,
-        and the 'rating' column is a 'boolean' (not really), indicating weather
-        is a user has rated
-        '''
-        pass
