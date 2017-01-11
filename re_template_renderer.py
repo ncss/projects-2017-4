@@ -7,6 +7,7 @@ def render_template(filename, context):
     # Get template string
     f = open('templates/' + filename, encoding='utf-8')
     template = f.read()
+    #print(template.encode("utf-8"))
     f.close()
     # Call program
     return program(template, context)
@@ -62,6 +63,7 @@ class Lexer: # This checks the syntax and creates a node tree
 
     def parse(self):
         while self.upto < len(self.template): # While there's still input left
+            #print(self.template[self.upto:].encode("utf-8"))
             nodeType = getNodeType(self.template[self.upto:])
             if nodeType == "expr":
                 self.parsePython()
@@ -82,9 +84,10 @@ class Lexer: # This checks the syntax and creates a node tree
 
     def parseText(self):
         start = self.upto # Log the start of the node
-        while self.peek() not in ["{", None]: # While its not the start of another node or the end of the string
+        while self.peek(1) not in ['{', None] or self.peek(2) not in ["{{", "{%", None]: # While its not the start of another node or the end of the string
             self.next()
         if start == self.upto: # If the node starts with a bracket and it hasnt been picked up by the earlier regex: ERROR
+            #print("Unknown statement:", repr(self.template[start:self.upto][:100]))
             raise NameError("Unknown statement.")
         # Create a text object and add it to the current children
         self.nodeTree.children.append(TextNode(self.template[start:self.upto])) # I think the errors used in these are not needed
@@ -284,7 +287,7 @@ class ForNode:
                 if varCount > 1:
                     for item in iterable:
                         if len(item) != varCount:
-                            print(item)
+                            #print(item)
                             raise Exception
             except Exception: # Probably should be more specific about the error type
                 iterable = ""
