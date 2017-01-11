@@ -231,7 +231,7 @@ class IfNode:
             arguments = re.match(r'{% *if.*?%}(.*){% *else *%}(.*){% *end *if *%}', self.content)
             try:
                 condition = eval(predicate, {}, context)
-                if condition == True:
+                if condition:
                     if arguments is not None:
                         return arguments.groups()[0] # Return the if block
                     else:
