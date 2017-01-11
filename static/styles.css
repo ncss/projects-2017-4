@@ -2,11 +2,14 @@
 
 body {
 	font-family: "Open Sans", Arial, sans-serif;
-	font-size: 14pt;
+	font-size: 14px;
+	color: #212121;
+	line-height: 1.5;
 }
 
 h1, h2, h3 {
 	font-family: "News Cycle", Arial, sans-serif;
+	color: #212121;
 }
 
 h1 {
@@ -22,7 +25,7 @@ h3 {
 }
 
 p {
-	margin-top: 1em;
+	margin-top: 1;
 }
 
 b, strong {
@@ -33,12 +36,12 @@ i , em {
     font-style: italic;
 }
 sup {
-    font-size:x-small; 
+    font-size: 10px; 
     vertical-align:top;
 }
 
 sub{
-    font-size:x-small; 
+    font-size:10px; 
     vertical-align:bottom;
 }
     
@@ -46,49 +49,84 @@ ul > li {
     list-style: circle inside;
 }
 
-a: link{
-	color: red;
-}
-
-a: hover{
-	color: blue;
-}
-
-a: visited{
-	color: white;
-}
-
-table {
-	border: 1px solid #000;
-	width: 90%;
-	border-collapse: collapse;
-}
-
-th, td {
-  padding: 5px;
-  border: 1px solid #000;
-}
-
 ol > li {
     list-style: upper-roman inside;
 }
 
 form {
+    background-color: #F44436;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    margin: auto;
+    cursor: pointer;
+    width: 400px;
+    height: auto;
+    text-align: center;
+	line-height: 1.25;
+	
+}
+
+legend{
+    font-family: "News Cycle", Arial, sans-serif;
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
+    margin-top: 16px;
+
+}
+
+input{
+    border-width: 0px;
+    padding: 5px;
+    margin: 7px 0px;
+    width: 150px;
+}
+
+label{
+	font-family: "News Cycle", Arial, sans-serif;
+	font-size: 16px;
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+}
+
+.button{
+	 text-align: left;
+     border-width: 0px;
+     border-color: #202020;
+     border-style: solid;
+     background-color: #ffffff;
+     color: #F44436;
+     font-family: "News Cycle", Arial, sans-serif;
+     font-size: 18px;
+	 margin: 7px 0px;
+	 padding: 3px 10px;
+	 width: auto;
 }
 
 /* link */
-a{
+header a {
     color: white;
+	text-decoration: none;
+	display: inline-block;
+	width: 100px;
+	text-align: center;
 }
 
 /* mouse over link */
-a:hover {
-    color: #F44436;
+header a:hover {
+    color: #E25D48;
 }
 
 /* selected link */
-a:active {
-    color: #F44436;
+header a:active {
+    color: #E25D48;
+}
+
+a {
+	color: #E25D48;
 }
 
 /* header CSS */
@@ -110,23 +148,35 @@ nav {
 }
 
 main {
-	padding: 20px;
+	padding-top: 20px;
+	padding-bottom:20px;
+	padding-left: 20%;
+	padding-right: 20%;
+	text-align: justify;
 }
 
 /* footer css */
 
 footer {
-	margin: 10px;
+	padding: 15px;
+	background-color: #212121;
+	color: white;
 	float: bottom;
 	font-size: 14px;
 	margin-top: 20px;
 	padding-top: 10px;
+	text-align: center;
 }
 
-footer ul  li{
+footer ul li{
 	display: inline-block;
 	padding-left:4px; 
 	padding-right:4px;
 	font-size: 12px;
 	border-left:2px dotted black;
+}
+
+/* styling for the invalid user message */
+#invUsr{
+	margin-top: 50px;
 }

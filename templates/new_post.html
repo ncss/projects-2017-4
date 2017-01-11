@@ -2,9 +2,12 @@
 
 <script src="geoFindMe.js"></script>
 
-<link rel="stylesheet" href="../static/submit.css">
+<link rel="stylesheet" href="/static/submit.css">
 
-<form action="/new" method="POST">
+<form action="/submit" method="POST" enctype="multipart/form-data">
+  <p id="invPst">
+	{{ invalidPost }}
+  </p>
   <fieldset>
       <legend>
           Create New Post
@@ -20,13 +23,14 @@
       
       <br>
       <label class="image-label" for="image">Upload Image: </label>
-      <input type="file" name="image">
+      <input type="file" name="postImage" accept='image/*'>
       
   <br>
-      <textarea rows="10" cols="100">Your text here</textarea>
+      <textarea rows="10" cols="100" name="description">Your text here</textarea>
       <br>
       <input type="submit" value="Preview"> <input type="submit" value="Submit">
   </fieldset>
+
 </form>
 
 {% include footer.html %}

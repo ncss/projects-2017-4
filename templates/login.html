@@ -2,21 +2,22 @@
 
 <form action="/login" method="POST">
     <fieldset>
-        <!-- Adds a cool box thing border around it with text on it -->
+        
         <legend> 
             Log In
         </legend>
 		<label>Email: </label>
         <input type="email" name="email">
+		<br>
         <label>Password: </label>
         <input type="password" name="password">
-        <!-- <textarea>Value</textarea> Inserts a textbox with 'Value' in it-->
-        <input type="submit" value="Submit">
+        <br>
+        <input type="submit" value="Submit" class="button">
 		
 		
 		<!--style error message here -->
 		
-		<p>
+		<p id="invUsr">
 		{% if invalidUser %}
 		{{ invalidUser }}
 		{% end if %}
