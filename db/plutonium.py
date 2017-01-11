@@ -1,12 +1,12 @@
 from hashlib import sha512
 import sqlite3
 
-conn = sqlite3.connect('street.db')
+conn = sqlite3.connect('db/street.db')
 cur = conn.cursor()
 
 def database_connect():
     if conn is None:
-        conn = sqlite3.connect('street.db')
+        conn = sqlite3.connect('db/street.db')
         cur = conn.cursor()
 
     return conn
@@ -28,8 +28,7 @@ class User:
     '''
     User Object
     '''
-    def __init__(self, user_id, email, username, level, is_verified, profile_picture ):
-        self.user_id = user_id
+    def __init__(self, email, username, level, is_verified, profile_picture ):
         self.email = email
         self.username = username
         self.level = level
@@ -54,9 +53,9 @@ class User:
             storedhash = data[1]
             # Hash the given password and compare it to the storedhash
             if password == storedhash:
-                return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+                return User( data[2], data[3], data[4], data[5], data[6] )
             else:
-                raise ValueError("Password Mismatch")
+                raise ValueError("Passwords do not match")
 
     @staticmethod
     def register( email, password, username ):
@@ -68,12 +67,12 @@ class User:
         # Check that the email is not currently in the database
         c.execute('SELECT email FROM user WHERE email = ?;', (email,) )
         if len( c.fetchall() ) > 0:
-            return False
+            return ValueError("User is already in database")
         else:
             password = hash_password( email, password )
             c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
             conn.commit()
-            return User( user_id, email, username, 0, 0, 'default.png' )
+            return User( email, username, 0, 0, 'default.png' )
 
     @staticmethod
     def get( email ):
@@ -86,111 +85,46 @@ class User:
         if data is None:
             raise ValueError("User is not in database")
         else:
-            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+            return User( data[2], data[3], data[4], data[5], data[6] )
 
+    @staticmethod
     def get_all():
         '''
         Returns a list of all the users
         NOTE: This can be large - be careful
         '''
-        print( 'All users.' )
-
-    def edit_displayname( self, newname ):
-        '''
-        Changes the displayname of a user class.
+        users = []
+        c = conn.cursor()
+        c.execute('SELECT * FROM user')
+        for each in c.fetchall():
+            users.append( each )
+        return users
+    def edit_displayname(user_id, newname ):
+        '''            Changes the displayname of a user class.
         '''
         self.displayname = newname
+        cur = conn.cursor()
+
+        cur.execute('''
+        UPDATE user
+        SET username = ?
+        WHERE user_id = ?
+
+
+        ''', (newname, user_id,))
+
         print( 'Display name updated.' )
-
-    def get_posts( self ):
-        '''
-        Returns a list of all the post objects that the user has made
-        '''
-        print( 'Post objects.' )
-
     def rate( self, post, rating ):
         '''
         Gets the user to vote on a given post object
         Rating should be -1, 0, or 1
         '''
+        return Ratings.user_rate(rating)
         print( 'Vote cast!' )
 
-    # TODO: Functions for verified status and title management
 
-User.register('rfras399@walrusfamily.com', 'alphabetical', 'Robert Fraser' )
 
-class Post:
-    def __init__(self, post_id, author_id, location, title, description, image):
-        self.id = post_id
-        self.author_id = author_id
-        self.location = location
-        self.title = title
-        self.description = description
-        self.image = image
-        self.rating = Rating.post_rating(post_id)
 
-    def create( user, title, description, image, location ):
-        '''
-        Creates a new post given the user object, title, description, image, and location.
-        '''
-        cur = conn.cursor()
-        cur.execute("""
-        INSERT INTO post (author_id, location, title, description, image, rating)
-        VALUES (
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?
-        )""", (
-        user,
-        location,
-        title,
-        description,
-        image,
-        000
-        ))
-        print( 'New post created!' )
-        return Post()
-
-    def get( postid ):
-        '''
-        Returns a post object given a postid
-        '''
-        print( 'Obtained post!' )
-        return Post()
-
-    def get_all():
-        '''
-        Returns a list containing every post object
-        NOTE: This can be large - be careful
-        '''
-        print( 'All the posts!' )
-
-    def get_by_recent( amount ):
-        '''
-        Returns some of the most recent posts created
-        '''
-        print( 'Most recent posts' )
-
-    def get_by_location( location, amount ):
-        '''
-        Returns some of the nearest posts
-        '''
-        print( 'Nearby posts' )
-
-    def rating( self ):
-        '''
-        Returns the rating of a post.
-        '''
-        print( 'Return ratings.' )
-
-    def comments( self ):
-        '''
-        Returns a list of all the comments on the post
-        '''
-        print( 'Return comments.' )
 
 class Comment:
     def __init__(self, comment_id, author, post, content):
@@ -198,7 +132,6 @@ class Comment:
         self.author = author
         self.post = post
         self.content = content
-        print( 'Incredible new comment!' )
 
     def create(user_id, postid, contents ):
         '''
@@ -212,18 +145,45 @@ class Comment:
         INSERT INTO comments (post_id, author, comment) VALUES (?, ?, ?);
 
         ''', (postid, user_id, contents))
-        print( 'New comment has been created!' )
-        return Comment()
+        conn.commit()
+        return Comment(cur.lastrowid, user_id, postid, contents)
 
 class Ratings:
-    def __init__(self):
-        print('post ratings')
+    def __init__(self, rating_id, user, post, rating):
+        self.rating_id = rating_id
+        self.user = user
+        self.post = post
+        self.rating = rating
+    def user_rate(user, post, rating):
+        '''Makes a user cast a vote on a post '''
+
+        cur = conn.execute('''
+
+        INSERT INTO post_ratings (user, post, rating) VALUES (?, ?, ?);
+        ''', (user, post, rating))
+        conn.commit()
+        return Ratings(cur.lastrowid, user, post, rating)
+
+    def post_ratings(postid):
+        '''Returns rating of a post summation of user votes '''
+
+        cur = conn.execute('''
+
+        SELECT SUM(rating)
+        FROM post_ratings
+
+        WHERE post = ?
 
 
-    def create(rating_id, user, post, rating):
-        '''
-        This area ensures that a used doesn't upvote/downvote more than once,
-        and the 'rating' column is a 'boolean' (not really), indicating weather
-        is a user has rated
-        '''
-        pass
+        ''' ,(postid,))
+
+        row = cur.fetchone()
+        return row[0]
+
+
+print(Post.get_by_recent(10))
+
+cur = conn.execute('SELECT * FROM Post')
+
+for row in cur:
+    print(row)
