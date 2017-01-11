@@ -1,18 +1,25 @@
+import sqlite3
+import plutonium
 import unittest
 import os
 from plutonium import database_connect
 from plutonium import terminate_connection
-from plutonium import User
+from plutonium import User, Ratings, Post, Comment
 from create_db import init_db
 
-class TestPlutonium(unittest.TestCase):
+plutonium.database_connect
 
+
+conn = sqlite3.connect('street.db')
+cur = conn.cursor()
+
+class Testing_plutonium(unittest.TestCase):
     def setUp(self):
         init_db( 'test.db' )
         self.conn = database_connect( 'test.db' )
         self.cur = self.conn.cursor()
 
-    def test_connection(self):
+    def register(self):
         self.cur.execute('SELECT 7')
         self.assertEqual( self.cur.fetchone()[0], 7 )
 
@@ -20,7 +27,7 @@ class TestPlutonium(unittest.TestCase):
         u = User.register( 'james.r.curran@sydney.edu.au', 'tomtom', 'James Curran' )
         self.assertEqual( u.username, 'James Curran' )
 
-    def test_register_fail(self):
+    def get_all(self):
         User.register( 'james.r.curran@sydney.edu.au', 'cranberry', 'James Currant' )
         with self.assertRaises( ValueError ):
             User.register( 'james.r.curran@sydney.edu.au', 'cranberry', 'James Currant' )
@@ -30,10 +37,19 @@ class TestPlutonium(unittest.TestCase):
         u = User.login( 'james.r.curran@sydney.edu.au', 'tomtom' )
         self.assertEqual( u.username, 'James Curran' )
 
-    def test_getuser(self):
+    def test_displayname(self):
         User.register( 'james.r.curran@sydney.edu.au', 'tomtom', 'James Curran' )
         u = User.get( 'james.r.curran@sydney.edu.au' )
         self.assertEqual( u.username, 'James Curran' )
+
+    def test_create(self):
+        u = User.register( '10@ten.com', 'testing', 'James Curran is love' )
+        p = Post.create( User.get('10@ten.com')., 'some random location', 'James Currans secret post', 'default.jpg', '50')
+        self.assertEqual( u.username, 'James Curran is love')
+
+
+    def test_rate(self):
+        pass
 
     def tearDown(self):
         terminate_connection()
