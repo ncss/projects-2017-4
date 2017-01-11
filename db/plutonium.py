@@ -65,13 +65,14 @@ class User:
         # Ensure that the user is in the database
         c.execute('SELECT * FROM user WHERE email = ?;', (email,) )
         data = c.fetchone()
+        print(data)
         if data is None:
             raise ValueError("User is not in database")
         else:
             storedhash = data[1]
             # Hash the given password and compare it to the storedhash
             if password == storedhash:
-                return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+                return User( data[0], data[2], data[3], data[4], data[5], data[6], data[7] )
             else:
                 raise ValueError("Passwords do not match")
 

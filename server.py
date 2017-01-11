@@ -44,11 +44,11 @@ def login_handler(response):
         response.write(html)
 
 def signup_handler(response):
-    name = response.get_field('name')
-    email = response.get_field('email')
-    password = response.get_field('password')
-    confpassword = response.get_field('confpassword')
-    usr_description = response.get_field('usr_describe')
+    name = response.get_field('name', '')
+    email = response.get_field('email', '')
+    password = response.get_field('password', '')
+    confpassword = response.get_field('confpassword', '')
+    usr_description = response.get_field('usr_describe', '')
     
     #when done with mvp keep entered fields
     if (not name) or (not email) or (not password) or (not confpassword):
@@ -72,9 +72,9 @@ def signup_handler(response):
             user = User.register(email,password,name,usr_description)
             response.set_secure_cookie('userCookie', email)
             response.redirect('/home')
-        except ValueError:
+        except ValueError as e:
             user = get_current_user(response)
-            html = render_template('signup.html', {'user': user, 'errorMessage': "This user is already in the database." })
+            html = render_template('signup.html', {'user': user, 'errorMessage': str(e) })
             response.write(html)
 
 def profile(response,name):
