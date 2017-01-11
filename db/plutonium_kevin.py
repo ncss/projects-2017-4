@@ -28,8 +28,7 @@ class User:
     '''
     User Object
     '''
-    def __init__(self, user_id, email, username, level, is_verified, profile_picture ):
-        self.user_id = user_id
+    def __init__(self, email, username, level, is_verified, profile_picture ):
         self.email = email
         self.username = username
         self.level = level
@@ -68,19 +67,12 @@ class User:
         # Check that the email is not currently in the database
         c.execute('SELECT email FROM user WHERE email = ?;', (email,) )
         if len( c.fetchall() ) > 0:
-            return False
+            return ValueError("User is already in database")
         else:
             password = hash_password( email, password )
-            # Get the maximum user_id in the database to increment for next user
-            c.execute('SELECT MAX(user_id) FROM user;')
-            user_id = 0
-            fetch = c.fetchone()
-            if fetch[0] is not None:
-                user_id = fetch[0] + 1
-            # Insert the user into the database
-            c.execute('INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?);', (user_id, password, email, username, 0, 0, 'default.png') )
+            c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
             conn.commit()
-            return User( user_id, email, username, 0, 0, 'default.png' )
+            return User( email, username, 0, 0, 'default.png' )
 
     @staticmethod
     def get( email ):
@@ -102,11 +94,23 @@ class User:
         '''
         print( 'All users.' )
 
-    def edit_displayname( self, newname ):
+    def edit_displayname(user_id, newname ):
         '''
         Changes the displayname of a user class.
         '''
         self.displayname = newname
+
+        cur = conn.cursor()
+
+        cur.execute('''
+        UPDATE user
+        SET username = ?
+        WHERE user_id = ?
+
+
+
+        ''', (newname, user_id,))
+
         print( 'Display name updated.' )
 
     def get_posts( self ):
@@ -120,6 +124,7 @@ class User:
         Gets the user to vote on a given post object
         Rating should be -1, 0, or 1
         '''
+        return Ratings.user_rate(rating)
         print( 'Vote cast!' )
 
     # TODO: Functions for verified status and title management
@@ -170,6 +175,7 @@ class Post:
         Returns a list containing every post object
         NOTE: This can be large - be careful
         '''
+
         print( 'All the posts!' )
 
     def get_by_recent( amount ):
