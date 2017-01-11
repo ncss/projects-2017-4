@@ -93,9 +93,9 @@ textarea {
 
 label{
 	font-family: "News Cycle", Arial, sans-serif;
-	font-size: 16px;
+	font-size: 18px;
     display: inline-block;
-    width: 120px;
+    width: 130px;
     text-align: left;
 }
 
@@ -122,6 +122,10 @@ label{
 
 .create-post{
 	width: 500px;
+}
+
+textarea{
+	font-size: 14px;
 }
 
 .custom-file-upload {
