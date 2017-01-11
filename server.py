@@ -48,6 +48,8 @@ def signup_handler(response):
     email = response.get_field('email')
     password = response.get_field('password')
     confpassword = response.get_field('confpassword')
+    usr_description = response.get_field('usr_describe')
+    
     #when done with mvp keep entered fields
     if (not name) or (not email) or (not password) or (not confpassword):
         user = get_current_user(response)
@@ -67,7 +69,7 @@ def signup_handler(response):
         response.write(html)
     else:
         try:
-            user = User.register(email,password,name)
+            user = User.register(email,password,name,usr_description)
             response.set_secure_cookie('userCookie', email)
             response.redirect('/home')
         except ValueError:
