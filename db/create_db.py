@@ -11,7 +11,8 @@ def init_db( filename ):
         username TEXT NOT NULL,
         levels INTEGER NOT NULL,
         is_verified BOOLEAN NOT NULL,
-        profile_picture TEXT NOT NULL
+        profile_picture TEXT NOT NULL,
+        description TEXT NOT NULL
         );
     ''')
 

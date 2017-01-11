@@ -262,16 +262,31 @@ footer ul li{
 
 /* for content page */
 
+.profile-image {
+        border-radius: 32px;
+        display: block;
+}
+
+.newsfeed-image {
+	width: 500px;
+	border: 2px dashed #E25D48;
+        margin: 8px;
+        display: inline-block;
+}
+
+.newsfeed-image img {
+        width: 480px;
+	padding: 8px;
+}
+
 .post-image {
 	width: 500px;
-	height: 450px;
+	/*height: 450px;*/
 	padding-top: 30px;
 	padding-right: 15px;
 	overflow: hidden;
 	border: 5px #212121;
 	padding-left: 10px;
-
-	
 }
 
 .map-placeholder {
@@ -290,6 +305,32 @@ footer ul li{
 	
 	
 }
+.profile-pic{
+    vertical-align: center;
+    
+}
+
+.profile-image{
+    float: left;
+    width: 155px;
+    height: 155px;
+}
+
+.username{
+    padding-top: 0px;
+    margin-top: -20px;
+    font-size: 24pt;
+    font-family: "News Cycle", Arial, sans-serif;
+	color: #212121;
+}
+
+.history {
+    padding-top: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-top: 2px dashed #E25D48;
+    clear: left;
+
 
 .post-title{
 	
@@ -320,10 +361,18 @@ footer ul li{
 	width: 220px;
 	height: 450px;
 	float: left;
-	
 }
 
 /* styling for the invalid user message */
 #invUsr{
 	margin-top: 50px;
+}
+
+/* delete the two below if doesn't work */
+/* edit the left margin to be auto - right now is like 3 px off */
+#describe_label{
+    margin-left: -169px;
+}
+.usr_describe{
+
 }

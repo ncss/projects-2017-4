@@ -294,8 +294,9 @@ class ForNode:
             for item in iterable:
                 codeBlock = match.group(3)
                 newContext = copy.deepcopy(context)
-                for index, variable in enumerate(dest.split(",")):
-                    newContext[variable.strip()] = item[index]
+                newContext[dest] = item
+                #for index, variable in enumerate(dest.split(",")):
+                #    newContext[variable.strip()] = item[index]
                 output.append(program(codeBlock, newContext))
             return "".join(output)
 
