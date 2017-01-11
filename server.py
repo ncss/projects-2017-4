@@ -38,7 +38,7 @@ def login_handler(response):
     if (email + password) == "user@emailpassword": #change this in future
         response.set_secure_cookie('userCookie', email)
         response.redirect('/home')
-    else:    	
+    else:        
         user = get_current_user(response)
         html = render_template('login.html', {'user': user, 'invalidUser': "Invalid login." })
         response.write(html)
@@ -54,6 +54,24 @@ def submit_handler(response):
     else:
         html = render_template('new_post.html', {'user': user})
     response.write(html)
+
+def signup_handler(response):
+    name = response.get_field('name')
+    email = response.get_field('email')
+    password = response.get_field('password')
+    confpassword = response.get_field('confpassword')
+    if password == confpassword:
+        #save to database
+        pass
+    else:
+        user = get_current_user(response)
+        html = render_template('signup.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
+        response.write(html)
+    if (not name) or (not email) or (not password) or (not confpassword):
+        user = get_current_user(response)
+        html = render_template('signup.html', {'user': user, 'errorMessage': "You must fill in all fields. Please try again." })
+        response.write(html)
+
 		
 def profile(response,name):
     user = get_current_user(response)
@@ -63,7 +81,6 @@ def profile(response,name):
 def get_current_user(response):
     email = response.get_secure_cookie("userCookie")    #change back to User(), later when DB is fixed
     user = "hello"
-
     if email is not None:
         email = email.decode()
         return user
@@ -97,8 +114,8 @@ def login(response):
 @notLoginRequired
 def signup(response):
     user = get_current_user(response)
-    html = render_template('registration.html', {'user': user})
-    response.write(html) 
+    html = render_template('signup.html', {'user': user})
+    response.write(html)
 
 ###LOGIN EXCLUSIVE PAGES###
 @loginRequired
@@ -116,7 +133,7 @@ server = Server()
 server.register(r'/?(?:home)?', home)
 server.register(r'/profile(?:/([\w\.\-]+))?', profile)
 server.register(r'/login', login, post=login_handler)
-server.register(r'/signup',signup)
+server.register(r'/signup',signup, post=signup_handler)
 server.register(r'/post/([\w\.\-]+)',view_post)
 server.register(r'/submit',submit, post=submit_handler)
 server.register(r'/demo',demo)
