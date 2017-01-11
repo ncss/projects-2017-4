@@ -101,8 +101,8 @@ def login(response):
 @notLoginRequired
 def signup(response):
     user = get_current_user(response)
-    html = render_template('registration.html', {'user': user})
-    response.write(html) 
+    html = render_template('signup.html', {'user': user})
+    response.write(html)
 
 ###LOGIN EXCLUSIVE PAGES###
 @loginRequired
