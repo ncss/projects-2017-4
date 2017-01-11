@@ -77,7 +77,7 @@ legend{
 
 }
 
-input[type=text]{
+input{
     border-width: 0px;
     padding: 5px;
     margin: 7px 0px;
@@ -85,6 +85,7 @@ input[type=text]{
 }
 
 label{
+	font-family: "News Cycle", Arial, sans-serif;
     display: inline-block;
     width: 100px;
     text-align: left;
@@ -100,6 +101,8 @@ label{
      font-family: "News Cycle", Arial, sans-serif;
      font-size: 18px;
 	 margin: 7px 0px;
+	 padding: 3px 10px;
+	 width: auto;
 }
 
 /* link */
