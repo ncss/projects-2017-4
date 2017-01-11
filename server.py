@@ -103,7 +103,7 @@ def view_post(response, post_id):
 
 def demo(response):
     user = get_current_user(response)
-    html = render_template('demo.html', {'user': user})
+    html = render_template('demo.html', {'user': user, 'comments':['great', 'meh']})
     response.write(html)
 
 def notfound(response):

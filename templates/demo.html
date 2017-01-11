@@ -42,6 +42,8 @@
 	</div>
 </div>
 <br>
+
+{% for comment in comments %}
 <article class="comment">
 	<div class="poster-details">
 		<img class="profile-pic" src="/static/profileman.jpg" alt="{{username}}">
@@ -53,47 +55,12 @@
 		</time>
 	</div>
 	<div class="message">
-		<p>James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
-		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
-		James Curran James Curran James Curran James Curran James Curran James Curran
-		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran </p>
+		<p>{{comment}}</p>
 	</div>
 </article>
-<article class="comment">
-	<div class="poster-details">
-		<img class="profile-pic" src="/static/profileman.jpg" alt="{{username}}">
-		<br>
-		<span class="posted-by">Posted by <span class="poster">{{username}}</span></span>
-		<br>
-		<time datetime="2011-12-24" pubdate>
-			2011-12-24
-		</time>
-	</div>
-	<div class="message">
-		<p>James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
-		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
-		James Curran James Curran James Curran James Curran James Curran James Curran
-		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran </p>
-	</div>
-</article>
-<article class="comment">
-	<div class="poster-details">
-		<img class="profile-pic" src="/static/profileman.jpg" alt="{{username}}">
-		<br>
-		<span class="posted-by">Posted by <span class="poster">{{username}}</span></span>
-		<br>
-		<time datetime="2011-12-24" pubdate>
-			2011-12-24
-		</time>
-	</div>
-	<div class="message">
-		<p>James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
-		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran 
-		James Curran James Curran James Curran James Curran James Curran James Curran
-		James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran James Curran </p>
-	</div>
-</article>
+{% end for %}
 <br>
+
 <!--Login-->
 <form action="/send_to" method="POST">
     <fieldset>
