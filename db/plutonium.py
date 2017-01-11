@@ -39,13 +39,14 @@ class User:
     '''
     User Object
     '''
-    def __init__(self, email, username, level, is_verified, profile_picture ):
+    def __init__(self, user_id, email, username, level, is_verified, profile_picture ):
+        self.user_id = user_id
         self.email = email
         self.username = username
         self.level = level
         self.is_verifed = is_verified
         self.profile_picture = profile_picture
-
+    
     @staticmethod
     def login( email, password ):
         '''
@@ -64,10 +65,10 @@ class User:
             storedhash = data[1]
             # Hash the given password and compare it to the storedhash
             if password == storedhash:
-                return User( data[2], data[3], data[4], data[5], data[6] )
+                return User( data[0], data[2], data[3], data[4], data[5], data[6] )
             else:
                 raise ValueError("Passwords do not match")
-
+    
     @staticmethod
     def register( email, password, username ):
         '''
@@ -83,8 +84,8 @@ class User:
             password = hash_password( email, password )
             c.execute('INSERT INTO user (password, email, username, levels, is_verified, profile_picture) VALUES(?, ?, ?, ?, ?, ?);', (password, email, username, 0, 0, 'default.png') )
             conn.commit()
-            return User( email, username, 0, 0, 'default.png' )
-
+            return User( c.lastrowid, email, username, 0, 0, 'default.png' )
+    
     @staticmethod
     def get( email ):
         '''
@@ -96,8 +97,8 @@ class User:
         if data is None:
             raise ValueError("User is not in database")
         else:
-            return User( data[2], data[3], data[4], data[5], data[6] )
-
+            return User( data[0], data[2], data[3], data[4], data[5], data[6] )
+    
     @staticmethod
     def get_all():
         '''
@@ -115,7 +116,7 @@ class User:
         Returns a list of all the post objects that the user has made
         '''
         posts = []
-
+    
         cur = conn.cursor()
         cur.execute("""
         SELECT *
@@ -124,26 +125,26 @@ class User:
         """, (
         user_id,
         ))
-
+    
         print( 'Post objects.' )
         for post in cur:
             posts.append(Post(post[0], post[1], post[2], post[3], post[4], post[5], post[6]))
-
+    
         return posts
     def edit_displayname(user_id, newname ):
         '''            Changes the displayname of a user class.
         '''
         self.displayname = newname
         cur = conn.cursor()
-
+    
         cur.execute('''
         UPDATE user
         SET username = ?
         WHERE user_id = ?
-
-
+    
+    
         ''', (newname, user_id,))
-
+    
         print( 'Display name updated.' )
     def rate( self, post, rating ):
         '''
@@ -334,9 +335,9 @@ class Ratings:
 
 if __name__ == '__main__':
     database_connect( 'street.db' )
-    print(Post.get_by_recent(10))
+    #print(Post.get_by_recent(10))
 
-    cur = conn.execute('SELECT * FROM Post')
+    #cur = conn.execute('SELECT * FROM Post')
 
-    for row in cur:
-        print(row)
+    #for row in cur:
+    #print(row)
