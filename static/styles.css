@@ -3,10 +3,13 @@
 body {
 	font-family: "Open Sans", Arial, sans-serif;
 	font-size: 14px;
+	color: #212121;
+	line-height: 1.5;
 }
 
 h1, h2, h3 {
 	font-family: "News Cycle", Arial, sans-serif;
+	color: #212121;
 }
 
 h1 {
@@ -46,29 +49,6 @@ ul > li {
     list-style: circle inside;
 }
 
-a: link{
-	color: red;
-}
-
-a: hover{
-	color: blue;
-}
-
-a: visited{
-	color: white;
-}
-
-/*table {
-	border: 1px solid #000;
-	width: 90%;
-	border-collapse: collapse;
-}
-
-th, td {
-  padding: 5px;
-  border: 1px solid #000;
-}*/
-
 ol > li {
     list-style: upper-roman inside;
 }
@@ -78,11 +58,13 @@ form {
     color: white;
     padding: 10px;
     text-decoration: none;
-    margin: 10px;
+    margin: auto;
     cursor: pointer;
-    width: 400px;
-    height: 200px;
+    width: 80%;
+    height: auto;
     text-align: center;
+	line-height: 1.25;
+	
 }
 
 legend{
@@ -92,49 +74,90 @@ legend{
     text-align: center;
     margin-bottom: 16px;
     margin-top: 16px;
+
 }
 
-input[type=text]{
+input{
     border-width: 0px;
     padding: 5px;
-    margin: 2px 0px;
+    margin: 7px 0px;
     width: 150px;
 }
 
+textarea {
+    resize: none;
+	font-family: "News Cycle", Arial, sans-serif;
+	padding: 10px;
+	border: 0px;
+}
+
 label{
+	font-family: "News Cycle", Arial, sans-serif;
+	font-size: 16px;
     display: inline-block;
-    width: 100px;
+    width: 120px;
     text-align: left;
 }
 
 .button{
-     border-width: 2px;
+	 text-align: left;
+     border-width: 0px;
      border-color: #202020;
      border-style: solid;
      background-color: #ffffff;
      color: #F44436;
      font-family: "News Cycle", Arial, sans-serif;
      font-size: 18px;
-     
+	 margin: 7px 0px;
+	 padding: 3px 10px;
+	 width: auto;
+}
+
+.create {
+	padding-left: 41px;
+	padding-right: 42px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.create-post{
+	width: 500px;
+}
+
+.custom-file-upload {
+    
 }
 
 /* link */
-a:link{
+header a {
     color: white;
 	text-decoration: none;
 	display: inline-block;
 	width: 100px;
 	text-align: center;
+	-webkit-transition: all 0.5s ease-in-out; 
+	-moz-transition: all 0.5s ease-in-out;
+	font-size: 16px;
 }
 
 /* mouse over link */
-a:hover {
-    color: #F44436;
+header a:hover {
+    color: #E25D48;
+	-webkit-transition: all 0.5s ease-in-out; 
+	-moz-transition: all 0.5s ease-in-out;
 }
 
 /* selected link */
-a:active {
-    color: #F44436;
+header a:active {
+    color: #E25D48;
+	-webkit-transition: all 0.5s ease-in-out; 
+	-moz-transition: all 0.5s ease-in-out;
+}
+
+a {
+	color: #E25D48;
+	-webkit-transition: all 0.5s ease-in-out; 
+	-moz-transition: all 0.5s ease-in-out;
 }
 
 /* header CSS */
@@ -155,8 +178,59 @@ nav {
 	margin-right: 20px;
 }
 
+.write-comment {
+	width: 100%;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 14px;
+	color: #212121;
+	line-height: 1.5;
+	padding: 5px;
+	border-color: #212121;
+}
+
+.comment-writing {
+	float: right;
+	width: 90%;
+}
+
+.poster-pic {
+	float: left;
+}
+	
+.comment {
+	min-height: 150px; 
+	clear: both;
+}
+
+.comment-button {
+	background-color: #F44436;
+	color: white;
+}
+
+.message {
+	padding-left: 120px;
+	padding-top: 10px;
+}
+
+.profile-pic {
+	height: 100px;
+}
+
+.poster-details {
+	float: left;
+	height: 100%;
+	padding-top: 15px;
+}
+
 main {
-	padding: 20px;
+	padding-top: 20px;
+	padding-bottom:20px;
+	padding-left: 10%;
+	padding: color #212121;
+	text-align: justify;
+	min-width: 790px;
+	width: 80%;
+	
 }
 
 /* footer css */
@@ -165,11 +239,11 @@ footer {
 	padding: 15px;
 	background-color: #212121;
 	color: white;
-	margin: 10px;
 	float: bottom;
 	font-size: 14px;
 	margin-top: 20px;
 	padding-top: 10px;
+	text-align: center;
 }
 
 footer ul li{
@@ -178,6 +252,43 @@ footer ul li{
 	padding-right:4px;
 	font-size: 12px;
 	border-left:2px dotted black;
+}
+
+/* for content page */
+
+.post-image {
+	width: 500px;
+	height: 450px;
+	padding-left: 10px;
+	padding-top: 30px;
+	padding-right: 15px;
+	overflow: hidden;
+	border: 5px #212121;
+	
+
+	
+}
+
+.map-placeholder {
+	
+	
+	top: 225px;
+	height: 225px;
+	width: 500px;
+	overflow: hidden;
+	padding-top: 30px;
+	
+	border: 5px #212121;
+	vertical-align: top;
+
+	
+	
+	
+}
+
+.post-title{
+	
+	
 }
 
 /* styling for the invalid user message */

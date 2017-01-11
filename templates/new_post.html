@@ -1,6 +1,9 @@
 {% include header.html %}
 
-<form action="/new" method="POST">
+<form action="/submit" method="POST" enctype='multipart/form-data' class="create-post">
+  <p id="invPst">
+	{{ invalidPost }}
+  </p>
   <fieldset>
       <legend>
           Create New Post
@@ -14,13 +17,14 @@
   
       <br>
       <label class="image-label" for="image">Upload Image: </label>
-      <input type="file" name="image">
+      <input type="file" name="postImage" accept='image/*'>
       
   <br>
-      <textarea rows="10" cols="100">Your text here</textarea>
+      <textarea rows="10" cols="41" name="description">Enter a Description!</textarea>
       <br>
-      <input type="submit" value="Preview"> <input type="submit" value="Submit">
+      <input type="submit" value="Preview" class="button create"> <input type="submit" value="Submit" class="button create">
   </fieldset>
+
 </form>
 
 {% include footer.html %}
