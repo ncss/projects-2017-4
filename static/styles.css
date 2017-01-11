@@ -274,7 +274,8 @@ footer ul li{
 }
 
 .post-description {
-  margin: 490px 381px 170px 625px;
+  margin: 500px 381px 20px 640px;
+  height: 150px;
   width: 350px;
 }
 
@@ -327,7 +328,7 @@ footer ul li{
     position: absolute;
     top: 5px;
     left: 60px;
-    width: 300px;
+    width: 290px;
     margin-left: 10px;
 }
 
@@ -349,8 +350,8 @@ footer ul li{
 .profile-positioning{
     width: 100px;
     position: absolute;
-    left: 624px;
-    top: 484px;
+    left: 640px;
+    top: 500px;
 }
 
 .profile-description{
