@@ -255,6 +255,15 @@ class Post:
 
         ''', (amount,))
 
+        posts = []
+
+        for row in cur:
+            posts.append(Post(row[0], row[1], row[2], row[3], row[4], row[5], row[6])) #self, post_id, author_id, location, title, description, image
+
+        print( '[Post.get_by_recent]' )
+
+        return posts
+
     def get_by_location(location, amount):
         '''
         Returns some of the nearest posts
