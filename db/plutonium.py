@@ -1,12 +1,12 @@
 from hashlib import sha512
 import sqlite3
 
-conn = sqlite3.connect('db/street.db')
+conn = sqlite3.connect('street.db')
 cur = conn.cursor()
 
 def database_connect():
     if conn is None:
-        conn = sqlite3.connect('db/street.db')
+        conn = sqlite3.connect('street.db')
         cur = conn.cursor()
 
     return conn
@@ -99,6 +99,26 @@ class User:
         for each in c.fetchall():
             users.append( each )
         return users
+    def get_posts( user_id ):
+        '''
+        Returns a list of all the post objects that the user has made
+        '''
+        posts = []
+
+        cur = conn.cursor()
+        cur.execute("""
+        SELECT *
+        FROM post
+        WHERE author_id = ?
+        """, (
+        user_id,
+        ))
+
+        print( 'Post objects.' )
+        for post in cur:
+            posts.append(Post(post[0], post[1], post[2], post[3], post[4], post[5], post[6]))
+
+        return posts
     def edit_displayname(user_id, newname ):
         '''            Changes the displayname of a user class.
         '''
@@ -122,8 +142,128 @@ class User:
         return Ratings.user_rate(rating)
         print( 'Vote cast!' )
 
+class Post:
+    def __init__(self, post_id, author_id, location, title, description, image, rating):
+        self.id = post_id
+        self.author_id = author_id
+        self.location = location
+        self.title = title
+        self.description = description
+        self.image = image
+
+        #self.rating = Rating.post_rating(post_id) #TODO: UNCOMMENT THIS!!!
+
+    def create( user, title, description, image, location ):
+        '''
+        Creates a new post given the user object, title, description, image, and location.
+        '''
+        cur = conn.cursor()
+        cur.execute("""
+        INSERT INTO post (author_id, location, title, description, image, rating)
+        VALUES (
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?
+        )""", (
+        user,
+        location,
+        title,
+        description,
+        image,
+        0 #TODO: Calculate from ratings table
+        ))
+        conn.commit()
+        print( '[Post.create]' )
+        post_id = cur.lastrowid
+        rating = 0 # Initial value of the rating column
+        return Post(post_id, user, location, title, description, image, rating)
+
+    def get( postid ):
+        '''
+        Returns a post object given a postid
+        '''
+        cur = conn.cursor()
+        cur.execute("""
+        SELECT *
+        FROM post
+        WHERE post_id = ?
+        """, (
+        postid,
+        ))
+        response = cur.fetchone()
+        print( '[Post.get] post_id:', postid ) #self, post_id, author_id, location, title, description, image
+        return Post(postid, response[1], response[2], response[3], response[4], response[5], response[6])
+
+    def get_all():
+        '''
+        Returns a list containing every post object
+        NOTE: This can be large - be careful
+        '''
+
+        cur = conn.cursor()
+        cur.execute("""
+        SELECT *
+        FROM post
+        ORDER BY post_id DESC
+        """)
+
+        posts = []
+
+        for row in cur:
+            posts.append(Post(row[0], row[1], row[2], row[3], row[4], row[5], row[6])) #self, post_id, author_id, location, title, description, image
+
+        print( '[Post.get_all]' )
+
+        return posts
+
+    def get_by_recent( amount ):
+        '''
+        Returns some of the most recent posts created
+        '''
+        cur = conn.execute('''
+        SELECT *
+        FROM post
+        ORDER BY post_id DESC LIMIT ?
+
+        ''', (amount,))
+
+    def get_by_location(location, amount):
+        '''
+        Returns some of the nearest posts
+        '''
+        return(location, amount)
 
 
+
+        print( 'Nearby posts' )
+
+    def rating(post_id):
+        '''
+        Returns the rating of a post.
+        '''
+        return Ratings.post_ratings(post_id)
+        print( 'Return ratings.' )
+    def comments(post_id):
+        '''
+        Returns a list of all the comments on the post
+        '''
+        cur = conn.execute('''
+
+        SELECT *
+        FROM comments c
+        WHERE c.post_id = ?
+
+
+        ''', (post_id))
+
+        comments_section = []
+        for row in cur:
+            comments_section.append(row)
+
+        return comments_section
 
 
 class Comment:
