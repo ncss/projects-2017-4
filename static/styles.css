@@ -113,7 +113,20 @@ main {
 	padding: 20px;
 }
 
+/* footer css */
+
 footer {
 	margin: 10px;
 	float: bottom;
+	font-size: 14px;
+	margin-top: 20px;
+	padding-top: 10px;
+}
+
+footer ul  li{
+	display: inline-block;
+	padding-left:4px; 
+	padding-right:4px;
+	font-size: 12px;
+	border-left:2px dotted black;
 }
