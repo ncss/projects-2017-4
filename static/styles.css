@@ -218,6 +218,8 @@ nav {
 
 .profile-pic {
 	height: 100px;
+	width: 100px;
+	overflow: hidden;
 }
 
 .poster-details {
@@ -263,12 +265,11 @@ footer ul li{
 .post-image {
 	width: 500px;
 	height: 450px;
-	padding-left: 10px;
 	padding-top: 30px;
 	padding-right: 15px;
 	overflow: hidden;
 	border: 5px #212121;
-	
+	padding-left: 10px;
 
 	
 }
@@ -277,8 +278,8 @@ footer ul li{
 	
 	
 	top: 225px;
-	height: 225px;
-	width: 500px;
+	height: 450px;
+	width: 360px;
 	overflow: hidden;
 	padding-top: 30px;
 	
@@ -292,6 +293,33 @@ footer ul li{
 
 .post-title{
 	
+	padding-left: 144px;
+	font-family: "News Cycle", Arial, sans-serif;
+	color: #212121;
+	text-decoration: bold;
+	font-size: 38pt;
+	
+	
+}
+
+.profile-positioning{
+	padding-top: 30px;
+	padding-left: 150px;
+	text-align: center;
+	width: 100px;
+	float: left;
+	
+}
+
+.profile-description{
+	padding-left: 30px;
+	padding-top: 0px;
+	text-align: justify;
+	overflow: auto;
+	margin-top: 20px;
+	width: 220px;
+	height: 450px;
+	float: left;
 	
 }
 
