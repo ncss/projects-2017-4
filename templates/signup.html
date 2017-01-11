@@ -1,21 +1,30 @@
 {% include header.html %}
 
-<form action="/register" method="POST">
+<form action="/signup" method="POST">
     <fieldset>
-        <legend><!-- Adds a cool box thing border around it with text on it --> 
+        <legend>
             Sign Up
         </legend>
         <label for="name">Name: </label>
         <input type="text" name="name">
+		<br>
         <label for="email">Email: </label>
 		<input type="email" name="email">
+		<br>
 		<label for="password">Password: </label>
 		<input type="password" name="password">
+		<br>
 		<label>Retype Password: </label>
 		<input type="password" name="confpassword">
-        <!-- <textarea>Value</textarea> Inserts a textbox with 'Value' in it-->
-        <input type="submit" value="Submit">
-        </p>
+        <br>
+        <input type="submit" value="Submit" class="button">
+        
+		
+		<p id="errorMsg">
+		{% if errorMessage %}
+		{{ errorMessage }}
+		{% end if %}
+		</p>
     </fieldset>
 </form>
 
