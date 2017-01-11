@@ -48,6 +48,11 @@ class Testing_plutonium(unittest.TestCase):
         print( p, p.author_id, User.get_by_id(p.author_id).email )
         self.assertEqual( u.username, 'James Curran is love')
 
+    def test_create_comment(self):
+        u = User.register( '10@ten.com', 'testing', 'James Curran is love' )
+        p = Post.create( User.get('10@ten.com').user_id, 'some random location', 'James Currans secret post', 'default.jpg', '50')
+        c = Comment.create( p.author_id, p.id, 'This is a comment.')
+        self.assertEqual( c.content, 'This is a comment.')
 
     def test_rate(self):
         pass
