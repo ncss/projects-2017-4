@@ -1,12 +1,19 @@
 {% include header.html %}
 
 <div class="profile-image">
+    {% if user.profile_picture == 'default.png'%} 
     👨
+    <!-- test if this works once upload pro_pic option is available -->
+    {% else %}
+    <img src = user.profile_picture>
+    {% end if %}
 </div>
 
 <div class="info">
   <h3>Profile</h3>
-  <span class="username">{{ username }}</span>     <span class="verified-label">Verified? </span><span class="verifed">⭐ [yes]</span> 
+  <span class="username">{{ user.username }}</span>   
+  <br>
+  <span class="verified-label">Verified? </span><span class="verifed">⭐ [yes]</span> 
   <br>
   Level: <span class="level">{{ level }}</span>
   <br>
