@@ -31,8 +31,6 @@ def home(response):
     html = render_template('main.html', {'user': user})
     response.write(html)
 
-
-
 def login_handler(response):
     email = response.get_field("email")
     password = response.get_field("password")
@@ -107,7 +105,7 @@ def get_current_user(response):
         user = User.get(email)
         return user
     return None
-     
+
 def view_post(response, post_id):
     user = get_current_user(response)
     html = render_template('content.html', {'user': user})
@@ -118,14 +116,11 @@ def demo(response):
     html = render_template('demo.html', {'user': user})
     response.write(html)
 
-
 def notfound(response):
     user = get_current_user(response)
     html = render_template('404errorpage.html', {'user': user})
     response.write(html)
-    
-    
-    
+
 ###NOT LOGGED IN EXCLUSIVE PAGES###
 @notLoginRequired
 def login(response):
@@ -142,7 +137,8 @@ def signup(response):
 ###LOGIN EXCLUSIVE PAGES###
 @loginRequired
 def submit(response):
-    html = render_template('new_post.html', {})
+    user = get_current_user(response)
+    html = render_template('new_post.html', {'user': user})
     response.write(html)
 
 @loginRequired
@@ -150,12 +146,33 @@ def logout(response):
     response.clear_cookie("userCookie")
     response.redirect('/home')
 
-    
+@loginRequired
+def profile(response,name):
+    user = get_current_user(response)
+    html = render_template('profile.html', {'user': user})
+    response.write(html)
+
+@loginRequired
+def submit_handler(response):
+    user = get_current_user(response)
+    title = response.get_field("title")
+    location = response.get_field("location")
+    image = response.get_file("postImage")
+    description = response.get_field("description")
+    pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
+    with open(pictureName,'wb') as pictureFile:
+        pictureFile.write(image[2])
+    if (not title) or (not location) or (not image) or (not description):
+        html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
+    else:
+        html = render_template('new_post.html', {'user': user})
+    response.write(html)
+
 database_connect('db/street.db')
 
 server = Server()
 server.register(r'/?(?:home)?', home)
-server.register(r'/profile(?:/([\w\.\-]+))?', profile)
+server.register(r'/profile(?:(?:/([\w\.\-]+)?)|/?)', profile)
 server.register(r'/login', login, post=login_handler)
 server.register(r'/signup',signup, post=signup_handler)
 server.register(r'/post/([\w\.\-]+)',view_post)
