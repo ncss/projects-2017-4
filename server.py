@@ -47,7 +47,11 @@ def submit_handler(response):
     user = get_current_user(response)
     title = response.get_field("title")
     location = response.get_field("location")
-    image = response.get_file("image")
+    image = response.get_file("postImage")
+    pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
+    with open(pictureName,'wb') as pictureFile:
+        pictureFile.write(image[2])
+     
     description = response.get_field("description")
     if (not title) or (not location) or (not image) or (not description):
         html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
@@ -72,7 +76,7 @@ def signup_handler(response):
         html = render_template('signup.html', {'user': user, 'errorMessage': "Password did not match. Please try again." })
         response.write(html)
 
-		
+          
 def profile(response,name):
     user = get_current_user(response)
     html = render_template('profile.html', {'user': user})
@@ -85,7 +89,7 @@ def get_current_user(response):
         email = email.decode()
         return user
     return None
-	
+     
 def view_post(response, post_id):
     user = get_current_user(response)
     html = render_template('content.html', {'user': user})
