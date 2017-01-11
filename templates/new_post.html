@@ -1,6 +1,11 @@
 {% include header.html %}
 
-<form action="/submit" method="POST" enctype='multipart/form-data' class="create-post">
+<script src="/static/geoFindMe.js"></script>
+
+<link rel="stylesheet" href="/static/submit.css">
+
+<form action="/submit" method="POST" enctype="multipart/form-data" class="create-post">
+
   <p id="invPst">
 	{{ invalidPost }}
   </p>
@@ -13,8 +18,10 @@
       
       <br>
       <label for="location">Location: </label>
-      <input type="text" name="location">
-  
+      <input type="text" name="location" id="location"><button class="button create" id="thebutton" type="button" onclick="geoFindMe(); this.style.display = 'none'">Use current location</button>
+	  <br>
+	  <div id="map"></div>
+      
       <br>
       <label class="image-label" for="image">Upload Image: </label>
       <input type="file" name="postImage" accept='image/*'>
@@ -28,3 +35,23 @@
 </form>
 
 {% include footer.html %}
+
+
+	<!--<script>
+	document.getElementById('location').onclick = function() {
+		document.getElementById('location').setAttribute('disabled');
+	};
+	</script>-->
+	  
+  <!--<img id="map"/>
+  Replace the value of the key parameter with your own API key. 
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs6LEx2djutDP5siKOfU5J1Dlsa2led-A&callback=initMap">
+  </script>-->
+  
+  <!--<h3>My Google Maps Demo</h3>
+  <div id="map"></div>
+  Replace the value of the key parameter with your own API key. 
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs6LEx2djutDP5siKOfU5J1Dlsa2led-A&callback=initMap">
+  </script> -->

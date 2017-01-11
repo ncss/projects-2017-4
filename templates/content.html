@@ -2,7 +2,7 @@
 <!-- Post Page -->
 <!-- {{post_title}} -->
 <div>
-<a class="post-title"> {{post_title}} </a>
+<a class="post-title"> {{post.title}} </a>
 </div>
 <!-- {{profile_name}} -->
 <!-- {{description}} -->
@@ -14,11 +14,22 @@
 <p> {{description}} </p></a>
 
 <img   src="{{image}}" alt="" height="" width="" id = "post-image" class = "post-image">
-<img  src="{{map_url}}" alt="{{post_title}}" height="" width="" id ="map-placeholder" class = "map-placeholder">
+<img  src="{{map_url}}" alt="{{post.title}}" height="" width="" id ="map-placeholder" class = "map-placeholder">
 <img  src="{{profile_image}}" alt="{{username}}" height="" width="" id ="profile-image" class = "profile-image">
 
 
-<h3> {{post_title}} </h3>
+{% if post == None %}
+NONE
+{% end if %}
+
+<h2> {{post.title}} </h2>
+<h4> {{post.author_id}} </h4>
+
+<img src="" alt="" height="" width="" id="profile-picture">
+<h4> {{profile_name}} </h4>
+<h5> {{verified}} </h5>
+<p> {{post.description}} </p>
+<h3> {{post.title}} </h3>
 <img src="{{profile_image}}" alt="{{username}}" height="" width="" id="writer-profile-picture">
 
 <form action="" id="writer-comment">
@@ -30,9 +41,9 @@
 {% for comment in comments %}
 <div id="comment-box">
   <img src="" alt="" height="" width="" id="commenter-profile-picture">
-  <h4>{{commenter_name}}</h4>
+  <h4>{{comment.username}}</h4>
   <p>
-    {{comment_text}}
+    {{comment.message}}
   </p>
 </div>
 {% end for %}

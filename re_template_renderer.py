@@ -253,7 +253,7 @@ class IfNode:
     def render(self, context):
         def if_statement(match):
             predicate = match.group(1)
-            arguments = re.match(r'{% *if.*?%}(.*){% *else *%}(.*){% *end *if *%}', self.content)
+            arguments = re.match(r'{% *if.*?%}(.*){% *else *%}(.*){% *end *if *%}', self.content, re.DOTALL)
             try:
                 condition = eval(predicate, {}, context)
                 if condition:
