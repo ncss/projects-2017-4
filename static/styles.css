@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=News+Cycle|Open+Sans');
 
 body {
@@ -184,3 +185,175 @@ footer ul li{
 	font-size: 12px;
 	border-left:2px dotted black;
 }
+=======
+@import url('https://fonts.googleapis.com/css?family=News+Cycle|Open+Sans');
+
+body {
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 14px;
+	color: #212121;
+	line-height: 1.5;
+}
+
+h1, h2, h3 {
+	font-family: "News Cycle", Arial, sans-serif;
+	color: #212121;
+}
+
+h1 {
+	font-size: 38pt;
+}
+
+h2 { 
+	font-size: 24pt;
+}
+
+h3 { 
+	font-size: 20pt;
+}
+
+p {
+	margin-top: 1;
+}
+
+b, strong {
+    font-weight: bold;
+}
+
+i , em {
+    font-style: italic;
+}
+sup {
+    font-size: 10px; 
+    vertical-align:top;
+}
+
+sub{
+    font-size:10px; 
+    vertical-align:bottom;
+}
+    
+ul > li {
+    list-style: circle inside;
+}
+
+ol > li {
+    list-style: upper-roman inside;
+}
+
+form {
+    background-color: #F44436;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    margin: 10px;
+    cursor: pointer;
+    width: 400px;
+    height: 200px;
+    text-align: center;
+}
+
+legend{
+    font-family: "News Cycle", Arial, sans-serif;
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+input[type=text]{
+    border-width: 0px;
+    padding: 5px;
+    margin: 2px 0px;
+    width: 150px;
+}
+
+label{
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+}
+
+.button{
+     border-width: 2px;
+     border-color: #202020;
+     border-style: solid;
+     background-color: #ffffff;
+     color: #F44436;
+     font-family: "News Cycle", Arial, sans-serif;
+     font-size: 18px;
+     
+}
+
+/* link */
+a {
+    color: white;
+	text-decoration: none;
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+}
+
+/* mouse over link */
+a:hover {
+    color: #E25D48;
+}
+
+/* selected link */
+a:active {
+    color: #E25D48;
+}
+
+/* header CSS */
+header {
+	height: 100px;
+	background-color: #212121;
+	color: white;
+}
+
+#logo > img {
+	height:80px;
+	margin: 10px;
+}
+
+nav {
+	float: right;
+	margin-top: 40px;
+	margin-right: 20px;
+}
+
+main {
+	padding-top: 20px;
+	padding-bottom:20px;
+	padding-left: 20%;
+	padding-right: 20%;
+	text-align: justify;
+}
+
+/* footer css */
+
+footer {
+	padding: 15px;
+	background-color: #212121;
+	color: white;
+	float: bottom;
+	font-size: 14px;
+	margin-top: 20px;
+	padding-top: 10px;
+	text-align: center;
+}
+
+footer ul li{
+	display: inline-block;
+	padding-left:4px; 
+	padding-right:4px;
+	font-size: 12px;
+	border-left:2px dotted black;
+}
+
+/* styling for the invalid user message */
+#invUsr{
+	margin-top: 50px;
+}
+>>>>>>> origin/css-style
