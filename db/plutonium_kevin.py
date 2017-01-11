@@ -219,8 +219,40 @@ class Comment:
         return Comment(cur.lastrowid, user_id, postid, contents)
 
 class Ratings:
-    def __init__(self):
-        print('post ratings')
-    def create(rating_id, user, post, rating):
+    def __init__(self, rating_id, user, post, rating):
+        self.rating_id = rating_id
+        self.user = user
+        self.post = post
+        self.rating = rating
+    def user_rate(user, post, rating):
+        '''Makes a user cast a vote on a post '''
 
-        pass
+        cur = conn.execute('''
+
+        INSERT INTO post_ratings (user, post, rating) VALUES (?, ?, ?);
+        ''', (user, post, rating))
+
+        return Ratings(cur.lastrowid, user, post, rating)
+
+    def post_ratings(postid):
+        '''Returns rating of a post summation of user votes '''
+
+        cur = conn.execute('''
+
+        SELECT SUM(rating)
+        FROM post_ratings
+
+        WHERE post = ?
+
+
+        ''' ,(postid,))
+
+        row = cur.fetchone()
+        return row[0]
+
+print(Ratings.user_rate(1, 10, 1))
+
+cur = conn.execute('SELECT * FROM comments')
+
+for row in cur:
+    print(row)
