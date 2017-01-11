@@ -262,16 +262,26 @@ footer ul li{
 
 /* for content page */
 
+.newsfeed-image {
+	width: 500px;
+	border: 2px dashed #E25D48;
+        margin: 8px;
+        display: inline-block;
+}
+
+.newsfeed-image img {
+        width: 480px;
+	padding: 8px;
+}
+
 .post-image {
 	width: 500px;
-	height: 450px;
+	/*height: 450px;*/
 	padding-top: 30px;
 	padding-right: 15px;
 	overflow: hidden;
 	border: 5px #212121;
 	padding-left: 10px;
-
-	
 }
 
 .map-placeholder {

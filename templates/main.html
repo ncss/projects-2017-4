@@ -1,17 +1,47 @@
 {% include header.html %}
 
-{% if user %}<h4>Welcome, {{user.username}}.</h4>{% end if %}
+{% if False %}<h4>Welcome {{user.username}}.</h4>{% end if %}
 
+<!--
 <h3>About Street Line</h3>
-
 <p>We are a locating and sharing service for anyone who sees interesting things on their streets. Just snap a picture and in a few easy steps share it with the world!</p>
+-->
+
+{% if user %}
+<p>
+<form class="create-post">
+<fieldset>
+<legend>Share with the world!</legend>
+<a class="button create" href="/submit">Submit a new post</a>
+</fieldset>
+</form>
+</p>
+{% else %}
+<p>
+<form class="create-post">
+<fieldset>
+<legend>New to Street Line?</legend>
+<a class="button create" href="/signup">Sign-up</a>
+<a class="button create" href="/login">Login</a>
+</fieldset>
+</form>
+</p>
+{% end if %}
 
 {% if posts %}
+
+<br />
+
+<center>
+<h3>Recently shared locations</h3>
+</center>
+
     {% for post in posts %}
         <center>
-        <h3>{{ post.title }}</h3>
-        <img src="{{ post.image }}" style="width: 50%">
+        <h4><a href="/post/{{post.id}}">{{ post.title }}</a></h4>
+        <a href="/post/{{post.id}}"><div class="newsfeed-image"><img src="{{ post.image }}"></a></div>
         </center>
+        <br />
     {% end for %}
 {% end if %}
         
