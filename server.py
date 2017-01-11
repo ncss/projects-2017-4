@@ -35,7 +35,7 @@ def home(response):
 def login_handler(response):
     email = response.get_field("email")
     password = response.get_field("password")
-    if (email + password) == "loginpassword":
+    if (email + password) == "user@emailpassword":
         response.set_secure_cookie('userCookie', email)
         response.redirect('/home')
     else:    	

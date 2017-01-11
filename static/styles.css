@@ -60,7 +60,7 @@ form {
     text-decoration: none;
     margin: auto;
     cursor: pointer;
-    width: 400px;
+    width: 80%;
     height: auto;
     text-align: center;
 	line-height: 1.25;
@@ -104,6 +104,14 @@ label{
 	 margin: 7px 0px;
 	 padding: 3px 10px;
 	 width: auto;
+}
+
+.create-post{
+	width: 500px;
+}
+
+.custom-file-upload {
+    
 }
 
 /* link */
