@@ -4,7 +4,8 @@
 
 <link rel="stylesheet" href="/static/submit.css">
 
-<form action="/submit" method="POST" enctype="multipart/form-data">
+<form action="/submit" method="POST" enctype="multipart/form-data" class="create-post">
+
   <p id="invPst">
 	{{ invalidPost }}
   </p>
@@ -26,9 +27,9 @@
       <input type="file" name="postImage" accept='image/*'>
       
   <br>
-      <textarea rows="10" cols="100" name="description">Your text here</textarea>
+      <textarea rows="10" cols="41" name="description">Enter a Description!</textarea>
       <br>
-      <input type="submit" value="Preview"> <input type="submit" value="Submit">
+      <input type="submit" value="Preview" class="button create"> <input type="submit" value="Submit" class="button create">
   </fieldset>
 
 </form>
