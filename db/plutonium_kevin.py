@@ -176,25 +176,48 @@ class Post:
         '''
         Returns some of the most recent posts created
         '''
-        print( 'Most recent posts' )
+        cur = conn.execute('''
+        SELECT *
+        FROM post
+        ORDER BY post_id DESC LIMIT ?
 
-    def get_by_location( location, amount ):
+        ''', (amount,))
+
+    def get_by_location(location, amount):
         '''
         Returns some of the nearest posts
         '''
+        return(location, amount)
+
+
+
         print( 'Nearby posts' )
 
-    def rating( self ):
+    def rating(post_id):
         '''
         Returns the rating of a post.
         '''
+        return Ratings.post_ratings(post_id)
         print( 'Return ratings.' )
 
-    def comments( self ):
+    def comments(post_id):
         '''
         Returns a list of all the comments on the post
         '''
-        print( 'Return comments.' )
+        cur = conn.execute('''
+
+        SELECT *
+        FROM comments c
+        WHERE c.post_id = ?
+
+
+        ''', (post_id))
+
+        comments_section = []
+        for row in cur:
+            comments_section.append(row)
+
+        return comments_section
 
 class Comment:
     def __init__(self, comment_id, author, post, content):
@@ -231,7 +254,7 @@ class Ratings:
 
         INSERT INTO post_ratings (user, post, rating) VALUES (?, ?, ?);
         ''', (user, post, rating))
-
+        conn.commit()
         return Ratings(cur.lastrowid, user, post, rating)
 
     def post_ratings(postid):
@@ -250,9 +273,10 @@ class Ratings:
         row = cur.fetchone()
         return row[0]
 
-print(Ratings.user_rate(1, 10, 1))
 
-cur = conn.execute('SELECT * FROM comments')
+print(Post.get_by_recent(10))
+
+cur = conn.execute('SELECT * FROM Post')
 
 for row in cur:
     print(row)
