@@ -303,6 +303,7 @@ class Post:
         SELECT *
         FROM comments c
         WHERE c.post_id = ?
+        ORDER BY c.post_id DESC
 
 
         ''', (post_id))
