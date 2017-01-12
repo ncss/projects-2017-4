@@ -1,3 +1,4 @@
+import hashlib
 from tornado.ncss import Server
 from re_template_renderer import render_template
 #uncomment later when DB is fixed
@@ -49,7 +50,7 @@ def signup_handler(response):
     password = response.get_field('password')
     confpassword = response.get_field('confpassword')
     usr_description = response.get_field('usr_describe')
-    
+
     #when done with mvp keep entered fields
     if (not name) or (not email) or (not password) or (not confpassword):
         user = get_current_user(response)
@@ -161,7 +162,8 @@ def submit_handler(response):
         html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
         response.write(html)
     else:
-        pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
+        pictureName = 'static/postimages/'+ hashlib.md5((title+'.'+image[1].split('/')[1]).encode()).hexdigest()
+        print(pictureName)
         with open(pictureName,'wb') as pictureFile:
             pictureFile.write(image[2])
         createPost = Post.create(user.user_id,title,description,pictureName,location)
