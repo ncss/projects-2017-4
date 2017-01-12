@@ -381,3 +381,20 @@ footer ul li{
 .usr_describe{
 
 }
+
+.comment-form {
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+    text-align: left;
+}
+
+.comments {
+    border-top: 2px dashed #E25D48;
+    clear: both;
+    margin-top: 20px;
+}
+
+.poster {
+    font-weight: bold;
+}
