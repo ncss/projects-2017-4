@@ -267,6 +267,7 @@ footer ul li{
 .post-image {
     width: 618px;
     height: 618px;
+    background-size: cover;
     overflow: hidden;
     position: absolute;
     left: 0;
