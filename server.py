@@ -1,3 +1,4 @@
+import hashlib
 from tornado.ncss import Server
 from re_template_renderer import render_template
 #uncomment later when DB is fixed
@@ -28,9 +29,7 @@ def notLoginRequired(fn):
 
 def home(response):
     user = get_current_user(response)
-    posts = Post.get_by_recent(4)
-    print(posts)
-    html = render_template('main.html', {'user': user, 'posts': posts})
+    html = render_template('main.html', {'user': user})
     response.write(html)
 
 def login_handler(response):
@@ -46,12 +45,12 @@ def login_handler(response):
         response.write(html)
 
 def signup_handler(response):
-    name = response.get_field('name', '')
-    email = response.get_field('email', '')
-    password = response.get_field('password', '')
-    confpassword = response.get_field('confpassword', '')
-    usr_description = response.get_field('usr_describe', '')
-    
+    name = response.get_field('name')
+    email = response.get_field('email')
+    password = response.get_field('password')
+    confpassword = response.get_field('confpassword')
+    usr_description = response.get_field('usr_describe')
+
     #when done with mvp keep entered fields
     if (not name) or (not email) or (not password) or (not confpassword):
         user = get_current_user(response)
@@ -74,9 +73,13 @@ def signup_handler(response):
             user = User.register(email,password,name,usr_description)
             response.set_secure_cookie('userCookie', email)
             response.redirect('/home')
-        except ValueError as e:
+        except ValueError:
             user = get_current_user(response)
-            html = render_template('signup.html', {'user': user, 'errorMessage': str(e) })
+            html = render_template('signup.html', {'user': user, 'errorMessage': "Email address not valid." })
+            response.write(html)
+        except ValueError:
+            user = get_current_user(response)
+            html = render_template('signup.html', {'user': user, 'errorMessage': "User is already in databse." })
             response.write(html)
 
 def profile(response,name):
@@ -94,20 +97,14 @@ def get_current_user(response):
         return user
     return None
 
-@loginRequired
 def view_post(response, post_id):
     try:
         post = Post.get(post_id)
         user = get_current_user(response)
-        comments = Post.comments(post_id)
-        for c in comments:
-            c.author = User.get_by_id(c.author)
-
         poster = User.get_by_id(post.author_id)
-        html = render_template('content.html', {'user': user,'post':post,'poster':poster, 'comments': comments})
+        html = render_template('content.html', {'user': user,'post':post,'poster':poster})
         response.write(html)
-    except Exception as e:
-        print(e)
+    except:
         user = get_current_user(response)
         html = render_template('404errorpage.html', {'user': user})
         response.write(html)
@@ -150,8 +147,7 @@ def logout(response):
 @loginRequired
 def profile(response,name):
     user = get_current_user(response)
-    posts = User.get_posts(user.user_id)
-    html = render_template('profile.html', {'user': user, 'posts': posts})
+    html = render_template('profile.html', {'user': user})
     response.write(html)
 
 @loginRequired
@@ -166,20 +162,13 @@ def submit_handler(response):
         html = render_template('new_post.html', {'user': user, 'invalidPost': "Please fill in all fields." })
         response.write(html)
     else:
-        pictureName = 'static/postimages/'+title+'.'+image[1].split('/')[1]
+        pictureName = 'static/postimages/'+ hashlib.md5((title+'.'+image[1].split('/')[1]).encode()).hexdigest()
+        print(pictureName)
         with open(pictureName,'wb') as pictureFile:
             pictureFile.write(image[2])
         createPost = Post.create(user.user_id,title,description,pictureName,location)
         response.redirect("/post/"+str(createPost.id))
 
-@loginRequired
-def comment_post(response, post_id):
-    user = get_current_user(response)
-    comment = response.get_field("comment")
-
-    if comment:
-        comment = Comment.create(user.user_id, post_id, comment)
-    response.redirect('/post/' + post_id)
 
 database_connect('db/street.db')
 
@@ -188,10 +177,11 @@ server.register(r'/?(?:home)?', home)
 server.register(r'/profile(?:(?:/([\w\.\-]+)?)|/?)', profile)
 server.register(r'/login', login, post=login_handler)
 server.register(r'/signup',signup, post=signup_handler)
-server.register(r'/post/([\w0-9.-]+)', view_post, post=comment_post)
+server.register(r'/post/([\w\.\-]+)',view_post)
 server.register(r'/submit',submit, post=submit_handler)
 server.register(r'/demo',demo)
 server.register(r'/logout',logout)
 server.register(r'.+',notfound)
+
 
 server.run()
