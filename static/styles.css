@@ -192,7 +192,8 @@ nav {
 
 .comment-writing {
     float: right;
-    width: 90%;
+    width: calc(100% - 120px);
+    margin-bottom: 20px;
 }
 
 .poster-pic {
