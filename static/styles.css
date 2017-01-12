@@ -1,31 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=News+Cycle|Open+Sans');
 
 body {
-	font-family: "Open Sans", Arial, sans-serif;
-	font-size: 14px;
-	color: #212121;
-	line-height: 1.5;
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 14px;
+    color: #212121;
+    line-height: 1.5;
 }
 
 h1, h2, h3 {
-	font-family: "News Cycle", Arial, sans-serif;
-	color: #212121;
+    font-family: "News Cycle", Arial, sans-serif;
+    color: #212121;
 }
 
 h1 {
-	font-size: 38pt;
+    font-size: 38pt;
 }
 
 h2 { 
-	font-size: 24pt;
+    font-size: 24pt;
 }
 
 h3 { 
-	font-size: 20pt;
+    font-size: 20pt;
 }
 
 p {
-	margin-top: 1;
+    margin-top: 1;
 }
 
 b, strong {
@@ -44,7 +44,7 @@ sub{
     font-size:10px; 
     vertical-align:bottom;
 }
-    
+
 ul > li {
     list-style: circle inside;
 }
@@ -63,8 +63,7 @@ form {
     width: 80%;
     height: auto;
     text-align: center;
-	line-height: 1.25;
-	
+    line-height: 1.25;
 }
 
 legend{
@@ -86,21 +85,21 @@ input{
 
 textarea {
     resize: none;
-	font-family: "News Cycle", Arial, sans-serif;
-	padding: 10px;
-	border: 0px;
+    font-family: "News Cycle", Arial, sans-serif;
+    padding: 10px;
+    border: 0px;
 }
 
 label{
-	font-family: "News Cycle", Arial, sans-serif;
-	font-size: 18px;
+    font-family: "News Cycle", Arial, sans-serif;
+    font-size: 18px;
     display: inline-block;
     width: 130px;
     text-align: left;
 }
 
 .button{
-	 text-align: left;
+     text-align: left;
      border-width: 0px;
      border-color: #202020;
      border-style: solid;
@@ -108,159 +107,192 @@ label{
      color: #F44436;
      font-family: "News Cycle", Arial, sans-serif;
      font-size: 18px;
-	 margin: 7px 0px;
-	 padding: 3px 10px;
-	 width: auto;
+     margin: 7px 0px;
+     padding: 3px 10px;
+     width: auto;
 }
 
 .create {
-	padding-left: 41px;
-	padding-right: 42px;
-	margin-left: 5px;
-	margin-right: 5px;
+    padding-left: 41px;
+    padding-right: 42px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .create-post{
-	width: 500px;
+    width: 500px;
 }
 
 textarea{
-	font-size: 14px;
+    font-size: 14px;
 }
 
 .custom-file-upload {
-    
 }
 
 /* link */
 header a {
     color: white;
-	text-decoration: none;
-	display: inline-block;
-	width: 100px;
-	text-align: center;
-	-webkit-transition: all 0.5s ease-in-out; 
-	-moz-transition: all 0.5s ease-in-out;
-	font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    -webkit-transition: all 0.5s ease-in-out; 
+    -moz-transition: all 0.5s ease-in-out;
+    font-size: 16px;
 }
 
 /* mouse over link */
 header a:hover {
     color: #E25D48;
-	-webkit-transition: all 0.5s ease-in-out; 
-	-moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out; 
+    -moz-transition: all 0.5s ease-in-out;
 }
 
 /* selected link */
 header a:active {
     color: #E25D48;
-	-webkit-transition: all 0.5s ease-in-out; 
-	-moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out; 
+    -moz-transition: all 0.5s ease-in-out;
 }
 
 a {
-	color: #E25D48;
-	-webkit-transition: all 0.5s ease-in-out; 
-	-moz-transition: all 0.5s ease-in-out;
+    color: #E25D48;
+    -webkit-transition: all 0.5s ease-in-out; 
+    -moz-transition: all 0.5s ease-in-out;
 }
 
 /* header CSS */
 header {
-	height: 100px;
-	background-color: #212121;
-	color: white;
+    height: 100px;
+    background-color: #212121;
+    color: white;
 }
 
 #logo > img {
-	height:80px;
-	margin: 10px;
+    height:80px;
+    margin: 10px;
 }
 
 nav {
-	float: right;
-	margin-top: 40px;
-	margin-right: 20px;
+    float: right;
+    margin-top: 40px;
+    margin-right: 20px;
 }
 
 .write-comment {
-	width: 100%;
-	font-family: "Open Sans", Arial, sans-serif;
-	font-size: 14px;
-	color: #212121;
-	line-height: 1.5;
-	padding: 5px;
-	border-color: #212121;
+    width: 100%;
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 14px;
+    color: #212121;
+    line-height: 1.5;
+    padding: 5px;
+    border-color: #212121;
 }
 
 .comment-writing {
-	float: right;
-	width: 90%;
+    float: right;
+    width: calc(100% - 120px);
+    margin-bottom: 20px;
 }
 
 .poster-pic {
-	float: left;
+    float: left;
 }
-	
+
 .comment {
-	min-height: 150px; 
-	clear: both;
+    min-height: 150px; 
+    clear: both;
 }
 
 .comment-button {
-	background-color: #F44436;
-	color: white;
+    background-color: #F44436;
+    color: white;
 }
 
 .message {
-	padding-left: 120px;
-	padding-top: 10px;
+    padding-left: 120px;
+    padding-top: 10px;
 }
 
 .profile-pic {
-	height: 100px;
-	width: 100px;
-	overflow: hidden;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
 }
 
 .poster-details {
-	float: left;
-	height: 100%;
-	padding-top: 15px;
+    float: left;
+    height: 100%;
+    padding-top: 15px;
 }
 
 main {
-	padding-top: 20px;
-	padding-bottom:20px;
-	padding-left: 10%;
-	padding: color #212121;
-	text-align: justify;
-	min-width: 790px;
-	width: 80%;
-	
+    padding-top: 20px;
+    padding-bottom:20px;
+    padding-left: 10%;
+    padding: color #212121;
+    text-align: justify;
+    min-width: 790px;
+    width: 80%;
 }
 
 /* footer css */
 
 footer {
-	padding: 15px;
-	background-color: #212121;
-	color: white;
-	float: bottom;
-	font-size: 14px;
-	margin-top: 20px;
-	padding-top: 10px;
-	text-align: center;
+    padding: 15px;
+    background-color: #212121;
+    color: white;
+    float: bottom;
+    font-size: 14px;
+    margin-top: 20px;
+    padding-top: 10px;
+    text-align: center;
 }
 
 footer ul li{
-	display: inline-block;
-	padding-left:4px; 
-	padding-right:4px;
-	font-size: 12px;
-	border-left:2px dotted black;
+    display: inline-block;
+    padding-left:4px; 
+    padding-right:4px;
+    font-size: 12px;
+    border-left:2px dotted black;
 }
 
 /* for content page */
+
+.post-content {
+  width: 1000px;
+  position: relative;
+}
+
+.post-image {
+    width: 618px;
+    height: 618px;
+    background-size: cover;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 100px;
+    background-position: center;
+}
+
+.post-description {
+  margin: 500px 381px 20px 640px;
+  height: 150px;
+  width: 350px;
+}
+
+.profile-image {
+        border-radius: 32px;
+        display: block;
+        width: 100px;
+        height: 155px;
+}
+
+.profile-image img {
+  width: 60px;
+  height: 60px;
+}
 
 .newsfeed-image {
 	width: 500px;
@@ -271,93 +303,74 @@ footer ul li{
 
 .newsfeed-image img {
         width: 480px;
-	padding: 8px;
-}
-
-.post-image {
-	width: 500px;
-	/*height: 450px;*/
-	padding-top: 30px;
-	padding-right: 15px;
-	overflow: hidden;
-	border: 5px #212121;
-	padding-left: 10px;
+        padding: 8px;
 }
 
 .map-placeholder {
-	
-	
-	top: 225px;
-	height: 450px;
-	width: 360px;
-	overflow: hidden;
-	padding-top: 30px;
-	
-	border: 5px #212121;
-	vertical-align: top;
-
-	
-	
-	
+    height: 376px;
+    width: 376px;
+    overflow: hidden;
+    top: 100px;
+    right: 0px;
+    position: absolute;
 }
-.profile-pic{
+
+.profile-pic {
     vertical-align: center;
-    
 }
 
-.profile-image{
-    float: left;
+.profile-image {
     width: 155px;
     height: 155px;
 }
 
 .username{
-    padding-top: 0px;
-    margin-top: -20px;
     font-size: 24pt;
     font-family: "News Cycle", Arial, sans-serif;
-	color: #212121;
+    color: #212121;
+    position: absolute;
+    top: 5px;
+    left: 60px;
+    width: 290px;
+    margin-left: 10px;
 }
 
 .history {
-    padding-top: 50px;
+    padding-top: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-top: 2px dashed #E25D48;
     clear: left;
-
+}
 
 .post-title{
-	
-	padding-left: 144px;
-	font-family: "News Cycle", Arial, sans-serif;
-	color: #212121;
-	text-decoration: bold;
-	font-size: 38pt;
-	
-	
+    font-family: "News Cycle", Arial, sans-serif;
+    color: #212121;
+    text-decoration: bold;
+    font-size: 38pt;
 }
 
 .profile-positioning{
-	padding-top: 30px;
-	padding-left: 150px;
-	text-align: center;
-	width: 100px;
-	float: left;
-	
+    width: 100px;
+    position: absolute;
+    left: 640px;
+    top: 500px;
 }
 
 .profile-description{
-	padding-left: 30px;
-	padding-top: 0px;
-	text-align: justify;
-	overflow: auto;
-	margin-top: 20px;
-	width: 220px;
-	height: 450px;
-	float: left;
+    padding-left: 30px;
+    padding-top: 0px;
+    text-align: justify;
+    overflow: auto;
+    margin-top: 20px;
+    width: 220px;
+    height: 450px;
+    float: left;
 }
 
 /* styling for the invalid user message */
 #invUsr{
-	margin-top: 50px;
+    margin-top: 50px;
 }
 
 /* delete the two below if doesn't work */
@@ -365,6 +378,24 @@ footer ul li{
 #describe_label{
     margin-left: -169px;
 }
+
 .usr_describe{
 
+}
+
+.comment-form {
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+    text-align: left;
+}
+
+.comments {
+    border-top: 2px dashed #E25D48;
+    clear: both;
+    margin-top: 20px;
+}
+
+.poster {
+    font-weight: bold;
 }

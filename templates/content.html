@@ -1,16 +1,15 @@
 {% include header.html %}
 <!-- Post Page -->
 <!-- {{post_title}} -->
-<div>
+<div class="post-content">
 <a class="post-title"> {{post.title}} </a>
-</div>
 <!-- {{profile_name}} -->
 <!-- {{description}} -->
 <a class ="profile-positioning">
 
   <figure class="profile-image">
       {% if poster.profile_picture == 'default.png'%}
-      <img src="/static/profile.png" alt="Profile Image" style="width:150px;height:150px;">
+      <img src="/static/profile.png" alt="Profile Image">
       <!-- test if this works once upload pro_pic option is available -->
       {% else %}
       <img src = user.profile_picture>
@@ -22,39 +21,47 @@
 
 
 
-<img   src="/{{post.image}}" alt="" height="" width="" id = "post-image" class = "post-image">
+<div style="background-image: url('/{{post.image}}')" alt="" id = "post-image" class = "post-image"></div>
 
 <div id="map-placeholder" class="map-placeholder"></div>
+<p class="post-description"> {{post.description}} </p>
 
-<p> {{post.description}} </p>
+</div>
 
-<form action="/post/{{ post.id }}" method="POST" id="writer-comment">
-  <label for "comment">Comment: </label>
-  <input type="text" name="comment" id="comment">
-  <input type="submit" class="button">
+<!--Comment section-->
+<h2>Comments</h2>
+<br>
+<form class="comment-form" method="POST" acton="/post/{{ post.id }}">
+	<div class="poster-pic">
+		<img class="profile-pic" src="/static/profile.png" alt="{{ user }}">
+	</div>
+	<div class="comment-writing">
+		<textarea name="comment" class="write-comment">Type your comment here...</textarea>
+		<br>
+		<input type="submit" value="Post Comment" class="comment-button">
+	</div>
 </form>
+<br>
 
+<!-- this one -->
+<div class="comments">
 {% for comment in comments %}
 <article class="comment">
 	<div class="poster-details">
-    {% if user.profile_picture == 'default.png'%}
-    <img class="profile-pic" src = '/static/profile.png' alt="Profile Picture" style="width:150px;height:150px;">
-    <!-- test if this works once upload pro_pic option is available -->
-    {% else %}
-    <img class="profile-pic src = "{{comment.author.profile_picture}}">
-    {% end if %}
+		<img class="profile-pic" src="/static/profile.png" alt="{{ comment.author.username }}">
 		<br>
-		<span class="posted-by">Posted by <span class="poster">{{comment.author.username}}</span></span>
+		<span class="posted-by">Posted by <span class="poster">{{ comment.author.username }}</span></span>
 		<br>
-		<!-- <time datetime="2011&#45;12&#45;24" pubdate> -->
-		<!-- 	2011&#45;12&#45;24 -->
-		<!-- </time> -->
+		<!--<time datetime="2011-12-24" pubdate>
+			2011-12-24
+		</time>-->
 	</div>
 	<div class="message">
-		<p>{{comment.content}}</p>
+		<p>{{ comment.content }}</p>
 	</div>
 </article>
 {% end for %}
+</div>
 
 <script src="/static/geoFindMe.js"></script>
 <script>
