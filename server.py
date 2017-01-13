@@ -183,7 +183,7 @@ def comment_post(response, post_id):
 
 database_connect('db/street.db')
 
-server = Server(port=5000)
+server = Server()
 server.register(r'/?(?:home)?', home)
 server.register(r'/profile(?:(?:/([\w\.\-]+)?)|/?)', profile)
 server.register(r'/login', login, post=login_handler)
