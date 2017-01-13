@@ -315,7 +315,7 @@ class Post:
         WHERE c.post_id = ?
 
 
-        ''', (post_id))
+        ''', (post_id,))
 
         comments_section = []
         for row in cur:
