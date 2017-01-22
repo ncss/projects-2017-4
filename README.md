@@ -1,7 +1,5 @@
 # projects-2017-4
-Fork from [NCSS 2017, Group 4](https://github.com/ncss/projects-2017-4)
-
-
+NCSS 2017, Group 4
 
 #HOW TO TEST SERVER:
 	> Open folder  '/projects-2017-4/''
