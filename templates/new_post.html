@@ -15,19 +15,19 @@
       </legend>
       <label class="title-label" for="title">Title: </label>
       <input type="text" name="title">
-      
+
       <br>
       <label for="location">Location: </label>
       <input type="text" name="location" id="location"><button class="button create" id="thebutton" type="button" onclick="geoFindMe(); this.style.display = 'none'">Use current location</button>
 	  <br>
 	  <div id="map"></div>
-      
+
       <br>
       <label class="image-label" for="image">Upload Image: </label>
       <input type="file" name="postImage" accept='image/*'>
-      
+
   <br>
-      <textarea rows="10" cols="41" name="description">Enter a Description!</textarea>
+      <textarea rows="10" cols="41" name="description" placeholder="Enter a Description!"></textarea>
       <br>
       <input type="submit" value="Preview" class="button create"> <input type="submit" value="Submit" class="button create">
   </fieldset>
@@ -42,16 +42,16 @@
 		document.getElementById('location').setAttribute('disabled');
 	};
 	</script>-->
-	  
+
   <!--<img id="map"/>
-  Replace the value of the key parameter with your own API key. 
+  Replace the value of the key parameter with your own API key.
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs6LEx2djutDP5siKOfU5J1Dlsa2led-A&callback=initMap">
   </script>-->
-  
+
   <!--<h3>My Google Maps Demo</h3>
   <div id="map"></div>
-  Replace the value of the key parameter with your own API key. 
+  Replace the value of the key parameter with your own API key.
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs6LEx2djutDP5siKOfU5J1Dlsa2led-A&callback=initMap">
   </script> -->
